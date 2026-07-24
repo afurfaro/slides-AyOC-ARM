@@ -1,0 +1,1741 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="379.34634mm"
+   height="122.2375mm"
+   viewBox="0 0 379.34634 122.2375"
+   version="1.1"
+   id="svg3204"
+   inkscape:version="0.92+devel (unknown)"
+   sodipodi:docname="pipeline-stalled.svg">
+  <defs
+     id="defs3198">
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:menu-tooltip="Overlays a semi-transparent shifted copy to a blurred one"
+       inkscape:menu="Shadows and Glows"
+       inkscape:label="Fuzzy Glow"
+       id="filter3974">
+      <feFlood
+         result="flood"
+         flood-color="rgb(0,0,0)"
+         flood-opacity="0.5"
+         id="feFlood3976" />
+      <feComposite
+         result="composite1"
+         operator="in"
+         in="flood"
+         in2="SourceGraphic"
+         id="feComposite3978" />
+      <feGaussianBlur
+         result="blur"
+         stdDeviation="2"
+         id="feGaussianBlur3980" />
+      <feOffset
+         result="offset"
+         dy="4"
+         dx="4"
+         id="feOffset3982" />
+      <feComposite
+         result="fbSourceGraphic"
+         operator="over"
+         in="SourceGraphic"
+         in2="offset"
+         id="feComposite3984" />
+      <feColorMatrix
+         id="feColorMatrix3986"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         in="fbSourceGraphic"
+         result="fbSourceGraphicAlpha" />
+      <feFlood
+         in="fbSourceGraphic"
+         result="flood"
+         flood-color="rgb(0,0,0)"
+         flood-opacity="0.5"
+         id="feFlood3988" />
+      <feComposite
+         result="composite1"
+         operator="in"
+         in="flood"
+         id="feComposite3990"
+         in2="fbSourceGraphic" />
+      <feGaussianBlur
+         result="blur"
+         stdDeviation="2"
+         id="feGaussianBlur3992" />
+      <feOffset
+         result="offset"
+         dy="4"
+         dx="4"
+         id="feOffset3994" />
+      <feComposite
+         result="fbSourceGraphic"
+         operator="over"
+         in="fbSourceGraphic"
+         id="feComposite3996"
+         in2="offset" />
+      <feColorMatrix
+         id="feColorMatrix4258"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         in="fbSourceGraphic"
+         result="fbSourceGraphicAlpha" />
+      <feOffset
+         in="fbSourceGraphic"
+         result="result11"
+         dy="4"
+         dx="4"
+         id="feOffset4260" />
+      <feGaussianBlur
+         result="result8"
+         stdDeviation="4"
+         id="feGaussianBlur4262" />
+      <feComposite
+         operator="in"
+         in="fbSourceGraphic"
+         result="result9"
+         in2="result8"
+         id="feComposite4264" />
+      <feBlend
+         mode="darken"
+         in="result9"
+         in2="result8"
+         id="feBlend4266" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="716.87499"
+     inkscape:cy="231"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1440"
+     inkscape:window-height="732"
+     inkscape:window-x="480"
+     inkscape:window-y="50"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3201">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(83.839841,-87.047918)">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,-87.147133,83.77709)"
+       id="layer1-4"
+       inkscape:label="Capa 1">
+      <g
+         id="g3830">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 15,72.362183 h 40 v -50 h 45 v 50"
+           id="path3044"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3814"
+           d="m 99,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3822"
+           d="m 183,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 267,72.362183 h 40 v -50 h 45 v 50"
+           id="path3824"
+           inkscape:connector-curvature="0" />
+      </g>
+      <g
+         transform="translate(336)"
+         id="g3836">
+        <path
+           inkscape:connector-curvature="0"
+           id="path3838"
+           d="m 15,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 99,72.362183 h 40 v -50 h 45 v 50"
+           id="path3840"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 183,72.362183 h 40 v -50 h 45 v 50"
+           id="path3842"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3844"
+           d="m 267,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      </g>
+      <path
+         inkscape:connector-curvature="0"
+         id="path3846"
+         d="m 15,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 100,12.362183 v 439.999997 0"
+         id="path3848"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3850"
+         d="m 184,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 268,12.362183 v 439.999997 0"
+         id="path3852"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3854"
+         d="m 352,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 436,12.362183 v 439.999997 0"
+         id="path3856"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3858"
+         d="m 520,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 604,12.362183 v 439.999997 0"
+         id="path3860"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3862"
+         d="m 688,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         id="g4276">
+        <rect
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+           id="rect3864"
+           width="75"
+           height="70"
+           x="20"
+           y="77.362183"
+           ry="3.2697405e-06" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           x="57.059631"
+           y="98.293411"
+           id="text4268"><tspan
+             sodipodi:role="line"
+             id="tspan4270"
+             x="57.059631"
+             y="98.293411"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Opcode</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="118.29341"
+             id="tspan4272"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="138.29341"
+             id="tspan4274"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #1</tspan></text>
+      </g>
+      <g
+         transform="translate(84)"
+         id="g4283">
+        <rect
+           ry="3.2697405e-06"
+           y="77.362183"
+           x="20"
+           height="70"
+           width="75"
+           id="rect4285"
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+        <text
+           id="text4287"
+           y="98.293411"
+           x="57.059631"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           xml:space="preserve"><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             y="98.293411"
+             x="57.059631"
+             id="tspan4289"
+             sodipodi:role="line">Opcode</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan4291"
+             y="118.29341"
+             x="57.059631"
+             sodipodi:role="line">Fetch</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan4293"
+             y="138.29341"
+             x="57.059631"
+             sodipodi:role="line">Instr #2</tspan></text>
+      </g>
+      <g
+         id="g4295"
+         transform="translate(168)">
+        <rect
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+           id="rect4297"
+           width="75"
+           height="70"
+           x="20"
+           y="77.362183"
+           ry="3.2697405e-06" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           x="57.059631"
+           y="98.293411"
+           id="text4299"><tspan
+             sodipodi:role="line"
+             id="tspan4301"
+             x="57.059631"
+             y="98.293411"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Opcode</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="118.29341"
+             id="tspan4303"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="138.29341"
+             id="tspan4305"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #3</tspan></text>
+      </g>
+      <g
+         transform="translate(252)"
+         id="g4307">
+        <rect
+           ry="3.2697405e-06"
+           y="77.362183"
+           x="20"
+           height="70"
+           width="75"
+           id="rect4309"
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+        <text
+           id="text4311"
+           y="98.293411"
+           x="57.059631"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           xml:space="preserve"><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             y="98.293411"
+             x="57.059631"
+             id="tspan4313"
+             sodipodi:role="line">Opcode</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan4315"
+             y="118.29341"
+             x="57.059631"
+             sodipodi:role="line">Fetch</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan4317"
+             y="138.29341"
+             x="57.059631"
+             sodipodi:role="line">Instr #4</tspan></text>
+      </g>
+      <g
+         id="g4319"
+         transform="translate(336)">
+        <rect
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+           id="rect4321"
+           width="75"
+           height="70"
+           x="20"
+           y="77.362183"
+           ry="3.2697405e-06" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           x="57.059631"
+           y="98.293411"
+           id="text4323"><tspan
+             sodipodi:role="line"
+             id="tspan4325"
+             x="57.059631"
+             y="98.293411"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Opcode</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="118.29341"
+             id="tspan4327"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="138.29341"
+             id="tspan4329"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #5</tspan></text>
+      </g>
+      <g
+         transform="translate(420)"
+         id="g4331">
+        <rect
+           ry="3.2697405e-06"
+           y="77.362183"
+           x="20"
+           height="70"
+           width="75"
+           id="rect4333"
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+        <text
+           id="text4335"
+           y="98.293411"
+           x="57.059631"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           xml:space="preserve"><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00"
+             y="98.293411"
+             x="57.059631"
+             id="tspan4337"
+             sodipodi:role="line">Opcode</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00"
+             id="tspan4339"
+             y="118.29341"
+             x="57.059631"
+             sodipodi:role="line">Fetch</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00"
+             id="tspan4341"
+             y="138.29341"
+             x="57.059631"
+             sodipodi:role="line">JMP</tspan></text>
+      </g>
+      <rect
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4369"
+         width="75"
+         height="70"
+         x="104"
+         y="157.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="141.05963"
+         y="188.29341"
+         id="text4371"><tspan
+           sodipodi:role="line"
+           x="141.05963"
+           y="188.29341"
+           id="tspan4375"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Decode</tspan><tspan
+           sodipodi:role="line"
+           x="141.05963"
+           y="208.29341"
+           id="tspan4377"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #1</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="157.36218"
+         x="188"
+         height="70"
+         width="75"
+         id="rect4381"
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4383"
+         y="188.29341"
+         x="225.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="188.29341"
+           x="225.05963"
+           id="tspan4385"
+           sodipodi:role="line">Decode</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4389"
+           y="208.29341"
+           x="225.05963"
+           sodipodi:role="line">Instr #2</tspan></text>
+      <rect
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4393"
+         width="75"
+         height="70"
+         x="272"
+         y="157.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="309.05963"
+         y="188.29341"
+         id="text4395"><tspan
+           sodipodi:role="line"
+           id="tspan4397"
+           x="309.05963"
+           y="188.29341"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Decode</tspan><tspan
+           sodipodi:role="line"
+           x="309.05963"
+           y="208.29341"
+           id="tspan4401"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #3</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="157.36218"
+         x="356"
+         height="70"
+         width="75"
+         id="rect4405"
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4407"
+         y="188.29341"
+         x="393.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="188.29341"
+           x="393.05963"
+           id="tspan4409"
+           sodipodi:role="line">Decode</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4413"
+           y="208.29341"
+           x="393.05963"
+           sodipodi:role="line">Instr #4</tspan></text>
+      <rect
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4417"
+         width="75"
+         height="70"
+         x="440"
+         y="157.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="477.05963"
+         y="188.29341"
+         id="text4419"><tspan
+           sodipodi:role="line"
+           id="tspan4421"
+           x="477.05963"
+           y="188.29341"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Decode</tspan><tspan
+           sodipodi:role="line"
+           x="477.05963"
+           y="208.29341"
+           id="tspan4425"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #5</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="157.36218"
+         x="524"
+         height="70"
+         width="75"
+         id="rect4429"
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4431"
+         y="188.29341"
+         x="561.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00"
+           y="188.29341"
+           x="561.05963"
+           id="tspan4433"
+           sodipodi:role="line">Decode</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00"
+           id="tspan4437"
+           y="208.29341"
+           x="561.05963"
+           sodipodi:role="line">JMP</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="237.36218"
+         x="188"
+         height="70"
+         width="75"
+         id="rect4486"
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4488"
+         y="258.2934"
+         x="225.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="258.2934"
+           x="225.05963"
+           id="tspan4490"
+           sodipodi:role="line">Operand</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4492"
+           y="278.2934"
+           x="225.05963"
+           sodipodi:role="line">Fetch</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4494"
+           y="298.2934"
+           x="225.05963"
+           sodipodi:role="line">Instr #1</tspan></text>
+      <rect
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4496"
+         width="75"
+         height="70"
+         x="272"
+         y="237.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="309.05963"
+         y="258.2934"
+         id="text4498"><tspan
+           sodipodi:role="line"
+           id="tspan4500"
+           x="309.05963"
+           y="258.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Operand</tspan><tspan
+           sodipodi:role="line"
+           x="309.05963"
+           y="278.2934"
+           id="tspan4502"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+           sodipodi:role="line"
+           x="309.05963"
+           y="298.2934"
+           id="tspan4504"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #2</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="237.36218"
+         x="356"
+         height="70"
+         width="75"
+         id="rect4506"
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4508"
+         y="258.2934"
+         x="393.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="258.2934"
+           x="393.05963"
+           id="tspan4510"
+           sodipodi:role="line">Operand</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4512"
+           y="278.2934"
+           x="393.05963"
+           sodipodi:role="line">Fetch</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4514"
+           y="298.2934"
+           x="393.05963"
+           sodipodi:role="line">Instr #3</tspan></text>
+      <rect
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4516"
+         width="75"
+         height="70"
+         x="440"
+         y="237.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="477.05963"
+         y="258.2934"
+         id="text4518"><tspan
+           sodipodi:role="line"
+           id="tspan4520"
+           x="477.05963"
+           y="258.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Operand</tspan><tspan
+           sodipodi:role="line"
+           x="477.05963"
+           y="278.2934"
+           id="tspan4522"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+           sodipodi:role="line"
+           x="477.05963"
+           y="298.2934"
+           id="tspan4524"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #4</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="237.36218"
+         x="524"
+         height="70"
+         width="75"
+         id="rect4526"
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4528"
+         y="258.2934"
+         x="561.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="258.2934"
+           x="561.05963"
+           id="tspan4530"
+           sodipodi:role="line">Operand</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4532"
+           y="278.2934"
+           x="561.05963"
+           sodipodi:role="line">Fetch</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4534"
+           y="298.2934"
+           x="561.05963"
+           sodipodi:role="line">Instr #5</tspan></text>
+      <rect
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4536"
+         width="75"
+         height="70"
+         x="608"
+         y="237.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="645.05963"
+         y="258.2934"
+         id="text4538"><tspan
+           sodipodi:role="line"
+           id="tspan4540"
+           x="645.05963"
+           y="258.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">Operand</tspan><tspan
+           sodipodi:role="line"
+           x="645.05963"
+           y="278.2934"
+           id="tspan4542"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">Fetch</tspan><tspan
+           sodipodi:role="line"
+           x="645.05963"
+           y="298.2934"
+           id="tspan4544"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">JMP</tspan></text>
+      <rect
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4556"
+         width="75"
+         height="70"
+         x="274"
+         y="317.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="311.05963"
+         y="348.2934"
+         id="text4558"><tspan
+           sodipodi:role="line"
+           x="311.05963"
+           y="348.2934"
+           id="tspan4562"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Exec</tspan><tspan
+           sodipodi:role="line"
+           x="311.05963"
+           y="368.2934"
+           id="tspan4564"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #1</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="317.36218"
+         x="358"
+         height="70"
+         width="75"
+         id="rect4566"
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4568"
+         y="348.2934"
+         x="395.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4572"
+           y="348.2934"
+           x="395.05963"
+           sodipodi:role="line">Exec</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4574"
+           y="368.2934"
+           x="395.05963"
+           sodipodi:role="line">Instr #2</tspan></text>
+      <rect
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4576"
+         width="75"
+         height="70"
+         x="442"
+         y="317.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="479.05963"
+         y="348.2934"
+         id="text4578"><tspan
+           sodipodi:role="line"
+           x="479.05963"
+           y="348.2934"
+           id="tspan4582"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Exec</tspan><tspan
+           sodipodi:role="line"
+           x="479.05963"
+           y="368.2934"
+           id="tspan4584"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #3</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="317.36218"
+         x="526"
+         height="70"
+         width="75"
+         id="rect4586"
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4588"
+         y="348.2934"
+         x="563.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4592"
+           y="348.2934"
+           x="563.05963"
+           sodipodi:role="line">Exec</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4594"
+           y="368.2934"
+           x="563.05963"
+           sodipodi:role="line">Instr #4</tspan></text>
+      <rect
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4596"
+         width="75"
+         height="70"
+         x="610"
+         y="317.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="647.05963"
+         y="348.2934"
+         id="text4598"><tspan
+           sodipodi:role="line"
+           x="647.05963"
+           y="348.2934"
+           id="tspan4602"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Exec</tspan><tspan
+           sodipodi:role="line"
+           x="647.05963"
+           y="368.2934"
+           id="tspan4604"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #5</tspan></text>
+      <rect
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4606"
+         width="75"
+         height="70"
+         x="358"
+         y="397.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="395.05963"
+         y="418.2934"
+         id="text4608"><tspan
+           id="tspan4672"
+           sodipodi:role="line"
+           x="395.05963"
+           y="418.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Retire</tspan><tspan
+           id="tspan4676"
+           sodipodi:role="line"
+           x="395.05963"
+           y="438.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Result</tspan><tspan
+           sodipodi:role="line"
+           x="395.05963"
+           y="458.2934"
+           id="tspan4614"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #1</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="397.36218"
+         x="442"
+         height="70"
+         width="75"
+         id="rect4616"
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4618"
+         y="418.2934"
+         x="479.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4622"
+           y="418.2934"
+           x="479.05963"
+           sodipodi:role="line">Retire</tspan><tspan
+           id="tspan4680"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="438.2934"
+           x="479.05963"
+           sodipodi:role="line">Result</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4624"
+           y="458.2934"
+           x="479.05963"
+           sodipodi:role="line">Instr #2</tspan></text>
+      <rect
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4626"
+         width="75"
+         height="70"
+         x="526"
+         y="397.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="563.05963"
+         y="418.2934"
+         id="text4628"><tspan
+           sodipodi:role="line"
+           x="563.05963"
+           y="418.2934"
+           id="tspan4632"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Retire</tspan><tspan
+           id="tspan4684"
+           sodipodi:role="line"
+           x="563.05963"
+           y="438.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Result</tspan><tspan
+           sodipodi:role="line"
+           x="563.05963"
+           y="458.2934"
+           id="tspan4634"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #3</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="397.36218"
+         x="610"
+         height="70"
+         width="75"
+         id="rect4636"
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4638"
+         y="418.2934"
+         x="647.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4642"
+           y="418.2934"
+           x="647.05963"
+           sodipodi:role="line">Retire</tspan><tspan
+           id="tspan4688"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="438.2934"
+           x="647.05963"
+           sodipodi:role="line">Result</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4644"
+           y="458.2934"
+           x="647.05963"
+           sodipodi:role="line">Instr #4</tspan></text>
+      <g
+         transform="translate(674)"
+         id="g4785">
+        <path
+           inkscape:connector-curvature="0"
+           id="path4787"
+           d="m 15,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 99,72.362183 h 40 v -50 h 45 v 50"
+           id="path4789"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 183,72.362183 h 40 v -50 h 45 v 50"
+           id="path4791"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4793"
+           d="m 267,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      </g>
+      <g
+         id="g4795"
+         transform="translate(1010)">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 15,72.362183 h 40 v -50 h 45 v 50"
+           id="path4797"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4799"
+           d="m 99,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4801"
+           d="m 183,72.362183 h 40 v -50 h 45 v 50"
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 267,72.362183 h 40 v -50 h 45 v 50"
+           id="path4803"
+           inkscape:connector-curvature="0" />
+      </g>
+      <g
+         transform="translate(840)"
+         id="g4829">
+        <rect
+           ry="3.2697405e-06"
+           y="77.362183"
+           x="20"
+           height="70"
+           width="75"
+           id="rect4831"
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+        <text
+           id="text4833"
+           y="98.293411"
+           x="57.059631"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           xml:space="preserve"><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             y="98.293411"
+             x="57.059631"
+             id="tspan4835"
+             sodipodi:role="line">Opcode</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan4837"
+             y="118.29341"
+             x="57.059631"
+             sodipodi:role="line">Fetch</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan4839"
+             y="138.29341"
+             x="57.059631"
+             sodipodi:role="line">Instr #7</tspan></text>
+      </g>
+      <g
+         id="g4841"
+         transform="translate(924)">
+        <rect
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+           id="rect4843"
+           width="75"
+           height="70"
+           x="20"
+           y="77.362183"
+           ry="3.2697405e-06" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           x="57.059631"
+           y="98.293411"
+           id="text4845"><tspan
+             sodipodi:role="line"
+             id="tspan4847"
+             x="57.059631"
+             y="98.293411"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Opcode</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="118.29341"
+             id="tspan4849"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="138.29341"
+             id="tspan4851"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #8</tspan></text>
+      </g>
+      <rect
+         ry="3.2697405e-06"
+         y="157.36218"
+         x="944"
+         height="70"
+         width="75"
+         id="rect4877"
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4879"
+         y="188.29341"
+         x="981.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="188.29341"
+           x="981.05963"
+           id="tspan4881"
+           sodipodi:role="line">Decode</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4883"
+           y="208.29341"
+           x="981.05963"
+           sodipodi:role="line">Instr #7</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="237.36218"
+         x="1028"
+         height="70"
+         width="75"
+         id="rect4915"
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4917"
+         y="258.2934"
+         x="1065.0596"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="258.2934"
+           x="1065.0596"
+           id="tspan4919"
+           sodipodi:role="line">Operand</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4921"
+           y="278.2934"
+           x="1065.0596"
+           sodipodi:role="line">Fetch</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4923"
+           y="298.2934"
+           x="1065.0596"
+           sodipodi:role="line">Instr #7</tspan></text>
+      <rect
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4925"
+         width="75"
+         height="70"
+         x="694"
+         y="317.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="731.05963"
+         y="348.2934"
+         id="text4927"><tspan
+           sodipodi:role="line"
+           x="731.05963"
+           y="348.2934"
+           id="tspan4929"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">Exec</tspan><tspan
+           sodipodi:role="line"
+           x="731.05963"
+           y="368.2934"
+           id="tspan4931"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">JMP</tspan></text>
+      <rect
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4941"
+         width="75"
+         height="70"
+         x="1112"
+         y="317.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1149.0596"
+         y="348.2934"
+         id="text4943"><tspan
+           sodipodi:role="line"
+           x="1149.0596"
+           y="348.2934"
+           id="tspan4945"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Exec</tspan><tspan
+           sodipodi:role="line"
+           x="1149.0596"
+           y="368.2934"
+           id="tspan4947"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #7</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="317.36218"
+         x="1196"
+         height="70"
+         width="75"
+         id="rect4949"
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4951"
+         y="348.2934"
+         x="1233.0596"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4953"
+           y="348.2934"
+           x="1233.0596"
+           sodipodi:role="line">Exec</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4955"
+           y="368.2934"
+           x="1233.0596"
+           sodipodi:role="line">Instr #8</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="397.36218"
+         x="694"
+         height="70"
+         width="75"
+         id="rect4957"
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4959"
+         y="418.2934"
+         x="731.05963"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="418.2934"
+           x="731.05963"
+           sodipodi:role="line"
+           id="tspan4961">Retire</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="438.2934"
+           x="731.05963"
+           sodipodi:role="line"
+           id="tspan4963">Result</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4965"
+           y="458.2934"
+           x="731.05963"
+           sodipodi:role="line">Instr #1</tspan></text>
+      <rect
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4967"
+         width="75"
+         height="70"
+         x="778"
+         y="397.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="815.05963"
+         y="418.2934"
+         id="text4969"><tspan
+           sodipodi:role="line"
+           x="815.05963"
+           y="418.2934"
+           id="tspan4971"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">Retire</tspan><tspan
+           sodipodi:role="line"
+           x="815.05963"
+           y="438.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00"
+           id="tspan4973">Result</tspan><tspan
+           sodipodi:role="line"
+           x="815.05963"
+           y="458.2934"
+           id="tspan4975"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffff00">JMP</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="397.36218"
+         x="1198"
+         height="70"
+         width="75"
+         id="rect4977"
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text4979"
+         y="418.2934"
+         x="1235.0596"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4981"
+           y="418.2934"
+           x="1235.0596"
+           sodipodi:role="line">Retire</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="438.2934"
+           x="1235.0596"
+           sodipodi:role="line"
+           id="tspan4983">Result</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4985"
+           y="458.2934"
+           x="1235.0596"
+           sodipodi:role="line">Instr #7</tspan></text>
+      <rect
+         style="fill:#165044;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect4987"
+         width="75"
+         height="70"
+         x="1282"
+         y="397.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1319.0596"
+         y="418.2934"
+         id="text4989"><tspan
+           sodipodi:role="line"
+           x="1319.0596"
+           y="418.2934"
+           id="tspan4991"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Retire</tspan><tspan
+           sodipodi:role="line"
+           x="1319.0596"
+           y="438.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan4993">Result</tspan><tspan
+           sodipodi:role="line"
+           x="1319.0596"
+           y="458.2934"
+           id="tspan4995"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #8</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 773,12.362183 v 439.999997 0"
+         id="path5220"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5222"
+         d="m 858,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 942,12.362183 v 439.999997 0"
+         id="path5224"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5226"
+         d="m 1026,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1110,12.362183 v 439.999997 0"
+         id="path5228"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5230"
+         d="m 1194,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1278,12.362183 v 439.999997 0"
+         id="path5232"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5234"
+         d="m 1362,12.362183 v 439.999997 0"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 1446,12.362183 v 439.999997 0"
+         id="path5236"
+         inkscape:connector-curvature="0" />
+      <rect
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect5238"
+         width="75"
+         height="70"
+         x="1028"
+         y="157.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1065.0596"
+         y="188.29341"
+         id="text5240"><tspan
+           sodipodi:role="line"
+           id="tspan5242"
+           x="1065.0596"
+           y="188.29341"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Decode</tspan><tspan
+           sodipodi:role="line"
+           x="1065.0596"
+           y="208.29341"
+           id="tspan5244"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #8</tspan></text>
+      <g
+         id="g5246"
+         transform="translate(1008)">
+        <rect
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+           id="rect5248"
+           width="75"
+           height="70"
+           x="20"
+           y="77.362183"
+           ry="3.2697405e-06" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           x="57.059631"
+           y="98.293411"
+           id="text5250"><tspan
+             sodipodi:role="line"
+             id="tspan5252"
+             x="57.059631"
+             y="98.293411"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Opcode</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="118.29341"
+             id="tspan5254"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="138.29341"
+             id="tspan5256"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #9</tspan></text>
+      </g>
+      <g
+         transform="translate(1092)"
+         id="g5258">
+        <rect
+           ry="3.2697405e-06"
+           y="77.362183"
+           x="20"
+           height="70"
+           width="75"
+           id="rect5260"
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+        <text
+           id="text5262"
+           y="98.293411"
+           x="57.059631"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           xml:space="preserve"><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             y="98.293411"
+             x="57.059631"
+             id="tspan5264"
+             sodipodi:role="line">Opcode</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan5266"
+             y="118.29341"
+             x="57.059631"
+             sodipodi:role="line">Fetch</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan5268"
+             y="138.29341"
+             x="57.059631"
+             sodipodi:role="line">Instr #10</tspan></text>
+      </g>
+      <rect
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect5270"
+         width="75"
+         height="70"
+         x="1112"
+         y="157.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1149.0596"
+         y="188.29341"
+         id="text5272"><tspan
+           sodipodi:role="line"
+           id="tspan5274"
+           x="1149.0596"
+           y="188.29341"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Decode</tspan><tspan
+           sodipodi:role="line"
+           x="1149.0596"
+           y="208.29341"
+           id="tspan5276"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #9</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="157.36218"
+         x="1196"
+         height="70"
+         width="75"
+         id="rect5286"
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text5288"
+         y="188.29341"
+         x="1233.0596"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="188.29341"
+           x="1233.0596"
+           id="tspan5290"
+           sodipodi:role="line">Decode</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan5292"
+           y="208.29341"
+           x="1233.0596"
+           sodipodi:role="line">Instr #10</tspan></text>
+      <rect
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect5294"
+         width="75"
+         height="70"
+         x="1114"
+         y="237.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1151.0596"
+         y="258.2934"
+         id="text5296"><tspan
+           sodipodi:role="line"
+           id="tspan5298"
+           x="1151.0596"
+           y="258.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Operand</tspan><tspan
+           sodipodi:role="line"
+           x="1151.0596"
+           y="278.2934"
+           id="tspan5300"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+           sodipodi:role="line"
+           x="1151.0596"
+           y="298.2934"
+           id="tspan5302"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #8</tspan></text>
+      <rect
+         ry="3.2697405e-06"
+         y="237.36218"
+         x="1198"
+         height="70"
+         width="75"
+         id="rect5304"
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+      <text
+         id="text5306"
+         y="258.2934"
+         x="1235.0596"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           y="258.2934"
+           x="1235.0596"
+           id="tspan5308"
+           sodipodi:role="line">Operand</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan5310"
+           y="278.2934"
+           x="1235.0596"
+           sodipodi:role="line">Fetch</tspan><tspan
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+           id="tspan5312"
+           y="298.2934"
+           x="1235.0596"
+           sodipodi:role="line">Instr #9</tspan></text>
+      <g
+         id="g5314"
+         transform="translate(1176)">
+        <rect
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+           id="rect5316"
+           width="75"
+           height="70"
+           x="20"
+           y="77.362183"
+           ry="3.2697405e-06" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           x="57.059631"
+           y="98.293411"
+           id="text5318"><tspan
+             sodipodi:role="line"
+             id="tspan5320"
+             x="57.059631"
+             y="98.293411"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Opcode</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="118.29341"
+             id="tspan5322"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+             sodipodi:role="line"
+             x="57.059631"
+             y="138.29341"
+             id="tspan5324"
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #11</tspan></text>
+      </g>
+      <rect
+         style="fill:#672178;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect5326"
+         width="75"
+         height="70"
+         x="1280"
+         y="317.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1317.0596"
+         y="348.2934"
+         id="text5328"><tspan
+           sodipodi:role="line"
+           x="1317.0596"
+           y="348.2934"
+           id="tspan5330"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Exec</tspan><tspan
+           sodipodi:role="line"
+           x="1317.0596"
+           y="368.2934"
+           id="tspan5332"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #9</tspan></text>
+      <rect
+         style="fill:#003380;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect5334"
+         width="75"
+         height="70"
+         x="1280"
+         y="157.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1317.0596"
+         y="188.29341"
+         id="text5336"><tspan
+           sodipodi:role="line"
+           id="tspan5338"
+           x="1317.0596"
+           y="188.29341"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Decode</tspan><tspan
+           sodipodi:role="line"
+           x="1317.0596"
+           y="208.29341"
+           id="tspan5340"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #11</tspan></text>
+      <rect
+         style="fill:#220055;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)"
+         id="rect5342"
+         width="75"
+         height="70"
+         x="1282"
+         y="237.36218"
+         ry="3.2697405e-06" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         x="1319.0596"
+         y="258.2934"
+         id="text5344"><tspan
+           sodipodi:role="line"
+           id="tspan5346"
+           x="1319.0596"
+           y="258.2934"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Operand</tspan><tspan
+           sodipodi:role="line"
+           x="1319.0596"
+           y="278.2934"
+           id="tspan5348"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Fetch</tspan><tspan
+           sodipodi:role="line"
+           x="1319.0596"
+           y="298.2934"
+           id="tspan5350"
+           style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">Instr #10</tspan></text>
+      <g
+         transform="translate(1260)"
+         id="g5352">
+        <rect
+           ry="3.2697405e-06"
+           y="77.362183"
+           x="20"
+           height="70"
+           width="75"
+           id="rect5354"
+           style="fill:#0000ff;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3974)" />
+        <text
+           id="text5356"
+           y="98.293411"
+           x="57.059631"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+           xml:space="preserve"><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             y="98.293411"
+             x="57.059631"
+             id="tspan5358"
+             sodipodi:role="line">Opcode</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan5360"
+             y="118.29341"
+             x="57.059631"
+             sodipodi:role="line">Fetch</tspan><tspan
+             style="font-size:16px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan5362"
+             y="138.29341"
+             x="57.059631"
+             sodipodi:role="line">Instr #12</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

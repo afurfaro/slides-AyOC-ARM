@@ -1,0 +1,152 @@
+% \documentclass[handout,usesnames,table]{beamer}
+\documentclass[usenames,table,aspectratio=169]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{xcolor,pgf}% http://ctan.org/pkg/{listings,xcolor,transparent}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{mathabx}
+\usepackage{beamerthemeshadow}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,stmaryrd}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{ragged2e} % para justificar texto
+\usepackage{textcomp} % Para usar simbolos en texto tipo +- etc
+\usepackage{siunitx}
+\usepackage{../res/lstlangarm}
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
+\usepackage{shadow}
+\usepackage[many]{tcolorbox}
+
+
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+
+\mode<presentation>{
+% 	\usetheme{Warsaw}
+% 	\usetheme{Ilmenau}
+	\usetheme{Copenhagen}
+	\useoutertheme{infolines}
+}
+
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\newcommand{\IA}{\textsuperscript{\textregistered} 64 }
+
+\setbeamercovered{invisible}
+
+\author{Alejandro Furfaro}
+% \title{Organización del Computador II}
+% \title{Técnicas Digitales III}
+\title{Procesadores ARM - Conmutación de Tareas}
+% \institute{Departamento de Computación - FCEyN - UBA}
+% \institute{Departamento de Electrónica - UTN.BA}
+\date{\today}
+
+\graphicspath
+{
+	{../img/}
+}
+
+\begin{document}
+
+
+\lstset{
+	frame=Ltb,
+	framerule=0pt,
+	aboveskip=0.5cm,
+	framextopmargin=3pt,
+	framexbottommargin=3pt,
+	framexleftmargin=0.4cm,
+	framesep=0pt,
+	rulesep=.4pt,
+	basicstyle=\small,
+	backgroundcolor=\color{gray97}\pgfsetfillopacity{1},
+	rulesepcolor=\color{black},
+	language=[ARM]Assembler,
+	captionpos=b,
+	tabsize=6,
+	frame=lines,
+	keywordstyle=\color{blue},
+	commentstyle=\color{purple},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	breaklines=true,
+	showstringspaces=false,
+	emph={label},
+	framerule=0pt,
+	xleftmargin=0.4cm,
+}
+
+\begin{frame}[plain]{Microprocesadores}
+\begin{center}
+\includegraphics [width =0.4 \textwidth ]{ARM-Cortex.jpg}
+\end{center}
+\titlepage
+\end{frame}
+
+\definecolor{OliveGreen}{RGB}{2,80,1}
+\definecolor{LigthOrange}{RGB}{255,255,200}
+\definecolor{gray97}{gray}{.97}
+\definecolor{Gray}{RGB}{171,174,178}
+\definecolor{orange}{RGB}{255,127,0}
+
+\AtBeginSubsection[]
+{
+\begin{frame}{Temario}
+ \begin{textblock*}{\textwidth}(0.4cm,1.4cm)
+  \setcounter{tocdepth}{2}  
+  \parskip 1cm
+  \tableofcontents[currentsection, currentsubsection, sectionstyle=show/shaded, subsectionstyle=show/shaded]
+ \end{textblock*}
+\end{frame}
+}
+
+\begin{frame}{Temario}
+ \begin{textblock*}{\textwidth}(0.4cm,1.4cm)
+  \parskip 1cm
+  \tableofcontents
+ \end{textblock*}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Template de aqui en mas ;)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \pgfdeclareimage[height=0.9cm]{left-logo}{img/ARM-Cortex.jpg}
+% % \pgfdeclareimage[height=0.9cm]{right-logo}{}
+% %img/intel-symantec.jpg}
+% % \logo{\pgfuseimage{right-logo}}
+% \setbeamertemplate{sidebar left}
+% {
+% \logo{\pgfuseimage{left-logo}}
+% \vfill%
+% \rlap{\hskip0.1cm\insertlogo}%
+% \vskip15pt%
+% }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{OliveGreen}{RGB}{2,80,1}
+\definecolor{Gray}{RGB}{171,174,178}
+
+\input{Intro-tareas.tex}
+\input{Prog_SO.tex}
+\input{ARM_Processor_TS.tex}
+
+\end{document}

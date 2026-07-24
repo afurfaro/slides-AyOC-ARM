@@ -1,0 +1,186 @@
+\section{Introducción}
+\subsection{Conceptos básicos generales}
+\begin{frame}{Definiciones}
+\begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+\begin{description}[<+(1)->] [Espacio de Contexto de ejecución:] \justifying %\parskip 0.3cm
+ \item[Tarea:] Unidad de trabajo que un procesador puede despachar, ejecutar, y detener a voluntad, bajo la forma de:
+ \begin{itemize} \justifying %\parskip 0.3cm
+  \item Instancia de ejecución de un programa (\textit{proceso}, o \textit{thread} para el Sistema Operativo).
+  \item Un handler de interrupción, o excepción.
+  \item Un servicio del S.O. (por ejemplo en Linux, cualquiera de las Syscall).
+ \end{itemize}
+% \end{description}
+% \end{textblock*}
+% \end{frame}
+
+% \begin{frame}{Definiciones}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \begin{description}[<+(1)->] [Espacio de Contexto de ejecución:] \justifying \parskip 0.3cm 
+   \item [Espacio de ejecución:] Es el conjunto de secciones de código, datos, y pila que componen la tarea. 
+   \item [Contexto de ejecución:] Es el conjunto de valores de los registros internos del procesador en cada momento. 
+   \item [Espacio de Contexto de ejecución:] Bloque de memoria en el que el S.O. almacenará el contexto completo de ejecución del procesador.
+  \end{description}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}{Context Switch}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}<1->{Definición} \justifying
+Salvar y restaurar el estado computacional o contexto de dos procesos o threads cuando se suspende la ejecución del primero (se salva su contexto) para pasar a ejecutar el segundo (se restaura su contexto). Puede incluir, o no, el resguardo y restauración del espacio de memoria (procesos o threads).
+  \end{block}
+%  \end{textblock*}
+% \end{frame}
+
+% \begin{frame}{Context Switch}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}<2->{Primeras conclusiones} \justifying
+Las tareas en un computador no operan simultáneamente, sino serialmente pero conmutando de una a otra a gran velocidad. Esto significa que se producen cientos o miles de context switches por segundo.\\
+Nuestros sentidos no captan la intermitencia de cada tarea, creándose una sensación de simultaneidad.\\
+  \end{block}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Entra en juego el Sistema Operativo}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.3cm
+   \item En particular, el Sistema Operativo tiene un módulo de software llamado \textbf{\textit{scheduler}}, que trabaja con una lista de tareas a ejecutar.
+   \item El \textbf{\textit{scheduler}} define un intervalo de tiempo llamado time frame, el que a su vez con ayuda de un temporizador es dividido en intervalos mas pequeños, que se convierten en la unidad de tiempo.
+   \item El arte de manejo de prioridades consiste entonces en asignarle a cada tarea un porcentaje del time frame, medido en una cantidad de intervalos unitarios.
+   \item Cada tarea tiene así unos milisegundos para progresar, expirados los cuales suspende una tarea y despacha para su ejecución la siguiente de la lista.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch1.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \begin{small}
+   \only <2->{Durante un tiempo T1, el procesador ejecuta la tarea \textit{Task1} de la lista que maneja el \textbf{\textit{scheduler}}.\\}
+   \only <3->{El tiempo T1, que se le asignó para ejecución es medida de la prioridad de esta tarea.}
+  \end{small}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch2.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+ \justifying
+  \begin{small}
+   \only <2->{Una vez expirado T1, el \textbf{\textit{scheduler}} toma el control del sistema y como la tarea \textit{Task1 }no finalizó, la suspende, asignándole estado \textbf{\color{red!90!black}SUSPENDING}.\\}
+   \only <3->{Resguarda el contexto de \textit{Task1} en un área de \textbf{memoria del kernel} (Flujo 1).\\}
+  \end{small}
+ \end{textblock*}
+ \begin{textblock*}{.5\textwidth}(5.4cm,5.0cm)
+  \only <4->{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=black!50!white]
+   \textbf{Contexto: Valor de los registros del procesador al momento de suspender la tarea.}
+  \end{tcolorbox}
+  }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch3.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \begin{small}
+   \only <2>{A partir del inicio de la transferencia del contexto de \textit{Task1} a la \textbf{memoria del kernel} inicia un intervalo que denominaremos $t_{c}$ (tiempo de conmutación).\\}
+   \only <3->{Seguidamente el \textbf{\textit{scheduler}} busca la siguiente tarea en la lista de tareas en ejecución (en el gráfico \textit{Task2}), identifica la dirección de memoria de kernel en donde está almacenado su contexto, y marca a la tarea \textbf{\color{yellow!90!red}RUNNING}.}
+  \end{small}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch4.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \begin{small}
+   \only <2-3>{Se carga en el procesador el contexto de la tarea \textit{Task2} (Flujo 2).\\}
+   \only <3-3>{En el siguiente ciclo de clock, se reasume la ejecución de \textit{Task2}, en la instrucción siguiente a la última ejecutada antes de ser suspendida.\\}
+   \only <4-5>{Si \textit{Task2} fue recién insertada en la lista de ejecución, entonces el procesador ejecutará su primer instrucción.\\}
+   \only <5-5>{Llegamos al final del intervalo que denominamos $t_{c}$.}
+  \end{small}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch5.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+ \justifying
+  \only <2->{El procesador ejecuta \textit{Task2} durante el tiempo T2.\\}
+  \only <3->{\underline{\textbf{Nota}}: El Sistema Operativo asigna prioridades diferentes a cada tarea $\therefore T2 != T1$.\\}
+  \only <4->{Nuevamente el \textbf{\textit{scheduler}} tomará el control cuando expire el tiempo T2.}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch6.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \begin{small}
+   \only <2-3>{El Sistema Operativo pone \textit{Task2} \textbf{\color{red!90!black}SUSPENDING} ya que su tiempo de ejecución expiró.\\}
+   \only <3-3>{En el flujo 3, se ve el resguardo del contexto. Por otra parte se busca el identificador de la tarea siguiente en la lista.\\}
+   \only <4->{Una vez ubicado, se identifica el puntero a la dirección de memoria en donde comienza el contexto de la siguiente tarea.}
+  \end{small}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch7.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \begin{small}
+   \only <2-3>{Identificada la tarea siguiente, se carga su contexto en el procesador.\\}
+   \only <3-3>{Observar que el tiempo $t_{c}$ es siempre el mismo independientemente de las tareas.\\}
+   \only <4-5>{Finalizado este proceso en el ciclo de clock siguiente el procesador estará ejecutando la tarea \textit{Task3}.\\}
+   \only <5->{Esta continuará durante un tiempo T3.}  
+  \end{small}
+\end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch8.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \only <2->{Una vez expirado el tiempo de ejecución de \textit{Task3}, se repite el procedimiento con la siguiente tarea en la lista del \textbf{\textit{scheduler}}En este caso \textit{Task4}.\\}
+  \only <3->{El flujo 4 muestra el resguardo del contexto de \textit{Task3}.}
+ \end{textblock*}
+ \end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch9.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm) \justifying
+  \only <2->{El Flujo 5 muestra como se carga en el procesador el contexto de \textit{Task4}, que ejecutará durante el tiempo T4.}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Integrando lo visto hasta aquí}
+ \begin{textblock*}{.95\textwidth}(0.4cm,1.1cm)
+  \centering \includegraphics[width=\textwidth]{GenericTaskSwitch10.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7.1cm)
+  \justifying
+  \only <2->{Finalmente llega el turno de la última tarea en la lista.\\}
+  \only <3->{Una vez completada esta el \textbf{\textit{scheduler}} volverá al inicio de la lista y reasumirá la tarea \textit{Task1}.}
+ \end{textblock*}
+\end{frame}

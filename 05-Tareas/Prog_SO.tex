@@ -1,0 +1,103 @@
+\subsection{Modelo de programación de Sistemas Operativos}
+
+\begin{frame}{Modelo de Programación de Sistemas}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.3cm
+   \item Hasta ahora hemos trabajado con la vista de una arquitectura basada en el desarrollo de aplicaciones
+   \begin{itemize} \justifying \parskip 0.3cm
+    \item [\checkmark] Programación en C, C++, o Assembler en entornos Linux, o Windows.
+    \item [\checkmark] Desarrollo de aplicaciones orientadas a objetos en vistosos entornos gráficos.
+    \item [\checkmark] Desarrollo de aplicaciones en microcontroladores.
+   \end{itemize}
+   \item Trabajamos con un conjunto de recursos que se conocen como \textquotedblleft Modelo de programación de Aplicaciones\textquotedblright.
+   \item Este modelo describe los registros de propósito general, las instrucciones, los tipo de datos, los modos de direccionamiento\dots tal parece que estaría todo dicho.
+   \item Esto no es todo
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{¿Acaso hay mas recursos de desarrollo?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}<1->{Un paso mas hacia el hardware}
+ Si nuestro requerimiento es diseñar un sistema que permita almacenar simultáneamente en memoria varias tareas, administrar su ejecución, evitar que se interfieran, y regular su acceso a los recursos de hardware disponibles, evidentemente estamos entrando en un mundo en el que la visión de Programador de Aplicaciones claramente no es suficiente.
+  \end{block}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{¿Acaso hay mas recursos de desarrollo?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.3cm
+   \item Entonces se trata de desarrollar un conjunto de tareas independientes entre si que contribuyan a implementar el sistema requerido, y un software que las administre.
+   \item Necesitamos contar con un SoC cuya CPU tenga capacidades para realizar el propósito planteado.
+   \item Si nos las tiene, se puede desarrollar un sistema como el que nos estamos planteando, de todos modos. Pero no esperemos milagros en cuanto a rendimiento, ni le exijamos demasiado al modelo implementado.
+   \item Primer paso: tener claro que CPU necesitamos para el requerimiento de nuestro sistema
+  \end{itemize}
+\end{textblock*}
+\end{frame}
+
+\begin{frame}{Modelo de Programación de Sistemas}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.3cm
+   \item El modelo de programación de Aplicaciones de una CPU tiene una visión restringida del sistema en su conjunto.
+   \item El modelo de programación de Sistemas, incluye un conjunto de recursos de hardware que amplía la capacidad de la CPU de resolver funciones que le permitan a un Sistema Operativo proveer los servicios y el entorno de programación que \textquotedblleft ven \textquotedblright las aplicaciones, de manera mucho mas veloz y eficiente.
+   \item De hecho, el manejo de las excepciones y de las interrupciones de hardware que hemos visto anteriormente es claramente el terreno del Sistema Operativo.
+   \item Y hay muchas mas funciones para proveer a un Sistema Operativo desde el hardware que no son necesarias para las aplicaciones.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Scheduling de Tareas}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.3cm
+   \item Cualquier Sistema Operativo posee un módulo llamado \textbf{scheduler}, que le permite administrar la ejecución de tareas / procesos.
+   \item Podemos considerar al \textbf{scheduler} dividido en dos capas: 
+   \begin{itemize} \justifying \parskip 0.3cm
+    \item [\checkmark]Una de alto nivel en la que se implementan una o mas \textit{políticas} para manejar el cambio de tareas, y que se traducen en diferentes \textit{algoritmos de scheduling}.
+    \item [\checkmark]Una de bajo nivel en la que se realiza el \textit{context switch}.
+   \end{itemize}
+   \item En este punto nos vamos a concentrar en el módulo de \textit{context switch}, dejando para mas adelante los algoritmos de scheduling.
+   \item El \textit{context switch} como veremos es físicamente dependiente del procesador y se escribe en assembler.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Capa de bajo nivel: Context Switch}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.3cm
+   \item Un Context Switch genérico debe llevar a cabo las siguientes acciones:
+   \begin{enumerate} \justifying \parskip 0.3cm
+    \item Resguardar los registros core y cualquier otro del modelo de programador de aplicaciones en un área de memoria accesible solo para el kernel.
+    \item En general el contexto forma parte de una estructura mas amplia llamada genéricamente \textbf{TCB} (por \textbf{T}ask \textbf{C}ontrol \textbf{B}lock) o en la jerga de los sistemas operativos de propósito general PCB (\textbf{P}rocess en lugar de \textbf{T}ask).
+    \item Determinar la ubicación del TCB de la siguiente tarea en la lista de tareas en ejecución.
+    \item Extraer el contexto de la nueva tarea y copiar registro a registro en la CPU.
+   \end{enumerate}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Capa de alto nivel: Políticas de Scheduling}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying  \parskip 0.3cm
+   \item La capa de alto nivel llama al context switch cuando necesita conmutar tareas, en base a criterios definidos en su algoritmo.
+   \item Antes de invocar al context switch evalúa una serie de variables:
+   \begin{enumerate}
+    \item prioridad,
+    \item Preemption, 
+    \item Atomicidad de operaciones, 
+    \item concurrencia, 
+    \item limitaciones en tiempo (latency), 
+    \item paralelismo (en caso de que el sistema cuente con mas de una CPU), entre otros.
+   \end{enumerate}
+   \item Por lo tanto un \textbf{scheduler} resulta un código que puede oscilar entre algo muy sencillo, casi trivial, hasta algoritmos muy complejos que puedan considerar los aspectos señalados en el ítem anterior.
+  \end{itemize} 
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Conclusiones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}<1->{Approach bootom-up} \justifying
+  Intentaremos abordar el diseño de un scheduler mas o menos sencillo comenzando por la parte basal: El Context Switch.\\
+  Esta es la parte dependiente del hardware. La capa superior interfaz consistente mediante puede reutilizarse, para lo cual es conveniente escribirla en C, para segurar su portabilidad.
+  \end{block}
+ \end{textblock*}
+\end{frame}

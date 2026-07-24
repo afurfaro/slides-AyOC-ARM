@@ -1,0 +1,337 @@
+\documentclass[usenames,table,dvipsnames,aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{beamerthemeshadow}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,stmaryrd}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{mdwlist}
+\usepackage{fancybox}
+\usepackage{setspace}
+\usepackage{courier}
+\usepackage{hyperref}
+\usepackage{beamerthemeshadow}
+\usepackage{shadow}
+\usepackage{listings}
+\usepackage{mdwlist}
+\usepackage{multicol}
+\usepackage{ragged2e} % para justificar texto
+\usepackage{textcomp} % Para usar simbolos en texto tipo +- etc
+\usepackage[binary-units]{siunitx}
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
+\usepackage{pbox}
+\usepackage{scrextend}
+\usepackage{tikzsymbols}
+\usepackage{verbatim}
+\usepackage{beamerthemesplit}
+\usepackage[most]{tcolorbox}
+\usepackage{cite}
+
+\usetikzlibrary{fit,positioning}
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+\usetheme{default}
+
+\definecolor{OliveGreen}{RGB}{2,80,1}
+\definecolor{LigthOrange}{RGB}{255,255,200}
+\definecolor{gray97}{gray}{.97}
+\definecolor{Gray}{RGB}{171,174,178}
+
+\definecolor{ShadowColor}{RGB}{130,150,190}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Para hacer cajas de texto con sombras lindas
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{ShadowColor}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{ShadowColor}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{
+{../img/}
+}
+
+\mode<presentation>{
+	\usetheme{Copenhagen}
+	\useoutertheme{infolines}
+}
+
+\setbeamercovered{invisible}
+
+
+\title{Sistemas de Numeración}
+\subtitle{Representación de números reales}
+
+
+\author{Alejandro Furfaro}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain]{Representación de números reales}
+ \begin{figure}[ht!]
+  \centering \includegraphics [width =0.25 \textwidth ]{Numbers.png}
+ \end{figure}
+ \vspace{-1cm}
+ \titlepage
+\end{frame}
+
+\begin{frame}{Temario}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \footnotesize
+  \tableofcontents
+ \end{textblock*}
+\end{frame}
+
+\AtBeginSubsection[]
+{
+\begin{frame}{Temario}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \setcounter{tocdepth}{2}
+  \tableofcontents[currentsection, currentsubsection, sectionstyle=show/shaded, subsectionstyle=show/shaded]
+ \end{textblock*}
+\end{frame}
+}
+
+\input{fp.tex}
+
+\subsection{Precisión. Métricas}
+\begin{frame}{Métricas de Precisión}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+(1)->]\justifying \parskip .2cm
+   \item De acuerdo  a lo tratado hasta aquí, surgen algunos parámetros que pueden obrar como métricas al adoptar un determinado formato de representación para números en Punto Flotante en un computador.
+   \item En el slide anterior se mostró la representación de tres números consecutivos: el número $1$, su inmediato anterior para esa precisión y el inmediato posterior.
+   \item Esto implica que cualquier otro valor intermedio ubicado en uno u otro intervalo se redondea a $1$, o al número anterior o posterior de acuerdo con el criterio de redondeo establecido.
+   \item  Además se ha tomado como ejemplo una representación con $p=24$.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Métricas de Precisión: Machine Epsilon}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .2cm
+   \item De acuerdo con la representación polinómica, el valor posterior a $1$ se representa de acuerdo con esta expresión:\\
+   \centering $n = 1 + 1\cdot 2^{-23}$
+   \item Por lo tanto la diferencia entre 1 y su inmediato posterior para su representación sin redondear es $2^{-23}$.
+   \item Esta diferencia se denomina \textbf{\textit{machine epsilon}}, y representa la distancia entre $1$ y el mínimo número representable mayor que $1$.\\
+   \centering $ \varepsilon = 2^{-(p-1)}$
+   \item Por lo tanto, $\varepsilon$ resulta una métrica clara de la precisión que tiene un formato de representación.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Métricas de Precisión: \textit{ulp(x)}}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+(1)->]\justifying \parskip .2cm
+   \item Otra propiedad que aporta información de interés para la representación de números en Punto Flotante es la denominada \textbf{\textit{ULP}}: referida como \textit{Unit in the Last Place} o \textit{Unit of Least Precision}~\cite{Overton2001}~\cite{Higham2002}.
+   \item Se la define como el espacio entre dos números de Punto Flotante consecutivos capaces de ser representados sin redondeo. Esté relacionada con $\varepsilon$, pero representa algo mas general. Dado un número x, cuya representación en punto flotante resulta en $(m_{0}.m_{1}m_{2}...)\cdot 2^{e}$, se define mediante la siguiente expresión:\\
+   \centering $ulp(x) = \frac {|m_{0}.m_{1}m_{2}... - \frac{x}{ 2^{-e}}|} {2^{(p-1)}}$
+   \item Es la medida del error relativo entre un número \textit{x} y su representación en punto flotante para una precisión dada.
+   \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Métricas de Precisión: \textit{ulp(x)}}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+(1)->]\justifying \parskip .2cm
+   \item Para entender su significado es conveniente trabajar con un modelo reducido conocido como \textbf{\textit{Toy Number System}} que consisten en tomar una repŕesentación mínima para observar a simple vista características que se van a mantener en el tiempo.
+   \item Para ello consideremos un número representable con un \textit{significando} compuesto de un bit entero y dos fraccionarios y un \textit{exponente} de un bit.
+   \item La expresión en este caso viene dada por:\\
+        \centering $(m_{0}.m_{1}m_{2})_{2} \cdot 2^{e}, donde~ -1\leq e \leq 1, y~ e\in \mathbb{N}_{0}$
+   \item Las posibles combinaciones del \textit{significando} son: $1.00_{2}, 1.01_{2}, 1.10_{2}, 1.11_{2}$.
+   \item De acuerdo con esto y los posibles valores de \textit{exponente} detallados en la expresión anterior, la lista de valores que se obtienen de dicha expresión es:\\
+   \only<7->{
+    \hspace{1.8cm} \small [-3.5, -3, -2.5, -2, -1.75, -1.5, -1.25, -1, -0.875, -0.75, -0.625, -0.5,\\
+    \hspace{1.8cm} \small  0, 0.5, 0.625, 0.75, 0.875, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5].
+    }
+   \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Modelo de representación: Toy Machine}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .18cm
+   \item Estos set de valores de Punto Flotante se representan gráficamente a continuación:\\
+         \centering \includegraphics[width=\textwidth]{ToyMachine-2bit.pdf}\\
+           \centering \textit{Toy Number System para \textbf{significando} de \SI{2}{\bit}}\\
+         \centering \includegraphics[width=\textwidth]{ToyMachine.pdf}\\
+           \centering \textit{Toy Number System  para \textbf{significando} de \SI{3}{\bit}}\\
+   \item Toy Floating Point System Number, es un sistema discreto, en el que la cantidad de números en cada intervalo aumenta, junto con los bits del \textit{significando}.
+   \item Visualmente es apreciable la diferencia entre las dos figuras anteriores.
+   \item Una característica distintiva (y curiosa) es que el gap entre números no es constante sino que aumenta a medida que aumenta la magnitud de los números representados.
+   \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Modelo de representación: Toy Machine}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .18cm
+   \item Estos set de valores de Punto Flotante se representan gráficamente a continuación:\\
+         \centering \includegraphics[width=\textwidth]{ToyMachine-2bit.pdf}\\
+           \centering \textit{Toy Number System para \textbf{significando} de \SI{2}{\bit}}\\
+         \centering \includegraphics[width=\textwidth]{ToyMachine.pdf}\\
+           \centering \textit{Toy Number System  para \textbf{significando} de \SI{3}{\bit}}\\
+   \item  En el modelo de \SI{2}{\bit} la distribución de los valores obtenidos no es uniforme. El gap entre valores próximos aumenta con el rango numérico que se represente.
+   \item Si calculamos el \textbf{\textit{Machine Epsilon}} del sistema de números de precisión $p=3$, tenemos: $\varepsilon=2^{-(3-1)}=2^{-2}=0.25$.
+   \item Observando el intervalo $[1.00,2.00]$ los valores posibles con este sistema de números son: $1, 1.25, 1.5, y 1.75$. Lo mismo ocurre para el intervalo $[-2.00, -1.00]$.
+   \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Métricas de Precisión de una Toy Machine}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .18cm
+   \item Estos set de valores de Punto Flotante se representan gráficamente a continuación:\\
+         \centering \includegraphics[width=\textwidth]{ToyMachine-2bit.pdf}\\
+           \centering \textit{Toy Number System para \textbf{significando} de \SI{2}{\bit}}\\
+         \centering \includegraphics[width=\textwidth]{ToyMachine.pdf}\\
+           \centering \textit{Toy Number System  para \textbf{significando} de \SI{3}{\bit}}\\
+   \item Pero en los subsiguientes intervalos esta propiedad no se mantiene, de modo que solo en estos intervalos se verifica $ulp(x) =\varepsilon$.
+   \item Ambas propiedades pueden verse mas claramente a medida que aumenta la precisión. En el modelo de \SI{3}{\bit} si bien aumenta un bit la precisión y la densidad de números por cada intervalo aumenta, se mantienen ambas propiedades.
+   \item En el intervalo comprendido entre los números $[1.00, 2.00]$, puede verse que la distancia entre dos valores consecutivos coincide con el \textbf{\textit{Machine Epsilon}}.
+   \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Métricas de Precisión de una Toy Machine}
+ \begin{textblock*}{\textwidth}(0.2cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .15cm
+   \item La diferencia entre dos números consecutivos para un \textit{exponente} \textit{\textbf{e}} dado, está determinada por el bit menos significativo de la \textit{mantisa}.
+   \item Otra forma de plantear la expresión de \textit{\textbf{ulp(x)}} para un número representado en punto flotante con precisión \textbf{\textit{p}}, es:
+
+    \centering $ulp(x) = 0.00000 \dots 0001_{2}\cdot 2^{e}$
+
+    \item $p-1$ bits en $0$, y el menos significativo en $1$, es la mínima diferencia del número x con el inmediato posterior, y  \textit{e}, el \textit{exponente} de la expresión normalizada de ambos.
+    \item Desarrollando en potencias de 2 el número del segundo término se llega a:
+
+    \centering $ulp(x) = 2^{-(p-1)}\cdot 2^{e}$
+
+    \item Donde $2^{-(p-1)} = \varepsilon$, de modo de que esta expresión termina relacionando la precisión $\varepsilon$ y la exactitud \textbf{\textit{ulp(x)}} (ya que tiene que ver con el error de redondeo).
+
+    \centering $ulp(x) = \varepsilon \cdot 2^{e}$
+
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Métricas. Caso IEEE-754-2008}
+ \begin{textblock*}{\textwidth}(0cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .15cm
+   \item Los detalles acerca de cada formato son bien conocidos y existe numerosa bibliografía para consultar los pormenores.~\cite{Overton2001}. En~\cite{Sun2001} los autores realizan un análisis pormenorizado de los problemas de la no estandarización que derivaron en la norma IEE754 en 1985~\cite{Cowlishaw2003,Monieaux2008}.
+   \item Half Precision, se introduce a propuesta de los desarrolladores de GPGPUs, ya que en un amplio conjunto de aplicaciones los requerimientos de rango comprenden intervalos relativamente pequeños y al tener un Épsilon $\varepsilon \approx 9.77 \cdot 10^{-4}$ puede satisfacer gran parte de los requerimientos de precisión por parte de sus aplicaciones.
+   \item Para la misma cantidad de números se requiere la mitad de espacio de memoria, y se lee por cada transferencia el doble de datos, y la energía eléctrica consumida para su traslado hasta la GPGPU es mucho menor .
+   \item En general la mayor parte de las aplicaciones trabajan con datos de tipo \textit{float}, ya que su $\varepsilon=2^{-23}$ permite efectuar cálculos con 7 dígitos decimales de precisión~\cite{Overton2001}, lo cual resulta mas que suficiente para una gran cantidad de problemas numéricos.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{IEEE-754-2008}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)%
+  La Tabla muestra los valores de $\varepsilon$,  y \textbf{\textit{ulp}} para los diferentes formatos.
+  \begin{table}[h]
+   \begin{center}
+    \begin{footnotesize}
+     \begin{tabular}{||l|c|c|c|c|c||}
+\hline\hline
+\textbf{\textit{Tipo de Dato}} & Precisión &  Bias de  & $\varepsilon$ en base &  Decimales &\textbf{\textit{ulp(x)}}\\
+                               &  [Bits]   & Exponente & 2 y en base 10 &  exactos   &\\
+\hline\hline
+Half Precision & 11 & 15 & $2^{-10} = 9.766\cdot10^-4$ & $\sim3.3$ & $3.2\cdot10^{1}$\\ \hline
+Single Precision & 24 & 127 & $2^{-23} = 1.192\cdot10^{-7} $ & $\sim 7.2$ & $2.028240\cdot10^{31}$\\ \hline
+Double Precision & 53 & 1023 & $2^{-52} = 2.220\cdot10^{-16} $ & $\sim15.9$ & $1.995840\cdot10^{292}$\\ \hline
+x86 Extended Double& 65 & 16383 & $2^{-64} = 5.421\cdot10^{-20}$ & $\sim19.2$ & $6,449547×10^{4192}$\\ \hline
+Quad & 113 & 16383 & $2^{-112} = 1.926\cdot10^{-34}$ & $\sim34.0$ & $1.1456698\cdot10^{4898}$\\
+\hline\hline
+     \end{tabular}
+    \end{footnotesize}
+   \end{center}
+   \caption{Machine Epsilon y ulp(x) para los formatos IEEE754: Además en relación con el Machine Epsilon se puede calcular la cantidad de dígitos decimales exactos de cada precisión en formato decimal que es el que se termina presentando en las salidas de los programas}
+   \label{tbl:epsilons}
+  \end{table}
+ \end{textblock*}
+\end{frame}
+
+\subsubsection{Representación en memoria}
+\begin{frame}{Long Double}
+ \begin{textblock*}{\textwidth}(0cm,1.2cm)
+  \begin{itemize} [<+->]\justifying \parskip .15cm
+   \item Este aspecto, que parecería apriori estar cerrado, en el caso del \textit{long double}, sin embargo, no es trivial.
+   \item Los tipos \textit{float} y \textit{double} utilizados en el lenguaje C son bastante anteriores a la especificación IEEE-754, y podría decirse que tanto la norma como los diseños de hardware para implementar una FPU los han tomado como una referencia obligada.
+   \item El tipo long double, por su parte, al no ser de uso tan frecuente en la mayor parte de las aplicaciones de uso corriente, no ha quedado debidamente cerrado, y su implementación terminó sujeta a cada arquitectura de hardware.
+   \item Por tal motivo, los compiladores no lo tratan de manera uniforme.
+   \item Incluso en una misma arquitectura como la x86 de Intel, que ha experimentado una larga evolución durante casi 5 décadas existen dos variantes, de acuerdo al modo en que trabaje el procesador:
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Long Double}
+ \begin{textblock*}{\textwidth}(0cm,1.2cm)
+  \begin{description}
+   \item [Modo IA-32:] Fundado por el procesador 80386 en 1984, es decir es previo a la especificación IEEE-754,  y vigente en la actualidad, un número especificado como long double utiliza \SI{12}{\byte} en memoria. Si bien es un modo legacy existen aun distribuciones de \SI{32}{\bit} (debian Linux es una de ellas para sistemas de gama baja), y en éstas una simple comprobación en lenguaje C mediante \texttt{sizeof (long double)}, verifica este tamaño que curiosamiente no coincide con los \SI{10}{\byte} de ancho de los registros de la FPU, que inspiraron el formato extended double de la especificación IEEE-754. En caso de requerirse que el dato tenga \SI{128}{\bit} se debe utilizar el flag \texttt{-128bit-long-double} del gcc para compilarlo.
+   \item [Modo IA-32e:] Implementado en 2000 por AMD utiliza como tamaño default \SI{128}{\bit} para long double. El mismo código citado en el ítem anterior, pero ahora compilado en una instalación de 64 bits genera variables de 16 bytes por defecto.
+  \end{description}
+ \end{textblock*}
+\end{frame}
+
+\section{Arquitectura ARMv7. Punto flotante}
+\subsection{Versiones de la extesión y registros}
+
+\begin{frame}{Registros de Coprocesadores}
+ \begin{textblock*}{\textwidth}(.3cm,1.2cm)
+  \justifying La extensión VFP-v2, se basa en un co procesador que introduce un set de 32 registros de \SI{32}{\bit} para almacenar números en Punto Flotante simple precisión en formato IEEE-754.
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(.3cm,2.2cm)
+  \centering \includegraphics[width=8cm]{VFP-Registers-layer1.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Registros de las extensiones}
+ \begin{textblock*}{\textwidth}(.3cm,1.2cm)
+  \justifying Además VFP-v2 permite utilizar estos mismos registros de \SI{32}{\bit} para almacenar números en Punto Flotante doble precisión como 16 registros de \SI{64}{\bit} en formato IEEE-754.
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(.3cm,2.2cm)
+  \centering \includegraphics[width=8cm]{VFP-Registers-layer2.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Registros de las extensiones}
+ \begin{textblock*}{\textwidth}(.3cm,1.2cm)
+  \justifying Con la VFPv-3 se agregan otros 16 registros de \SI{64}{\bit}, para Punto Flotante doble precisión y para datos empaquetados en las Extensiones avanzadas SIMD (NEON).
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(.3cm,2.2cm)
+  \centering \includegraphics[width=8cm]{VFP-Registers-layer3.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Registros de las extensiones}
+ \begin{textblock*}{\textwidth}(.3cm,1.2cm)
+  \justifying Las Extensiones avanzadas SIMD (NEON) pueden trabajar con datos empaquetados de \SI{128}{\bit} agrupando los 32 registros de \SI{64}{\bit} en 16 registros de \SI{128}{\bit}.
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(.3cm,2.2cm)
+  \centering \includegraphics[width=8cm]{VFP-Registers-layer4.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{References}
+    \bibliographystyle{amsalpha}
+    \bibliography{../../licar/bibliografia/Architecture/procarch}
+\end{frame}
+\end{document}

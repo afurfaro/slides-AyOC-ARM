@@ -1,0 +1,1213 @@
+\documentclass[usenames,table,xcolor={x11names},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{xcolor,pgf}% http://ctan.org/pkg/{listings,xcolor,transparent}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{mathabx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,stmaryrd}
+\usepackage{beamerthemeshadow}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{lstlangarm}
+\usepackage{ragged2e} % para justificar texto
+\usepackage{textcomp} % Para usar simbolos en texto tipo +- etc
+\usepackage{../res/lstlangarm}
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
+\usepackage{shadow}
+\usepackage{makecell} % para hacer cosas denro de una celda de una tabla, como p.ej: newline!
+\usepackage{tcolorbox}
+\usepackage{hhline}
+\usepackage[binary-units]{siunitx}
+
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\graphicspath{{img/} }
+
+\mode<presentation>{
+% 	\usetheme{Warsaw}
+% 	\usetheme{Ilmenau}
+	\usetheme{Copenhagen}
+	\useoutertheme{infolines}
+}
+
+\setbeamercovered{invisible}
+
+\author{Alejandro Furfaro}
+% \title{Organización del Computador II}
+% \title{Técnicas Digitales III}
+\title{ARMv7 - Generic Interrupt Controller}
+% \institute{Departamento de Computación - FCEyN - UBA}
+% \institute{Departamento de Electrónica - UTN.BA}
+\date{\today}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\resetcounteronoverlays{saveenumi}
+
+
+\begin{document}
+
+\lstset{
+	frame=Ltb,
+	framerule=0pt,
+	aboveskip=0.5cm,
+	framextopmargin=3pt,
+	framexbottommargin=3pt,
+	framexleftmargin=0.4cm,
+	framesep=0pt,
+	rulesep=.4pt,
+	backgroundcolor=\color{gray97},
+	rulesepcolor=\color{black},
+	language=[ARM]Assembler,
+	captionpos=b,
+	tabsize=6,
+	frame=lines,
+	keywordstyle=\color{blue},
+	commentstyle=\color{Gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	breaklines=true,
+	showstringspaces=false,
+	basicstyle=\footnotesize,
+	emph={label},
+	framerule=0pt,
+}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics [width =0.4 \textwidth ]{img/ARM-Cortex.jpg}
+\end{figure}
+\vspace{-2cm}
+\titlepage
+
+\definecolor{OliveGreen}{RGB}{2,80,1}
+\definecolor{LigthOrange}{RGB}{255,255,200}
+\definecolor{gray97}{gray}{.97}
+\definecolor{Gray}{RGB}{171,174,178}
+\definecolor{orange}{RGB}{255,127,0}
+
+\AtBeginSubsection[]
+{
+\begin{frame}[t]{Contenido}
+    \vspace{-0.5cm}
+    \setcounter{tocdepth}{2}  
+    \tableofcontents[currentsection, currentsubsection, sectionstyle=show/shaded, subsectionstyle=show/shaded]
+\end{frame}
+}
+  
+\begin{frame}[t]{Contenido}
+    \vspace{-0.5cm}
+    \setcounter{tocdepth}{2} 
+    \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Template de aqui en mas ;)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfdeclareimage[height=0.9cm]{left-logo}{}
+\pgfdeclareimage[height=0.5cm]{right-logo}{img/ARM-Cortex.jpg}
+\logo{\pgfuseimage{right-logo}}
+\setbeamertemplate{sidebar left}
+{
+\logo{\pgfuseimage{left-logo}}
+\vfill%
+\rlap{\hskip0.1cm\insertlogo}%
+\vskip15pt%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{OliveGreen}{RGB}{2,80,1}
+\definecolor{Gray}{RGB}{171,174,178}
+\definecolor{gray97}{gray}{.97}
+
+\section{Controlador de Interrupciones}
+\begin{frame}[t]{Asignación de Interrupciones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying 
+   \item Cualquier sistema de cómputo debe necesariamente disponer de controlador de interrupciones.
+   \item De otro modo no puede gestionar interrupciones provenientes de múltiples fuentes de hardware (situación habitual). 
+   \item Normalmente presentan una interfaz para el programador del Core, compuesta por una serie de registros de estados y control.
+   \item El software que se ejecuta en el core utiliza éstos registros para realizar las siguientes actividades mínimamente esenciales:
+   \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+    \item Establecer una máscara para fuentes de interrupción individuales, 
+    \item reconocer (acknowledge) interrupciones provenientes de dispositivos externos, 
+    \item asignar prioridades a cada fuente de interrupción, 
+    \item y determinar cual/es fuente/s de interrupción requieren atención en cada momento.
+   \end{itemize}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\section{Interrupciones de Hardware}
+\subsection{Características y Modos de trabajo}
+\begin{frame}[t]{ARMv7 Interrupciones Externas (hardware)}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying 
+   \item El Controlador de Interrupciones de un core ARMv7 puede diseñarse en forma específica para el SoC, o ser una implementación de la arquitectura ARM Generic Interrupt Controller (GIC).
+   \item Cualquier procesador de ARM tiene dos líneas de entrada para recibir requerimientos de interrupción desde dispositivos externos: \textbf{\texttt{IRQ}} y \texttt{\textbf{FIQ}}. Ambas activas bajas.
+   \item Los requerimientos de interrupción que puede enviar la diversidad de dispositivos de E/S conectados al Core, finalmente deben ser mapeados en \textbf{\texttt{IRQ}} o \texttt{\textbf{FIQ}}.
+   \item Antes del Controlador de Interrupciones...
+   \item Cada entrada responderá al requerimiento siempre que los bits de deshabilitación \textbf{\texttt{CPSR.I}} y \textbf{\texttt{CPSR.F}} estén en '0'.
+  \end{itemize}
+  \only<7->{\vspace{-0.3cm} \begin{center}\includegraphics[width=0.9\textwidth]{cpsr-bits-IF.pdf}\end{center}}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{ARMv7 Interrupciones Externas (hardware)}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) \justifying
+La instrucción \textbf{\texttt{CPS}} permite manejar de manera simple estos dos bits, además del bit \textit{Abort Enable} \textbf{\texttt{CPSR.A}}, y ya que está establecer el Modo del procesador.
+
+Sintaxis:\vspace{-0.3cm}
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+CPSeffect iflags{, #mode}
+CPS #mode
+   \end{lstlisting}
+\vspace{-0.3cm} \textit{effect}:  Define la operación. \texttt{\textbf{IE}}: Interrupt/Abort Enable, o \texttt{\textbf{ID}}: Interrupt/Abort Disable
+
+\textit{iflags}: Define el objeto de la operación \texttt{\textbf{a}}: aborts imprecisos, \texttt{\textbf{i}}: interrupciones \texttt{\textbf{IRQ}}, o \texttt{\textbf{f}}: Interrupciones \texttt{\textbf{FIQ}}
+
+Ejemplos:\vspace{-0.3cm}
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+CPSIE if      /*Habilita IRQ y FIQ.*/
+CPSID A       /*Deshabilita aborts imprecisos.*/
+CPSID ai, #17 /*Deshabilita aborts imprecisos e interrupciones,*/
+              /*e ingresa a modo FIQ*/
+CPS #16       /*Entra a modo User*/
+   \end{lstlisting}
+ \end{textblock*}
+\end{frame}
+
+\subsection{Manejo de Multiples Interrupciones}
+\begin{frame}[t]{Manejo de Interrupciones Simple}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm) \justifying
+\only<2->{
+  \begin{block}{Funcionamiento}\justifying
+   Una vez que se produce un tipo de interrupción determinado, las demás interrupciones del mismo tipo se deshabilitan automáticamente, hasta que finalice la atención de la que está en curso. No hay priorización alguna.
+  \end{block}
+}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,4.7cm) \justifying
+\only<3->{
+  \begin{block}{Características}\justifying
+   No es apto para sistemas complejos. Apto para probar preliminarmente algún handler no reentrante crítico
+  \end{block}
+}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Manejo de Interrupciones Simple (IRQ)}
+ \begin{textblock*}{0.5\textwidth}(0.4cm,1.1cm) 
+  \begin{enumerate}[<+(1)->]\justifying
+   \item \textbf{\texttt{PC}} \textrightarrow \texttt{\textbf{LR\_IRQ}}
+   \item \textbf{\texttt{SPSR\_IRQ}} \textleftarrow \texttt{\textbf{CPSR}}
+   \item \textbf{\texttt{CPSR.Mode[4:0]}} \textleftarrow 10010
+   \item \texttt{\textbf{CPSR.I}} \textleftarrow 1
+   \item \textbf{\texttt{PC}} \textleftarrow Vector Table IRQ Entry
+   \item Ejecuta la instrucción de la IRQ Entry (típicamente un salto)
+   \item El handler salva en el stack (push) el/los registros/s que puedan ser alterados. Los restaura (pop) antes de retornar.
+   \item Se ejecuta el core del handler
+   \item Regresa: \textbf{\texttt{PC}} \textleftarrow \texttt{\textbf{LR\_IRQ}}, \newline \texttt{\textbf{CPSR}} \textleftarrow \textbf{\texttt{SPSR\_IRQ}}
+  \end{enumerate}
+ \end{textblock*}
+ \begin{textblock*}{0.5\textwidth}(0.8cm+0.5\textwidth,1.0cm)
+  \only<1>{\begin{center}\includegraphics[width=0.7\textwidth]{Vectoring-single-layer1.pdf}\end{center}}
+  \only<2-6>{\begin{center}\includegraphics[width=0.7\textwidth]{Vectoring-single-layer2.pdf}\end{center}}
+  \only<7>{\begin{center}\includegraphics[width=0.7\textwidth]{Vectoring-single-layer3.pdf}\end{center}}
+  \only<8-9>{\begin{center}\includegraphics[width=0.7\textwidth]{Vectoring-single-layer4.pdf}\end{center}}
+  \only<10>{\begin{center}\includegraphics[width=0.7\textwidth]{Vectoring-single-layer5.pdf}\end{center}}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Manejo de Interrupciones Simple (FIQ)}
+ \begin{textblock*}{0.5\textwidth}(0.4cm,1.1cm) 
+  \begin{enumerate}\justifying
+   \item \textbf{\texttt{SPSR\_FIQ}} \textleftarrow \texttt{\textbf{CPSR}}
+   \item \textbf{\texttt{PC}} \textrightarrow \texttt{\textbf{LR\_FIQ}}
+   \item \textbf{\texttt{CPSR.Mode[4:0]}} \textleftarrow 10001
+   \item \texttt{\textbf{CPSR.F}} \textleftarrow 1
+   \item \textbf{\texttt{PC}} \textleftarrow Vector Table FIQ Entry
+   \item Ejecuta la instrucción de la FIQ Entry (típicamente un salto)
+   \item El handler salva en el stack (push) el/los registros/s que puedan ser alterados. Los restaura (pop) antes de retornar.
+   \item Se ejecuta el core del handler
+   \item Regresa: \textbf{\texttt{PC}} \textleftarrow \texttt{\textbf{LR\_FIQ}}, \newline \texttt{\textbf{CPSR}} \textleftarrow \textbf{\texttt{SPSR\_FIQ}}
+  \end{enumerate}
+ \end{textblock*}
+ \begin{textblock*}{0.5\textwidth}(0.8cm+0.5\textwidth,1.0cm)
+  \begin{center}\includegraphics[width=0.7\textwidth]{Vectoring-single-fiq.pdf}\end{center}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ejemplos}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm) \justifying
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+IRQ-Handler:
+    PUSH {r0-r3, r12, lr} /*Almacena registros en la pila */
+    BL   identify_source  /*Devuelve direcci@\color{Gray}\'o@n del handler en R0*/
+    BL   R0               /*Salta al handler (escrito en C o ASM)*/
+    POP  {r0-r3, r12, lr} /*Recupera registros de la pila*/
+    SUBS pc, lr, #4       /*Retorna utilizando el LR modificado*/
+   \end{lstlisting}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,4cm) 
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item \textit{\texttt{identify\_source}}, interactúa con el controlador específico para determinar cual de todas las posibles fuentes de interrupción es la responsable del requerimiento.
+   \item Regresa en \texttt{\textbf{R0}} la dirección de la función que implementa el handler correspondiente. Elegimos \texttt{\textbf{R0}}, para que \textit{\texttt{identify\_source}} sea compatible con el ABI ARM, y pueda invocarse desde C también, si se lo requiere.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Manejo de Interrupciones Anidado}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) 
+  \begin{itemize}[<+(1)->]\justifying
+   \item Anidamiento de interrupciones significa poder aceptar una nueva interrupción antes de finalizar el procesamiento de la interrupción corriente.
+   \item Permite la priorización de interrupciones urgentes, permitiendo alcanzar los requerimientos temporales. Por ejemplo, demora mínima en atención (latency). 
+   \item No está impuesto por el hardware.
+   \item El costo del anidamiento es, por lo tanto,  mayor complejidad en el software.
+   \item Hay un único handler de atención para las diferentes fuentes de interrupción que implementa condiciones adecuadas de priorización.
+   \item Y debe aceptar re-entrancia.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+   
+\begin{frame}[t]{Manejo de Interrupciones Anidado}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) 
+  \begin{itemize}[<+->]\justifying   
+   \item Un handler de interrupción re-entrante debe salvar el estado IRQ o FIQ antes de conmutar el core al nuevo estado.
+   \item Además debe salvar el estado del nuevo modo antes de invocar a la función de anidamiento de interrupciones con las interrupciones habilitadas.
+   \item De otro modo, como las interrupciones de hardware pueden ocurrir en cualquier momento (no son determinísticas), puede pisarse el registro de estados original con el de la nueva interrupción y cuando la interrupción original deba retornar al programa interrumpido originalmente, el registro \texttt{\textbf{SPSR}} del modo IRQ o FIQ contiene otro estado, y el programa entra inexorablemente en falla.
+   \item Para evitar ésto, el handler anidado debe cambiar a un modo privilegiado en el que deshabilite las interrupciones hasta completar esta tarea.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Manejo de Interrupciones Anidado}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \centering \includegraphics[width=0.55\textwidth]{Vectoring-nested.pdf}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7cm)\justifying
+  \only<2-3>{La solución es apilar el \textbf{\texttt{SPSR}} antes de habilitar las interrupciones.}
+  \only<4->{Para evitar la corrupción del registro \texttt{\textbf{LR\_irq}}, lo que debe hacerse es switchear a modo Supervisor antes de ejecutar la instrucción de Salto, \textbf{\texttt{BL}}. Se retornará a este estado antes de regresar al handler previo.}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0cm,7.2cm)
+  \begin{onlyenv}<3>
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+SRSFD  sp!,#0x12/*SRS Store Return Status (LR y CPSR).*/
+                /*FD: Full Descending, sp: stack, 0x12: modo IRQ.*/
+                /*!: luego de la operaci@\color{Gray}\'o@n actualiza SP_irq.*/
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Secuencia de Handler de Interrupciones Anidado}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+(1)->]\justifying \parskip 0.3cm
+   \item El handler de interrupción debe resguardar todos aquellos registros que puedan ser modificados, incluido \textbf{\texttt{SPSR\_irq}}.
+   \item Identificar la fuente de la interrupción y eventualmente limpiar el bit en el hardware externo, para evitar un re disparo eventual de la misma interrupción
+   \item Cambiar el core a Modo \texttt{\textbf{SVC}}, manteniendo el bit \textbf{\texttt{CPSR.I}} seteado (interrupciones deshabilitadas).
+   \item Salvar la dirección de retorno en el stack de Modo \texttt{\textbf{SVC}} (que estará ubicado en la memoria de modo kernel) y habilitar las interrupciones.
+   \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Secuencia de Handler de Interrupciones Anidado}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+->] \justifying \parskip 0.3cm
+   \conti
+   \item Invocar al código del handler específico de la fuente de interrupción.
+   \item Al retorno desde éste handler específico, deshabilitar las interrupciones y recuperar la dirección de retorno de excepción desde el stack de Modo \texttt{\textbf{SVC}}.
+   \item Recuperar los registros guardados en el stack de Modo \texttt{\textbf{SVC}}, incluido el \textbf{\texttt{PC}}, y el \textbf{\texttt{CPSR}}, el cual devolverá el core a su Modo original. Si el bit \textbf{\texttt{SPRS.I}} no estaba seteado, las interrupciones quedarán nuevamente habilitadas.
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ejemplo de Handler de Anidado para IRQ}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+IRQ_Handler:
+    SUB     lr, lr, #4
+    SRSFD   sp!, #0x1f  /*LR_irq y SPSR_irq al stack modo System.*/
+    CPS     #0x1f       /*CPS switchea a Modo System.*/
+    
+    PUSH    {r0-r3, r12}/*Salva contexto en stack Modo System.*/
+    AND     r1, sp, #4  /*Asegura stack alineado a 8-byte.*/
+    SUB     sp, sp, r1
+    PUSH    {r1, lr}    /*Ajuste a 8-byte y LR_sys al stack.*/
+    
+    BL      id_source   /*Devuelve direcci@\color{Gray}\'o@n del handler en R0*/
+
+    CPSIE   i           /*Habilita IRQ con CPS*/
+    BL      R0          /*Invoca al handler reentrante*/
+    CPSID   i           /*Deshabilita IRQ conCPS*/
+
+    POP     {r1, lr}    /*Recupera LR_sys*/
+    ADD     sp, sp, r1  /*Desajusta stack*/
+    POP     {r0-r3, r12}/*Recupera los registros*/
+    RFE     sp!         /*Retorna desde el stack de Modo System.*/
+  \end{lstlisting}
+ \end{textblock*}
+\end{frame}
+
+\section{GIC Architecture}
+\subsection{Generic Interrupt Controler}
+\begin{frame}[t]{Parte de una Arquitectura}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}{Generic Interrupt Controller}
+   \begin{itemize}[<+(1)->]\justifying
+    \item Comprende un set de recursos de hardware para manejar interrupciones en sistema con un solo core o múltiples cores. 
+    \item Define un conjunto de registros mapeados en memoria, que permiten gestionar las diferentes fuentes de interrupción y controlar su comportamiento, y en el caso de sistemas multicore, enrutar interrupciones a un core individual determinado.
+    \item Permite habilitar y deshabilitar individualmente las diferentes fuentes de interrupción de hardware, priorizarlas por hardware, y generar interrupciones de software. 
+    \item Provee soporte para las Extensiones de Seguridad.
+    \item Acepta interrupciones a nivel del SoC y las mapea en un core individual como IRQ o FIQ.
+   \end{itemize}
+  \end{block}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Dos bloques funcionales (perspectiva del software)}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{block}{Distribuidor}
+   \begin{itemize}[<+(1)->]\justifying
+    \item Tiene cableadas todas las fuentes de interrupción del sistema. 
+    \item Se compone de un conjunto de registros que controlan las propiedades de cada fuente de interrupción de manera individual, tales como prioridad, estado, seguridad, información de vectorización, y habilitación.
+    \item Determina cual de las interrupciones será enviada a un core a través de la \textbf{\textit{Interfaz con la CPU}}.  
+   \end{itemize}
+  \end{block}
+ \end{textblock*}
+ \only<5->{
+ \begin{textblock*}{\textwidth}(0.4cm,5.5cm)
+  \begin{block}{Interfaz con la CPU}
+  \begin{itemize}[<+(1)->]\justifying
+   \item Es la entrada por donde el core recibe una interrupción. 
+   \item Contiene una serie de registros para enmascarar, identificar y controlar el estado de las interrupciones enviadas al core. 
+   \item Hay una \textbf{\textit{interfaz con la CPU}} por cada core del sistema.
+  \end{itemize}
+  \end{block}
+ \end{textblock*}
+ }
+\end{frame}
+
+\begin{frame}[t]{Identificación de interrupciones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}{\textbf{\textit{Interrupt ID}}}\justifying
+   \only<2->{Las fuentes de interrupciones se identifican unívocamente en el software mediante un número denominado \textbf{\textit{Interrupt ID}}.}
+   
+   \only<3->{En base a este número el software puede invocar al handler de interrupción correspondiente.}
+   
+   \only<4->{Los valores específicos de \textbf{\textit{Interrupt ID}}, se determinan en el diseño del sistema.}
+  \end{block}
+  \only<5->{Hay tres tipos de Interrupciones:}\parskip 0.3cm
+  \begin{itemize}[<+(5)->]\parskip 0.3cm
+   \item Software Generated Interrupts (SGI)
+   \item Private Peripheral Interrupts (PPI)
+   \item Shared Peripheral Interrupts (SPI)
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Software Generated Interrupts}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Se generan escribiendo desde el software en el registro \texttt{\textbf{ICDSGIR}}, \textit{Software Generated Interrupt Register,} específico del \textbf{\textit{Distribuidor}}.
+   \item Su principal aplicación es la comunicación inter core.
+   \item Pueden destinarse a todos los cores o a un grupo seleccionable de cores. 
+   \item Para esto último se reservan los números de interrupción 0 a 15.
+   \item El número exacto que se utiliza para este fin, queda a criterio del diseñador del software de manejo de interrupciones.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Private Peripheral Interrupts}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Se trata de una interrupción generada por una fuente de interrupción privada o exclusiva de un core determinado.
+   \item Se reservan para este tipo los números 16 a 31.
+   \item El número asignado es identificatorio de una fuente privada del core. 
+   \item Puede coincidir con la misma fuente de otro core.
+   \item Un claro ejemplo es el temporizador de cada core
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Shared Peripheral Interrupts}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Se trata de una interrupción generada por una fuente de interrupción que puede ser enrutada a mas de un core.
+   \item Se reservan para este tipo los números 32 a 1020.
+   \item Un dispositivo SPI es el caso mas claro, entre otros.
+   \item Su interrupción puede ser derivada a cualquiera de los cores del sistema.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}[t]{Señalización de una interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.4cm
+   \item \textbf{\color{Blue1}Edge-Triggered}: Disparo por flanco. Requiere que la señal en la entrada de la fuente de interrupción pase del estado bajo al estado alto (Flanco ascendente de disparo). Permanece vigente hasta que se limpie.
+   \item \textbf{\color{Blue3}Level-Triggered}: Disparo por nivel. Se considera que una fuente de interrupción está activa si el nivel de tensión aplicado en su estado es alto.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Estados de una interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.4cm
+   \item \textbf{\color{Blue1}Inactive}: Significa que la interrupción aun no ha sido enviada.
+   \item \textbf{\color{Blue2}Pending}: Significa que la interrupción ha sido enviada pero está esperando ser atendida por el core. Cuando están en este estado son candidatas a ser enviadas a la \textit{\textbf{Interfaz con la CPU}}, y mas tarde nuevamente al core.
+   \item \textbf{\color{Blue3}Active}: Indica que la interrupción ha sido atendida por el core y está siendo procesada
+   \item \textbf{\color{Blue4}Active and Pending}: Indica que el core está procesando esta fuente de interrupción pero el GIC tiene un nuevo requerimiento pendiente para esa misma fuente.
+  \end{itemize}   
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}[t]{Procesamiento de una interrupción en el GIC}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{enumerate}[<+(1)->]\justifying \parskip 0.3cm \seti
+   \item La prioridad de las diferentes fuentes de interrupción y la lista de cores a los que cada una puede ser derivada se maneja en el \textbf{\textit{Distribuidor}}.
+   \item Cuando se recibe una interrupción de una fuente determinada, ésta se establece en el \textbf{\textit{Distribuidor}} en estado \textbf{\textit{\color{Blue3}Pending}} (o \textbf{\textit{\color{Blue4}Active and Pending}} en el caso en que esa fuente de interrupción haya generado un requerimiento previo que sigue estando en proceso)
+   \item El \textbf{\textit{Distribuidor}}, determina entre las pendientes aquella de mayor prioridad y la deriva a la \textit{\textbf{Interfaz con la CPU}} del core correspondiente.
+   \item La \textit{\textbf{Interfaz con la CPU}} envía una señal de interrupción por la entrada \texttt{\textbf{FIQ}} o la entrada \texttt{\textbf{IRQ}} de la CPU.
+   \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Procesamiento de una interrupción en el GIC}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+->]\justifying \parskip 0.15cm \conti
+   \item El core ejecuta el handler de la excepción \textbf{\texttt{IRQ}} o \textbf{\texttt{FIQ}}, de acuerdo con la entrada por la que ha ingresado el requerimiento de interrupción.
+   \item El software lee el \textbf{\textit{Interrupt ID}} de los registros del GIC .
+   \item Con éste número, invoca al handler específico de interrupción del periférico correspondiente a la fuente de interrupción recibida, para finalmente atender el requerimiento concreto.
+   \item Una vez finalizado éste handler, el software debe acceder al registro de la \textit{\textbf{Interfaz con la CPU}},  para señalar el fin de la atención de la interrupción.
+   \item El GIC actualiza el estado de la interrupción en sus registros. Oscilará entre \textbf{\color{Blue2}Active} y \textbf{\color{Blue3}Pending}, mientras la interrupción esté siendo atendida, y quedará en \textbf{\color{Blue1}Inactive} una vez atendida.
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Configuración}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item El GIC se presenta al software como un conjunto de registros memory-mapped. Se accede como si fuera un periférico.
+   \item El bloque \textbf{\textit{Distribuidor}} es común a todos los cores, pero la \textit{\textbf{Interfaz con la CPU}} banquea sus registros de manera individual para cada core. 
+   \item Cada core utiliza el mismo rango de direcciones para acceder a su propia \textbf{\textit{Interfaz con la CPU}}.
+   \item Ningún core tiene acceso a los registros de la \textbf{\textit{Interfaz con la CPU}} de otro core. \textbf{Nunca}.
+   \item El espacio de registros memory-mapped correspondiente a los registros del \textbf{\textit{Distribuidor}} permite a  todos los cores configurar diferentes propiedades.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Configuración - Propiedades}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying% \parskip 0.2cm
+   \item Prioridad. Permite al \textbf{\textit{Distribuidor}} determinar cual será la siguiente fuente de interrupción a derivar hacia la \textbf{\textit{Interfaz con la CPU}}.
+   \item Es posible configurar para cada core un nivel mínimo de prioridad para que una fuente le sea derivada.
+   \item Configuración de la Interrupción. Determina si la línea de hardware se activa por flanco o por nivel.
+   \item Target de la interrupción. Lista de cores hacia los que se puede derivar el requerimiento de interrupción.
+   \item Habilitación/Deshabilitación. Solo las interrupciones de fuentes habilitadas serán derivadas por el \textbf{\textit{Distribuidor}} a un core cuando pasan a estado \textbf{\textit{\color{Blue2}Pending}}. 
+   \item La seguridad de la interrupción. Esto es, si el handler va a ejecutar en modo Seguro o Normal.
+   \item El estado.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Inicialización}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying% \parskip 0.2cm
+   \item El GIC está deshabilitado luego del reset. Debe ser inicializado antes de comenzar a aceptar requerimientos de interrupción.
+   \item El \textbf{\textit{Distribuidor}} y la \textbf{\textit{Interfaz con la CPU}} se habilitan por separado.
+   \item Se inicializan todas las características recién descriptas para el \textbf{\textit{Distribuidor}} y se lo habilita a través de su Registro de control.
+   \item Para cada \textbf{\textit{Interfaz con la CPU}} se programan la máscara de prioridades y los ajustes de preemption.
+   \item Cada \textbf{\textit{Interfaz con la CPU}} debe ser habilitada por su core. 
+   \item Esto deja al GIC listo para enviar requerimientos de interrupción.
+   \item Antes de aceptar interrupciones el core debe inicializar el vector de interrupciones apuntando a los handlers previstos para cada interrupción ARM.
+   \item Finalmente en el \textbf{\texttt{CPSR}} de cada core, se debe habilitar las interrupciones.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Inicialización}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}{Opciones de Habilitación/Deshabilitación}\justifying
+   \only<2->{Deshabilitar el \textbf{\textit{Distribuidor}}, deshabilita el sistema de interrupciones completo para la totalidad de los cores.}
+   
+   \only<3->{Deshabilitar el bloque de \textbf{\textit{Interfaz con la CPU}} equivale a deshabilitar las interrupciones de un core individual seteando el bit \texttt{\textbf{CPSR.I}}.}
+   
+   \only<4->{También pueden habilitarse o deshabilitarse, en forma individual las interrupciones en el \textbf{\textit{Distribuidor}}.}
+  \end{block}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Procesamiento de una interrupción en el Software}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+(1)->]\justifying \parskip 0.125cm 
+  \seti
+   \item El core que recibe la interrupción vectoriza al handler de alto nivel (salta a la dirección de la tabla de vectores de Interrupción).
+   \item Lee el \textit{Interrupt Acknowledge Register} de la \textbf{\textit{Interfaz con la CPU}}, y obtiene de allí el \textbf{\textit{Interrupt ID}}.
+   \item Al detectar esta lectura el \textbf{\textit{Distribuidor}} setea la fuente de interrupción en estado \textbf{\textit{\color{Blue2}Active}}.
+   \item Con el \textit{\textbf{Interrupt ID}} el handler de alto nivel determina cual es el handler específico de la interrupción, y lo puede invocar.
+   \item Cuando el handler específico termina su ejecución retorna al handler de alto nivel que escribe en el \textbf{\textit{End Of Interrupt Register}} de la \textbf{\textit{Interfaz con la CPU}}.
+   \item Si el estado estaba \textbf{\textit{\color{Blue2}Active}}, lo cambia a \textbf{\textit{\color{Blue1}Inactive}}, y si estaba \textbf{\textit{\color{Blue4}Active and Pending}} lo cambia a \textbf{\textit{\color{Blue3}Pending}}
+   \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\section{Implementación: SITARA 3358. Cortex-A8}
+\subsection{Descripción funcional}
+\begin{frame}[t]{Sitara 335x Interrupt Controller - Diagrama Funcional}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\centering
+  \includegraphics[width=0.67\textwidth]{3358-IntController.pdf}
+ \end{textblock*}
+\end{frame}
+
+\subsection{Procesamiento de Interrupciones}
+\begin{frame}[t]{Generalidades}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.16cm
+   \item El controlador interrupciones del 335x acepta hasta 128 entradas de interrupciones de hardware. Solo activas por nivel. Cada dispositivo debe activar la entrada y sostenerla hasta que el handler la desactive por software.
+   \item Los registros de control y estado que dispone el controlador se mapean en memoria ocupando un espacio de \SI{4}{\kibi\byte}, a partir de la Dirección \texttt{\textbf{Base 0x48200000}}, hasta \texttt{\textbf{0x48200FFF}}.
+   \item En general los registros que llevan en su nombre la \texttt{\textbf{n}} como sufijo, cumplen las siguientes cuestiones de forma generales:
+   \begin{itemize}[<+->]\justifying
+    \item \texttt{\textbf{n}} es un número de 0 a 3. Es decir se trata siempre de 4 registros con sufijo 0, 1, 2, o 3.
+    \item Son un Bitmap de las 128 fuentes de interrupción que maneja el controlador. Bit 0 del registro terminado en 0, corresponde al \textbf{\textit{Interrupt ID}} 0. Bit 31 del registro finalizado en 3, al \textbf{\textit{Interrupt ID}} 127.
+   \end{itemize}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+   
+\begin{frame}[t]{Selección de entradas}
+\setbeamersize{description width=-0.2cm}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Para evaluar la/s fuente/s de interrupción activas y activarla/desactivarla/s se dispone de dos juegos de 4 registros en el controlador:
+   \begin{description}[<+(1)->]\justifying \parskip 0.2cm \small
+    \item[\textbf{INTC\_ISR\_SETn:}] Mapeados en \texttt{\textbf{Base+[0x90,0xB0,0xD0,0xF0]}}. Lectura: indica el estado de cada fuente de interrupción: '1': Activa, '0': Inactiva. Escritura: aquellos bits que reciben '1' activan la generación de una interrupción asociada a ese \textbf{\textit{Interrupt ID}} (Software Interrupt).
+    \item[\textbf{INTC\_ISR\_CLEARn:}] Mapeados en \texttt{\textbf{Base+[0x94,0xB4,0xD4,0xF4]}}. Su lectura es siempre 0. El handler desactiva la interrupción correspondiente escribiendo '0' en el bit correspondiente.
+   \end{description}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Máscaras individuales}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+    \item \texttt{\textbf{INTC\_MIRn}} mapeados en \texttt{\textbf{Base+[0x84,0xA4,0xC4,0xE4]}}. Muestran la máscara e interrupciones y se puede cambiar seteando o limpiando bit a bit.
+    \item \texttt{\textbf{INTC\_MIR\_CLEARn}} mapeados en \texttt{\textbf{Base+[0x88,0xA8,0xC8,0xE8]}}. Setear un bit particular deshabilita la interrupción correspondiente.
+    \item \texttt{\textbf{INTC\_MIR\_SETn}} mapeados en \texttt{\textbf{Base+[0x8C,0xAC,0xCC,0xEC]}}. Setear un bit particular habilita la interrupción correspondiente.
+    \item Los últimos dos registros parecen redundantes con el \texttt{\textbf{INTC\_MIRn}}. Se introducen para poder setear o limpiar máscaras de manera mas directa, aunque se mantenga el \texttt{\textbf{INTC\_MIRn}} como legacy. Nada mas. 
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+  
+    
+\begin{frame}[t]{Generación hacia la CPU}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying %\parskip 0.2cm
+   \item La respuesta del Controlador de interrupciones a una fuente de interrupción no enmascarable deriva en dos tipos de requerimiento de interrupciones al procesador:
+   \begin{description}
+    \item[IRQ] Interrupciones de Baja prioridad
+    \item[FIQ] Interrupciones rápidas (No disponibles en dispositivos de propósito general)
+   \end{description}
+   \item Hay 128 Registros de 32 bits (\texttt{\textbf{INTC\_ILR\_0}} a \texttt{\textbf{INTC\_ILR\_127}}), uno por cada fuente de interrupción.
+   \item En el bit 0 se establece el tipo de interrupción para la fuente individual: 0 (default) establece que se envía por \textbf{\texttt{IRQ}}, y 1 por \texttt{\textbf{FIQ}}. 
+   \item En el caso de los dispositivos de Propósito general se envía por \textbf{\texttt{IRQ}} siempre, y este bit es \texttt{\textbf{Reserved}}.
+   \item El campo de bits \texttt{\textbf{[7-2]}} de cada registro se denomina \texttt{\textbf{Priority}}, y establece la prioridad de cada dispositivo. Este campo se matchea con el \texttt{\textbf{PRIORITYTHRESHOLD}} del registro \texttt{\textbf{INTC\_THRESHOLD}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Chequeo de activaciones en estado intermedios}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item \texttt{\textbf{INTC\_ITRn}} muestran el estado actual (o raw) de las fuentes de interrupción antes de ser enmascaradas.\\
+   Mapeados en \texttt{\textbf{Base+[0x80,0xA0,0xC0,0xE0]}}.
+   \item \texttt{\textbf{INTC\_PENDING\_IRQn}} e \texttt{\textbf{INTC\_PENDING\_FIQn}} muestran el estado actual (o raw) de las fuentes de interrupción luego ser definido el tipo de interrupción (de acuerdo con esto depende a que registro consultar), y de la gestión de máscaras, pero antes de establecerse las prioridades.\\
+   Mapeados respectivamente en \texttt{\textbf{Base+[0x98,0xB8,0xD8,0xF8]}} y \texttt{\textbf{Base+[0x9C,0xBC,0xDC,0xFC]}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Manejo de Prioridades}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item El campo de bits \texttt{\textbf{[7-0]}} del registro \texttt{\textbf{INTC\_THRESHOLD}}, mapeado en \texttt{\textbf{Base+0x68}}, se denomina \textbf{\texttt{PRIORITYTHRESHOLD}}, y permite definir el umbral de prioridades. 
+   \item Acepta valores entre \texttt{\textbf{0x00}} (máxima) y \textbf{\texttt{0x7F}} (mínima). El valor \texttt{\textbf{0xFF}} (valor luego del reset) deshabilita el uso umbral. El umbral de prioridad \texttt{\textbf{0x00}}, se trata como \texttt{\textbf{0x01}}.
+   \item Los bits \texttt{\textbf{INTC\_THRESHOLD[31-8]}} está \texttt{\textbf{Reserved}}.
+   \item El valor programado en el intervalo útil, establece un criterio para preemption por parte de interrupciones de alta prioridad. 
+   \item Al recibir un requerimiento de interrupción de una fuente, el controlador evalúa:\\
+   \small{\texttt{\textbf{INTC\_ILRn.Priority}} \textgreater \texttt{\textbf{INTC\_THRESHOLD.PRIORITYTHRESHOLD}}}\\
+   Si es \textbf{\texttt{TRUE}} todas las fuentes de interrupción de menor o igual prioridad a la del umbral quedan enmascaradas. 
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Ordenamiento de Prioridades}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item Si dos fuentes de interrupción de la misma prioridad y tipo envían requerimiento en forma simultánea, el controlador atenderá primero a la de mayor \texttt{\textbf{Interrupt ID}}.
+   \item Pueden procesarse y enviarse \textbf{\texttt{IRQ}} y \texttt{\textbf{FIQ}} en forma simultánea.
+   \item Se setean los bits correspondientes a todas las interrupciones recibidas en los registros \textbf{\texttt{INTC\_PENDING\_IRQn}} e \textbf{\texttt{INTC\_PENDING\_FIQn}}.
+   \item En caso de simultaneidad se resuelve con el criterio ya explicado y una vez determinada la interrupción a enviar se setea el campo \textbf{\texttt{ACTIVEIRQ}} del registro \texttt{\textbf{INTC\_SIR\_IRQ[6:0]}}, o \textbf{\texttt{ACTIVEFIQ}} del registro \texttt{\textbf{INTC\_SIR\_FIQ[6:0]}}, o ambos simultáneamente en caso que se hayan priorizado requerimientos mapeados con ambos tipos.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}   
+   
+\begin{frame}[t]{Ordenamiento de Prioridades}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Estos bits permanecen activos hasta que se setea alguno de los bits \textbf{\texttt{INTC\_CONTROL.NEWIRQAGR}} o \textbf{\texttt{INTC\_CONTROL.NEWFIQAGR}} desde el handler indicando que la interrupción fue atendida.
+   \item Cuando se setea cualquiera de los bits mencionados anteriormente, si permanecen requerimientos pendientes en cualquiera de los registros \textbf{\texttt{INTC\_PENDING\_IRQn}} y/o \textbf{\texttt{INTC\_PENDING\_FIQn}}, se dispara el ordenamiento de prioridades y se envía la señal \textbf{\texttt{FIQ}}, o \textbf{\texttt{IRQ}} a la CPU. Si en cambio no hay bits de requerimientos pendientes activos se desactiva la línea \textbf{\texttt{IRQ}} o \textbf{\texttt{FIQ}} según corresponda.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Protección del espacio de memoria de registros}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item Cuando los requerimientos del sistema definen implementar multitasking en dos niveles de privilegio, es conveniente proteger el área de memoria donde están mapeados los registros, asegurando que las tareas no puedan acceder allí.
+   \item Es de practica que en un sistema multitasking la gestión de interrupciones desde el punto de vista del software la maneje el sistema operativo.
+   \item Para ello podemos setear el bit 0 del registro \textbf{\texttt{INTC\_PROTECTION}} denominado \textbf{\texttt{PROTECTION}}, y el acceso a los registros del controlador de interrupciones queda restringido al modo supervisor.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Power saving}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item El SOC SITARA 3358 tiene tres dominios de clock.
+   \begin{description}
+    \item[Interface clock]
+    \item[Functional clock]
+    \item[Syncronizer clock]
+   \end{description}
+   \item El Controlador de Interrupciones proporciona modos de trabajo Idle en cada dominio con el objetivo de no consumir energía cuando no se está procesando ninguna interrupción
+   \item Hay dos registros que contienen los tres bits (uno por domino) que permiten setear el estado Idle en cada caso.
+   \begin{description}
+    \item[\textbf{\texttt{INTC\_SYSCONFIG.AUTOIDLE}}] Es el bit 0.
+    \item[\textbf{\texttt{INTC\_IDLE.FUNCIDLE}}] Es el bit 0.
+    \item[\textbf{\texttt{INTC\_IDLE.TURBO}}] Es el bit 1.
+   \end{description}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Power saving}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{description}[<+(1)->]\justifying \parskip 0.18cm
+   \item[\textbf{\texttt{INTC\_SYSCONFIG.AUTOIDLE}}] Si no hay actividad en el bus, un '1' en este bit pone el módulo en Idle desconectando el \textit{interface clock}. Se reasume por interrupción sin delay. Luego de un reset este modo está deshabilitado.
+   \item[\textbf{\texttt{INTC\_IDLE.FUNCIDLE}}] Se activa con un '0'. Cuando esto ocurre en caso que no haya {\texttt{IRQ}}, o \textbf{\texttt{FIQ}} en curso, y no haya tampoco interrupciones pendientes, se deshabilita el \textit{functional clock} del módulo poniéndolo en bajo consumo. Se reasume cuando ingresa un interrupción con un ciclo de latency. Luego del reset está activo. 
+   \item[\textbf{\texttt{INTC\_IDLE.TURBO}}] El \textit{sincronizer clock} permite a las interrupciones externas resincronizarse antes de ser enmascaradas. El modo de bajo consumo se activa con '1' en este bit. Si bien baja el consumo cuando se recupera agrega entre 4 y 6 ciclos de clock a la atención de \texttt{\textbf{IRQ}} y \textbf{\texttt{FIQ}}  para procesarlas.
+  \end{description}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Power saving}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item Una interrupción de tipo \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}} demanda para su atención 4 ciclos de clock \textpm 1 ciclo.
+   \item En caso de estar activo el bit \textbf{\texttt{INTC\_IDLE.TURBO}}, se extiende a 6 ciclos de clock, pero permite ahorrar energía.
+   \item Se podría desactivar el bit \textbf{\texttt{INTC\_SYSCONFIG.AUTOIDLE}}, y ahorrar un ciclo de clock, pero el costo es energético y no compensa dicha ganancia.
+   \item Si durante el proceso de ordenamiento de prioridades el controlador lee \texttt{\textbf{INTC\_SIR\_IRQ}} o \textbf{\texttt{INTC\_SIR\_FIQ}}, la lectura sufre un ``stall'' hasta que el proceso de ordenamiento de prioridades finalice y se actualicen los registros. En general, sin embargo, el delay entre la generación de la interrupción y la resolución de la prioridad nunca es tan alto como para que estas lecturas se requieran antes de su finalización.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\subsection{Modelo de Programación Básico}
+\begin{frame}[t]{Secuencia de Inicialización}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item Si es necesario, activar el bit \textbf{\texttt{INTC\_SYSCONFIG.AUTOIDLE}} para habilitar el autogating del interface clock.
+   \item Si es necesario, activar el bit \textbf{\texttt{INTC\_IDLE.TURBO}} para habilitar el autogating del sincronizer clock.
+   \item Si es necesario, limpiar el bit \textbf{\texttt{INTC\_IDLE.FUNCIDLE}} para deshabilitar el autogating del functional clock.
+   \item Programar en cada registro \textbf{\texttt{INTC\_ILRn}} la prioridad de cada interrupción y su tipo. Por default todas la interrupciones se mapean \textbf{\texttt{IRQ}} y tienen prioridad 00H, es decir máxima.
+   \item Habilitar las interrupciones programando los bits en cada registro \textbf{\texttt{INTC\_MIRn}} (por default todas las fuentes de interrupción están enmascaradas). Si no hay restricciones de compatibilidad se pueden utilizar los registros \textbf{\texttt{INTC\_MIR\_SETn}} o \textbf{\texttt{INTC\_MIR\_CLEARn}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \setbeamersize{description width=-0.2cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.18cm
+   \item Luego de inicializar los registros \textbf{\texttt{INTC\_ILRn}} y \textbf{\texttt{INTC\_MIRn}}, con los datos de operación se comienza a recibir interrupciones.
+   \item El procedimiento es el mismo para \texttt{\textbf{IRQ}} como para \texttt{\textbf{FIQ}}.
+  \end{itemize}
+  \begin{enumerate}[<+(1)->]\justifying \parskip 0.18cm
+   \item Ingresa una o mas interrupciones (señales \texttt{\textbf{M\_IRQ\_n}}) y tanto \texttt{\textbf{IRQ}} como \textbf{\texttt{FIQ}} están inactivas.
+   \item Se evalúa el bit \textbf{\texttt{INTC\_ILRm.FIQNIRQ}}. Si es '0' se activa la señal \texttt{\textbf{INTC\_IRQ}}. Si está en '1', se activa la señal \textbf{\texttt{INTC\_FIQ}}.
+   \item El controlador de Interrupciones activa el mecanismo de ordenamiento de prioridades, y de acuerdo con la línea de interrupción que fue activada escribe el \texttt{\textbf{Interrupt ID}} en el campo de bits \texttt{\textbf{INTC\_SIR\_IRQ[6:0]}} o \texttt{\textbf{INTC\_SIR\_FIQ[6:0]}}, para indicar la interrupción que está activa.
+   \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+->]\justifying 
+    \conti
+   \item El core salva el contexto básico y llama al ISR de acuerdo con:
+    \seti
+  \end{enumerate}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,1.8cm)
+  \begin{onlyenv}<2->
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+LR = PC + 4 /*return link */
+SPSR = CPSR /*Save CPSR before execution */
+CPSR[5] = 0 /*Execute in ARM state */
+CPSR[7] = 1 /*Disable IRQ */
+CPSR[8] = 1 /*Disable Imprecise Data Aborts */
+CPSR[9] = CP15_reg1_EEbit /*Endianness on exception entry */
+if interrupt == IRQ then 
+    CPSR[4:0] = 0b10010 /*Enter IRQ mode */
+if high vectors configured then 
+    PC = 0xFFFF0018
+else
+    PC = 0x00000018 /*execute interrupt vector */
+else if interrupt == FIQ then
+    CPSR[4:0] = 0b10001 /*Enter FIQ mode */
+    CPSR[6] = 1 /*Disable FIQ */
+if high vectors configured then
+    PC = 0xFFFF001C
+else
+    PC = 0x0000001C /*execute interrupt vector */
+endif
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+  
+\begin{frame}[t,fragile]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+->]\justifying 
+    \conti
+   \item El ISR salva el contexto restante, identifica el \texttt{\textbf{Interrpt ID}} en \texttt{\textbf{INTC\_SIR\_IRQ[6:0]}} o \texttt{\textbf{INTC\_SIR\_FIQ[6:0]}}, y llama al handler.
+    \seti
+  \end{enumerate}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,2.2cm)
+  \begin{onlyenv}<2->
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+      /*INTC_SIR_IRQ/INTC_SIR_FIQ register address */
+INTC_SIR_IRQ_ADDR .word 0x48200040 
+      /*Si es FIQ: INTC_SIR_FIQ_ADDR 0x48200044.*/
+      /*ACTIVEIRQ M@\color{Gray}\'a@scara para obtener Interrupt ID.*/
+ACTIVEIRQ_MASK .equ 0x7F
+_IRQ_ISR:   /* o bien _FIQ_ISR, si es FIQ.*/
+  STMFD SP!, {R0-R12, LR} /*Salva GP Registers y Link register.*/
+  MRS R11, SPSR /*Resguarda SPSR en R11.*/
+      /*Obtiene el nivel de prioridad mas alto activo IRQ/FIQ.*/
+  LDR R10, INTC_SIR_IRQ_ADDR  /*o INTC_SIR_FIQ_ADDR si es FIQ.*/
+  LDR R10, [R10] /*Lee registro INTC_SIR_IRQ/INTC_SIR_FIQ.*/
+  AND R10, R10, #ACTIVEIRQ_MASK /*M@\color{Gray}\'a@scara para R10=Interrupt ID.*/
+      /*Salta al handler de interrupci@\color{Gray}\'o@n espec@\color{Gray}\'i@fico.*/
+  LDR PC, [PC, R10, lsl #2] /*PC apunta a instrucci@\color{Gray}\'o@n + 8.*/
+  NOP /*Indexa la tabla con el PC.*/
+      /*Tabla de direcciones de los handlers.*/
+  .word IRQ0handler /*For IRQ0 of BANK0.*/
+  .word IRQ1handler
+  .word IRQ2handler
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+->]\justifying 
+    \conti
+   \item La subrutina del handler ejecuta el código específico del periférico que está interrumpiendo, maneja el evento, y desactiva la condición de interrupción del lado del dispositivo.
+    \seti
+  \end{enumerate}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,2.7cm)
+  \begin{onlyenv}<2->
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+    /*Subrutina para IRQ0*/
+IRQ0handler:
+    /*Salva registros de trabajo.*/
+STMFD SP!, {R0-R1}
+    /*Accede al registro de estados del m@\color{Gray}\'o@dulo perif@\color{Gray}\'e@rico.*/
+    /*para inactivar la se@\color{Gray}\~n@al de interrupci@\color{Gray}\'o@n M_IRQ_0.*/
+MOV R0, #0x7 /*M@\color{Gray}\'a@scara para los 3 flags.*/
+    /*R1 apunta al Status Register del M@\color{Gray}\'o@dulo.*/
+LDR R1, MODULE0_STATUS_REG_ADDR 
+    /*Inactiva la interrupci@\color{Gray}\'o@n del perif@\color{Gray}\'e@rico.*/
+STR R0, [R1] /*Limpia los 3 flags.*/
+    /*Recupera los registros de trabajo.*/
+LDMFD SP!, {R0-R1}
+    /*Salta a la parte final del ISR.*/
+B IRQ_ISR_end
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{enumerate}[<+->]\justifying 
+    \conti
+   \item El ISR setea el bit correspondiente (\textbf{\texttt{INTC\_CONTROL.NEWIRQAGR}} o \textbf{\texttt{INTC\_CONTROL.NEWFIQAGR}}) al retornar de la subrutina, rehabilitando el procesamiento de requerimientos \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}} pendientes, y recupera el contexto ARM en el código subsiguientes. Debido a que las escrituras se efectúan en un bus Interconectado, es necesario asegurar que las escrituras precedentes se realicen antes de habilitar \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}}, se utilizan Data Synchronization Barrier\footnote{Ver explicación en el Apéndice ``Anticipos de System Programming''}. Esta operación asegura que la línea \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}} se inactive antes de habilitar las interrupciones \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}}. Luego de ésto el Controlador procesa cualquier otra interrupción pendiente o si nos las hay simplemente desactiva la línea \texttt{\textbf{IRQ}} o \textbf{\texttt{FIQ}}.
+    \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.0cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+  /*Direcci@\color{Gray}\'o@n del registro INTC_CONTROL.*/
+INTC_CONTROL_ADDR .word 0x48200048
+  /*M@\color{Gray}\'a@scara para setear solo el bit NEWIRQAGR o NEWFIQAGR.*/
+NEWIRQAGR_MASK .equ 0x01 /*Para FIQ:  NEWFIQAGR_MASK .equ 0x02*/
+IRQ_ISR_end: /*Para FIQ_ISR_end: */
+  /*Habilita nuevas IRQs/FIQs en el controlador.*/
+  /*No hay write back de bits en INTC_CONTROL (es write only)*/
+MOV R0, #NEWIRQAGR_MASK /*R0 tiene la posici@\color{Gray}\'o@n del bit NEWIRQAGR*/
+                        /*Para FIQ, MOV R0, #NEWFIQAGR_MASK.*/
+LDR R1, INTC_CONTROL_ADDR /* R1 Apunta al INTC_CONTROL*/
+STR R0, [R1] /*NEWIRQAGR=1 o NEWFIQAGR=1. Habilita IRQs/FIQ.*/
+  /*Data Synchronization Barrier. */ 
+MOV R0, #0
+MCR P15, #0, R0, C7, C10, #4 /*Ver ``Anticipos de System 
+                               Programming''*/
+  /*Recupera el contexto critico.*/
+MSR SPSR, R11 /*Recupera SPSR desde R11.*/
+LDMFD SP!, {R0-R12, LR} /*Recupera Registros y Link Register.*/
+  /*Retorna luego de manejar la interrupci@\color{Gray}\'o@n.*/
+SUBS PC, LR, #4
+  /*Al retornar del ISR, autom@\color{Gray}\'a@ticamente recupera el contexto:*/
+CPSR = SPSR
+PC = LR
+  \end{lstlisting}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \centering \includegraphics[width=0.67\textwidth]{IRQ-FIQProcesingSeq.png}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item El objetivo es obtener un sistema de interrupciones anidado que permita disminuir la demora en atención (latency) para las interrupciones más prioritarias.
+   \item Concepto: Un \textit{\textbf{ISR Preemptive}} puede ser interrumpido por otro de mayor prioridad.
+   \item Riesgos: Corrupción de datos. Queda el control a cargo del programador de Sistemas.
+   \item Queda a cargo del programador resguardar todos los registros que puedan corromperse al procesar la interrupción anidada, lo mismo que habilitar \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}}.
+   \item No hay diferencias de fondo en el procesamiento de \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}}, excepto en el nombre de los flags o registros de cada tipo. Pero son los mismos pasos.
+   \item A continuación la secuencia básica de un \textit{\textbf{ISR Preemptive}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{enumerate}[<+(1)->]\justifying \parskip 0.25cm
+   \item Se salvan los registros críticos del procesador.
+   \item Resguardar el campo de bits \texttt{\textbf{INTC\_THRESHOLD[7:0]}}, denominado \textbf{\texttt{PRIORITYTHRESHOLD}} antes de modificarlo.
+   \item Leer del campo de bits \texttt{\textbf{INTC\_IRQ\_PRIORITY.IRQPRIORITY}} o \texttt{\textbf{INTC\_FIQ\_PRIORITY.FIQPRIORITY}}, según corresponda, la prioridad de la interrupción en curso, y escribirlo en el campo de bits \texttt{\textbf{INTC\_THRESHOLD[7:0]}}.
+   \item Lee, según corresponda, el campo de bits \texttt{\textbf{INTC\_SIR\_IRQ[6:0]}} denominado como  vimos \texttt{\textbf{ACTIVEIRQ}}, o bien \texttt{\textbf{INTC\_SIR\_FIQ[6:0]}} denominado \texttt{\textbf{ACTIVEFIQ}}, para identificar la interrupción en curso.
+   \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{enumerate}[<+->]\justifying \parskip 0.25cm
+   \conti
+   \item Escribe '1', según corresponda, en \texttt{\textbf{INTC\_CONTROL.NEWIRQAGR}} o en \texttt{\textbf{INTC\_CONTROL.NEWFIQAGR}}, para asegurar que el controlador solo envíe a la CPU interrupciones de dispositivos de mayor prioridad.
+   \item Como las escrituras se cursan por un bus interconectado, para asegurar que se completen las escrituras precedentes antes de habilitar \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}}, se debe emplear un Data Syncronization Barrier\only<2->\footnote[1]{Ver explicación en el Apéndice ``Anticipos de System Programming''}. Esta operación asegura que se desactive cualquier interrupción antes de habilitar nuevamente \texttt{\textbf{IRQ}} a \texttt{\textbf{FIQ}}.
+   \item Habilitar \texttt{\textbf{IRQ}} o \texttt{\textbf{FIQ}}.
+   \item Saltar a la subrutina relevante del handler.
+   \seti
+  \end{enumerate}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+/*M@\color{Gray}\'a@scara para obtener solo el bit field.*/
+ACTIVEPRIO_MASK .equ 0x7F
+_IRQ_ISR:
+/*Paso 1 : Salvar el contexto cr@\color{Gray}\'i@tico.*/
+STMFD SP!, {R0-R12, LR} /*Resguarda los registros de trabajo.*/
+MRS R11, SPSR /*Resguarda SPSR en R11.*/
+/*Paso 2 : Salvar el registro INTC_THRESHOLD en R12*/
+LDR R0, INTC_THRESHOLD_ADDR
+LDR R12, [R0]
+/*(1) El mecanismo de umbral de prioridad se habilita de manera 
+autom@\color{Gray}\'a@tica cuando se escribe un valor de prioridad en el rango de 
+0x00 a 0x7F. Si se escribe el valor 0xFF (predeterminado luego del 
+reset) se desactiva el mecanismo de umbral de prioridad. No se 
+deben utilizar valores entre 0x3F y 0xFF. Cuando se utiliza umbral 
+de prioridad por hardware, las prioridades de las interrupciones 
+seleccionadas como FIQ o IRQ se entrelazan; caso contrario, son 
+independientes. Cuando se entrelazan, todas las prioridades de 
+FIQ deben establecerse m@\color{Gray}\'a@s altas que todas las prioridades de IRQ 
+para mantener la prioridad relativa de FIQ sobre IRQ.*/
+  \end{lstlisting}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+/*(2) Cuando se manejan FIQ utilizando el mecanismo de umbral de 
+prioridad, los bits NEWFIQAGR y NEWIRQAGR deben escribirse al mismo 
+tiempo para garantizar que se aplique el nuevo umbral de prioridad 
+mientras se realiza una clasificaci@\color{Gray}\'o@n de IRQ. El core ARM no vi@\color{Gray}\'o@
+esta IRQ, ya que habr@\color{Gray}\'a@ sido enmascarada al ingresar al ISR de FIQ. 
+Sin embargo, la fuente de la IRQ permanece activa y finalmente se 
+procesa cuando el umbral de prioridad cae a una prioridad lo 
+suficientemente baja como para permitir su procesamiento. Durante 
+el ISR de IRQ no se requiere escribir un Reconocimiento de Nueva 
+FIQ, ya que la clasificaci@\color{Gray}\'o@n de FIQ no se ve afectada (siempre que 
+todas las prioridades de FIQ sean m@\color{Gray}\'a@s altas que todas las 
+prioridades de IRQ).*/
+/*Paso 3: Obtener prioridad m@\color{Gray}\'a@s alta de la IRQ activa.*/
+LDR R1, INTC_IRQ_PRIORITY_ADDR/*o INTC_FIQ_PRIORITY_ADDR.*/
+LDR R1, [R1] /* R1 = INTC_IRQ_PRIORITY o R1 = INTC_FIQ_PRIORITY.*/
+AND R1, R1, #ACTIVEPRIO_MASK /* Aplica m@\color{Gray}\'a@scara y obtiene la 
+                             prioridad de la interrupci@\color{Gray}\'o@n.*/
+STR R1, [R0] /* Escribe prioridad en el registro INTC_THRESHOLD*/
+/*Paso 4: Obtener el n@\color{Gray}\'u@mero m@\color{Gray}\'a@s alto de prioridad de IRQ activa.*/
+LDR R10, INTC_SIR_IRQ_ADDR /* o INTC_SIR_FIQ_ADDR. */
+LDR R10, [R10] /* Lee registro INTC_SIR_IRQ o INTC_SIR_FIQ.*/
+AND R10, R10, #ACTIVEIRQ_MASK /* Aplica m@\color{Gray}\'a@scara y obtiene el 
+                             n@\color{Gray}\'u@mero de la interrupci@\color{Gray}\'o@n activa.*/
+  \end{lstlisting}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.0cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+/*Paso 5: Habilita nuevas IRQs y FIQs en el controlador.*/
+MOV R0, #0x1 /*Obtiene posici@\color{Gray}\'o@n del bit NEWIRQAGR. 
+               Para FIQ se usa MOV R0,#0x3  en busca de NEWFIQAGR .*/
+LDR R1, INTC_CONTROL_ADDR
+STR R0, [R1] /* Escribe los bits NEWIRQAGR y NEWFIQAGR.*/
+/*Paso 6: Data Synchronization Barrier.*/
+MOV R0, #0 
+MCR P15, #0, R0, C7, C10, #4   /*Ver ``Anticipos de System 
+                                 Programming''*/
+/*Paso 7 : Lee-modifica-escribe el registro CPSR para habilitar 
+IRQs/FIQs en el core.*/
+MRS R0, CPSR /* Lee status register.*/
+BIC R0, R0, #0x80 /* Limpia bit I. Para bit F usamos /0x40.*/
+MSR CPSR, R0 /* Escribe status register para habilitar IRQs.*/
+/*Paso 8: Salta al handler de subrutina relevante...*/
+LDR PC, [PC, R10, lsl #2] /*Direcci@\color{Gray}\'o@n base del PC apunta a @\color{Gray}\'e@sta */
+NOP                       /*instrucci@\color{Gray}\'o@n + 8 para indexar la tabla 
+                          de saltos con el PC.*/
+/*Table of handler start addresses.*/
+.word IRQ0handler /*IRQ0 BANK0*/
+.word IRQ1handler
+.word IRQ2handler   
+  \end{lstlisting}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento Preemptive de una Interrupción}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+Al retornar del handler relevante de \texttt{\textbf{IRQ}}, o \texttt{\textbf{FIQ}}
+  \begin{enumerate}[<+(1)->]\justifying%\parskip 0.25cm
+   \conti
+   \item Deshabilita las interrupciones den el Core ARM.
+   \item Recupera campo de bits \texttt{\textbf{INTC\_THRESHOLD.PRIORITYTHRESHOLD}}.
+   \item Recupera contexto de registros críticos del core.
+  \end{enumerate} 
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,3.3cm)
+  \begin{onlyenv}<5->
+   \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+IRQ_ISR_end:
+/*Paso 1: Lee-modifica-escribe CPSR. Deshabilita IRQs/FIQs en el 
+core ARM.*/
+MRS R0, CPSR      /*Lee CPSR*/
+ORR R0, R0, #0x80 /*Setea el bit I. Si es FIQ ORR R0, R0, #0x40 y 
+                    setea bit F.*/
+MSR CPSR, R0      /*Escribe el CPSR para deshabilitar las IRQs*/
+/*Paso 2: Recupera el registro INTC_THRESHOLD desde R12*/
+LDR R0, INTC_THRESHOLD_ADDR
+STR R12, [R0]
+/*Paso 3: Recupera el contexto de ejecuci@\color{Gray}\'o@n cr@\color{Gray}\'i@tico.*/
+MSR SPSR, R11           /*Recupera registro SPSR desde R11.*/
+LDMFD SP!, {R0-R12, LR} /*Recupera registros de trabajo y Link 
+                          register.*/
+/*Retorna luego de manejar la interrupci@\color{Gray}\'o@n.*/
+SUBS PC, LR, #4
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Procesamiento de una Interrupción Preemptive}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \centering \includegraphics[width=0.6\textwidth]{IRQ-FIQPreemptProcesingSeq.png}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Preemption de Interrupciones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Si se activó preemption de interrupciones de alta prioridad sobre las de menor prioridad, cada ISR debe leer el valor de prioridad de la interrupción activa y escribirlo en el registro de Umbral de Prioridad.
+   \item En cada nivel de preemption el programador debe salvar el valor del registro de Umbral de prioridades antes de pisarlo con el valor leído de la interrupción en curso, y restaurarlo antes de abandonar el ISR de ese nivel.
+   \item Para permitir a las interrupciones de mayor prioridad interrumpir el procesamiento de las de menor prioridad a partir de un punto del código de cada ISR, se debe escribir un '1' en los bits \texttt{\textbf{NEW\_IRQ\_AGR}}, o \texttt{\textbf{NEW\_FIQ\_AGR}} del registro \texttt{\textbf{INTC\_CONTROL}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Preemption de Interrupciones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+->]\justifying \parskip 0.2cm
+   \item El mecanismo de Umbral de Prioridad se habilita automáticamente al escribir en los registros \texttt{\textbf{IRQ\_PRIORITY}} o \texttt{\textbf{FIQ\_PRIORITY}}, un valor entre \texttt{\textbf{0x00}} y \texttt{\textbf{0x7F}}.
+   \item Escribir en alguno de esos registros el valor \texttt{\textbf{0xFF}} (que por otra parte es el valor default en ambos registros luego de un reset), deshabilita el mecanismo de Umbral de Prioridad.
+   \item Al establecer el uso del Umbral de Prioridad, se entrelazan las prioridades de interrupciones \texttt{\textbf{IRQ}} y \texttt{\textbf{FIQ}}. En caso contrario ambos tipos de interrupciones se mantienen independientes entre sí.
+   \item En caso de usar Umbral de Prioridad, entonces, se requiere que los valores de prioridad de todas las \texttt{\textbf{FIQ}} sean mayores que los de todas las \texttt{\textbf{IRQ}}, de modo de mantener la prioridad relativa de \texttt{\textbf{FIQ}} sobre \texttt{\textbf{IRQ}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Preemption de Interrupciones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+->]\justifying \parskip 0.2cm
+   \item Cuando se procesa una \texttt{\textbf{FIQ}} con manejo de Umbral de Prioridad, se requiere setear  los bits \texttt{\textbf{NEW\_FIQ\_AGR}} y \texttt{\textbf{NEW\_IRQ\_AGR}} al mismo tiempo, para cubrir el riesgo que implicaría cambiar el Umbral de Prioridad mientras se está resolviendo el orden de prioridades de a \texttt{\textbf{IRQ}}.
+   \item Esta \texttt{\textbf{IRQ}} no habrá sido vista por el core ARM ya que habrá sido enmascarada al ingresar al ISR de la \texttt{\textbf{FIQ}}.
+   \item Sin embargo, la fuente de la \texttt{\textbf{IRQ}} permanecerá activa y finalmente se procesará cuando el Umbral de Prioridad caiga a una prioridad lo suficientemente baja.
+   \item Esta precaución es innecesaria en un ISR de una \texttt{\textbf{IRQ}}, ya que la clasificación de prioridades de una \texttt{\textbf{FIQ}} no se verá afectada (\textbf{\textit{siempre que se haya observado el requerimiento que todas las \textbf{\texttt{FIQ}} tengan prioridad mayor que todas las \texttt{\textbf{IRQ}}.}})
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Manejo de Interrupciones Espurias}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item Una interrupción espuria indica que el resultado de un ordenamiento de prioridades (tomado en una ventana de 10 ciclos de \textit{functional clock}) es inválido.
+   \item Las posibles razones de un ordenamiento inválido pueden ser:
+   \begin{itemize}
+    \item La interrupción que disparó el ordenamiento dejó de estar válida durante el mismo.
+    \item Durante el tiempo de ordenamiento de la prioridad se modificó una máscara que afectó su resultado.
+   \end{itemize}
+   \item Por lo tanto, mientras esté activa una interrupción no deben modificarse los registros \texttt{\textbf{INTC\_MIRn}}, \texttt{\textbf{INTC\_ILRn}}, y \texttt{\textbf{INTC\_MIR\_SETn}}.
+   \item Solo la fuente de interrupción que disparó el ordenamiento de prioridad puede ser enmascarada con este proceso en curso.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Manejo de Interrupciones Espurias}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+->]\justifying %\parskip 0.2cm
+   \item Si los siguientes registros cambian durante los 10 ciclos de \textit{functional clock} luego de iniciado el ordenamiento de prioridad sus valores resultan inválidos.
+   \begin{description}
+    \item[\texttt{\textbf{INTC\_SIR\_IRQ}}] 
+    \item[\texttt{\textbf{INTC\_SIR\_FIQ}}] 
+    \item[\texttt{\textbf{INTC\_IRQ\_PRIORITY}}] 
+    \item[\texttt{\textbf{INTC\_FIQ\_PRIORITY}}] 
+   \end{description}
+   \item Esta condición se detecta tanto en \texttt{\textbf{IRQ}} como \texttt{\textbf{FIQ}}, y se indica en los campos de bits de los registros \texttt{\textbf{INTC\_SIR\_IRQ[31:7]}} y \texttt{\textbf{INTC\_SIR\_FIQ[31:7]}}.
+   \item Son copias, respectivamente, de \texttt{\textbf{INTC\_IRQ\_PRIORITY[31:7]}} y \texttt{\textbf{INTC\_FIQ\_PRIORITY[31:7]}}.
+   \item En ambos layouts el campo de bit se llaman \texttt{\textbf{SPURIOUSIRQFLAG}} y \texttt{\textbf{SPURIOUSFIQFLAG}}, respectivamente.
+   \item Un '0' indica interrupción y prioridad válida. '1' inválida.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\section{ANEXO}
+\subsection{Anticipos de System Programming}
+\begin{frame}[t]{Data Syncronization Barrier}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}{Memory Barrier}
+   Es el término general que define a este tipo de instrucciones.\\ 
+   Se trata de un tipo de instrucción que actúa como barrera que fuerza a la CPU o el compilador se vean forzados a cumplir una restricción de orden en la ejecución de las instrucciones previas a la barera.\\
+   En general aseguran que no se ejecute ninguna instrucción posterior a la barrera hasta que la CPU no haya completado todas las instrucciones previas a la barrera.\\
+   Por lo general cuando una CPU las soporta, su implementación es a través de instrucciones específicas.
+  \end{block}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Data Syncronization Barrier en ARMv7}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.12cm
+   \item El modelo de Programación de Sistemas (System Programming) de ARMv7, se sustenta en un complejo sistema de coprocesadores. 
+   \item Se accede a estos mediante un pequeño conjunto de instrucciones específicas.
+   \item Éstas instrucciones son bastante complejas y poseen una serie de operandos.
+   \item El primer operando define el coprocesador al que se envía el requerimiento.
+   \item Dos operandos definen registros especiales del coprocesador y otros dos que definen el valor que se escribe en cada registro.
+   \item El registro del Core no debe ser el \texttt{\textbf{PC}}. Su valor se transfiere al registro \textbf{\texttt{Cn}} del core (el primero de los dos especificados en la instrucción) cuando la instrucción es \texttt{\textbf{MCR}}.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[t,fragile]{Registro c7 del Coprocesador 15}
+ \begin{textblock*}{0.47\textwidth}(-0.5cm,1.2cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,escapechar=\@,numbers=none, frame=single, xleftmargin=20pt, xrightmargin=0pt,]
+/*Paso 6: Data Synchronization Barrier.*/
+MOV R0, #0 
+MCR P15, #0, R0, C7, C10, #4   
+  \end{lstlisting}
+ \end{textblock*}
+ \begin{textblock*}{0.45\textwidth}(0cm,4.2cm)
+  \begin{itemize}
+   \item CRn = C7
+   \item opc1 = \#0
+   \item CRm = C10
+   \item opc2 = \#4
+  \end{itemize}
+
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(4.9cm,1.2cm)
+  \includegraphics[width=0.65\textwidth]{CP15-VMSA-C7-Registers.pdf}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}[t]{Referencias}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item Generic Interrupt Controller. ARM Ltd. 
+   
+   \href{https://documentation-service.arm.com/static/5f8ff21df86e16515cdbfafe?token=}{\color{blue}{\footnotesize https://documentation-service.arm.com/static/5f8ff21df86e16515cdbfafe?token=}}
+   
+   \item AM335x Sitara\texttrademark Processors Technical Reference Manual.
+   
+    \href{https://www.ti.com/lit/ug/spruh73q/spruh73q.pdf}{\color{blue}{\footnotesize https://www.ti.com/lit/ug/spruh73q/spruh73q.pdf}}
+    
+    Capítulo 6. Descripción detallada de registros del controlador de interrupciones (layout), Mapa de direcciones de memoria, y tipo de interrupción.
+  \end{itemize}\
+ \end{textblock*}
+\end{frame}
+
+\end{document}

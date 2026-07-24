@@ -1,0 +1,969 @@
+\section{Set de instrucciones}
+\subsection{Sintaxis}
+
+\begin{frame}[fragile]{Sintaxis de instrucciones NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \only<1->{
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+  \begin{itemize}[<+(1)->]\justifying
+   \item Una misma instrucción puede operar sobre diferentes tipos de datos.
+   \item El tipo de dato se especifica como sufijo de la instrucción.
+   \item La cantidad de datos (lanes) empaquetados, depende del tipo de dato y de los registros empleados.
+   \item Hemos visto ejemplos de instrucciones que muestran esta definición.
+   \item Sin embargo hay casos en los que los tamaños de registro no son homogéneos
+  \end{itemize}
+  \end{tcolorbox}
+  }
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,5.4cm)
+  \begin{onlyenv}<7>
+   \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+VMULL.S16 Q2, D8, D9    // Vector MULtiply Long
+                        // Q2[3]=D8[3]*D9[3], Q2[2]=D8[2]*D9[2]
+                        // Q2[1]=D8[1]*D9[1], Q2[0]=D8[0]*D9[0]
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Sintaxis de instrucciones NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) 
+  Formato General:
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+  V{<mod>}<op>{<shape>}{<cond>}{.<dt>} <dest1>{, <dest2>}, <src1>{, <src2>}
+  \end{lstlisting}
+ \end{textblock*}
+ \begin{textblock*}{.94\textwidth}(1cm,2.9cm) 
+  \begin{itemize} \justifying
+   \item [\textit{mod}] Modificador: \textbf{Q} Saturado, \textbf{H} Halfing, \textbf{D} Doubling, \textbf{R} Redondeado
+   \item [\textit{op}] Operación: Es la operación en sí (por ejemplo ADD, MUL, etc)
+   \item [\textit{shape}] Modificador: \textbf{L} Long, \textbf{W} Wide, o \textbf{N} Narrow.
+   \item [\textit{cond}] Condition: Se utiliza como ya sabemos con la instrucción IT.
+   \item [\textit{dt}] Data Type
+   \item [\textit{dest\textsubscript{n}}] Registro o registros destino
+   \item [\textit{src\textsubscript{n}}] Registro o registros fuente
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Modificadores de Instrucción}
+ \begin{scriptsize}
+  \begin{center}
+   \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+    \begin{tikzpicture}
+     \node (tbl) { 
+      \rowcolors[]{1}{}{gray!5}
+      \begin{tabularx}{.98\textwidth}{p{.05\textwidth} p{.12\textwidth} p{.25\textwidth} p{.45\textwidth} }
+       \textbf{\color{white} Modif.} & \textbf{\color{white} Acción} & \textbf{ \color{white} Ejemplo} & \textbf{ \color{white} Descripción}\\
+       Nada & Op. Básica & VADD.I16 Q0, Q1, Q2 & Resultado sin modificación\\
+       Q & Saturation & VQADD.S16 D0, D2, D3 & Si el resultado satura el rango, queda en el máximo o mínimo valor según corresponda.\\
+       H & Halved & VHADD.S16 Q0, Q1, Q4 & Cada operando se desplaza un lugar a la derecha antes de su uso (división por dos con truncado). En el ejemplo se calcula un promedio con truncado\\
+       D & Doubled & VQDMULL.S16 Q0, D1, D3 & Se duplica el resultado (D), y si el valor excede el rango del operando destino, se satura (Q): $Q_{0}= 2*(D_{1}*D_{3})$. Especialmente útil cuando se trabaja en punto fijo formato Q15 (caso muy frecuente en DSP), en donde se requiere adaptar el rango del resultado en los productos. La segunda L del opcode indica que el resultado ocupa elementos del doble de tamaño que los operandos. Dedicaremos los dos slides siguientes esta instrucción en el marco del formato Q15\\
+       R & Rounded & VRSUBHN.I16 D0, Q1, Q3 & Redondea la división por dos del resultado (H), para corregir el error de truncado. Equivale a sumar 0.5 antes de truncar. La N implica que el resultado ocupa un elemento de la mitad del tamaño de los operandos.\\
+       \end{tabularx}
+     };
+     \begin{pgfonlayer}{background}
+      \draw[rounded corners,top color=red,bottom color=black,draw=white] ($(tbl.north west)+(0.14,0)$) rectangle ($(tbl.north east)-(0.13,0.45)$);
+      \draw[rounded corners,top color=white,bottom color=black, middle color=red,draw=blue!20] ($(tbl.south west)+(0.12,0.5)$) rectangle ($(tbl.south east)-(0.12,0)$);
+      \draw[top color=blue!1,bottom color=blue!20,draw=white] ($(tbl.north east)-(0.13,0.6)$) rectangle ($(tbl.south west)+(0.13,0.2)$);
+     \end{pgfonlayer}
+    \end{tikzpicture}
+   \end{textblock*} 
+  \end{center}
+ \end{scriptsize}
+\end{frame}
+
+\begin{frame}{Representación en Punto Fijo Q15}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item En procesamiento digital de señales (DSP) es frecuente representar números reales mediante \textbf{punto fijo} para evitar el costo del hardware de punto flotante.
+    \item El formato \textbf{Q15} utiliza un entero con signo de \SI{16}{\bit} interpretando que el punto binario se encuentra inmediatamente antes del bit de signo.
+    \item El rango representable es aproximadamente: $-1.0 \le x < 1.0$
+    \item La conversión entre el valor entero almacenado y el valor real es:
+    $x=\frac{\text{entero}}{2^{15}}$
+    \item Algunos ejemplos son:
+    \[
+     \begin{array}{c|c}
+      \textbf{Entero} & \textbf{Valor Q15} \\
+      \hline
+      32767 & 0.99997 \\
+      16384 & 0.5 \\
+      8192  & 0.25 \\
+      0     & 0.0 \\
+      -32768 & -1.0
+     \end{array}
+    \]
+   \end{itemize}
+%   \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{¿Por qué existe la instrucción VQDMULL?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item Al multiplicar dos valores Q15 se obtiene un resultado de \SI{32}{\bit}.\\
+    $ Q15 \times Q15 \longrightarrow Q30$
+    \item El resultado queda escalado \SI{1}{\bit} por debajo del formato Q31 habitualmente utilizado para acumulación.
+    \item La instrucción \texttt{VQDMULL.S16 Q0, D1, D3} realiza automáticamente: $\boxed{2 \times (A \times B)}$,equivalente a un desplazamiento a la izquierda de un bit. $A$ y$B$ representan cada lane de $D_{1}$ y $D_{3}$
+    \item De este modo: $Q30 \xrightarrow{\times 2} Q31$,  manteniendo la normalización de los datos.
+    \item La operación incorpora además \textbf{saturación}, evitando overflow durante el desplazamiento.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{VRSUBHN: retorno al formato original}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+->]\justifying
+   \item Durante el procesamiento DSP es habitual realizar los cálculos con mayor precisión que la de los datos originales.
+   \item Luego de una secuencia de multiplicaciones y acumulaciones en \SI{32}{\bit}, es necesario volver al formato Q15 para almacenar o continuar el procesamiento.
+   \item La instrucción \texttt{VRSUBHN} (\textbf{Vector Rounding Subtract High Narrow}) realiza simultáneamente:
+   \begin{itemize}
+    \item una resta entre operandos de precisión extendida;
+    \item un redondeo del resultado;
+    \item la extracción de la mitad alta (\textit{High});
+    \item la reducción del ancho (\textit{Narrow}) al tamaño original.
+   \end{itemize}
+   \item Conceptualmente:
+$ \boxed{
+32\ \text{bits}
+\;\longrightarrow\;
+16\ \text{bits}
+}
+$
+   preservando la mayor precisión posible gracias al redondeo previo.
+   \item En aplicaciones DSP suele utilizarse como etapa final luego de operaciones como \texttt{VMULL} o \texttt{VQDMULL}, permitiendo regresar al formato Q15 con el menor error de cuantización posible.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Formas de Instrucción}
+ \begin{textblock*}{.48\textwidth}(0.4cm,1.2cm)
+  \begin{onlyenv}<1->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \textbf{No especificado}:\\ Operandos y resultados son del mismo tamaño.\\
+    Ej:
+    \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+VADD.I16 Q0, Q1, Q2
+    \end{lstlisting}
+   \end{tcolorbox}
+  \end{onlyenv} 
+ \end{textblock*}
+ \begin{textblock*}{.48\textwidth}(0.4cm+.5\textwidth,1.2cm)
+  \begin{onlyenv}<2->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \textbf{Long-L}:\\ Operandos del mismo tamaño, y resultados del doble de tamaño.\\
+    Ej:
+    \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+VADDL.S16 Q0, D2, D3
+    \end{lstlisting}
+   \end{tcolorbox}
+  \end{onlyenv} 
+ \end{textblock*}
+ \begin{textblock*}{.48\textwidth}(0.4cm,4.9cm)
+  \begin{onlyenv}<3->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \textbf{Narrow-N}:\\ Operandos del mismo tamaño, y resultados de la mitad de tamaño.\\
+    Ej:
+    \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+VADDL.S16 D0, Q2, Q3
+    \end{lstlisting}
+   \end{tcolorbox}
+  \end{onlyenv} 
+ \end{textblock*}
+ \begin{textblock*}{.48\textwidth}(0.4cm+.5\textwidth,4.9cm)
+  \begin{onlyenv}<4->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \textbf{Wide-W}: \\El tamaño del resultado y 1er. operando es el doble del 2do. operando.\\
+    Ej:
+    \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+VADDW.I16 Q0, Q1, D4
+    \end{lstlisting}
+   \end{tcolorbox}
+  \end{onlyenv} 
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{NEON Long Instruction}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{center} \includegraphics[width=.8\textwidth]{Neon-Long.pdf}\end{center}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{NEON Wide Instruction}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{center} \includegraphics[width=.8\textwidth]{Neon-Wide.pdf}\end{center}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{NEON Narrow Instruction}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{center} \includegraphics[width=.8\textwidth]{Neon-Narrow.pdf}\end{center}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Empaquetado y desempaquetado de datos}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item NEON trabaja con datos empaquetados en un registro para procesarlos en una única instrucción.
+   \item La preparación de esos operandos, lo mismo que la extracción de los resultados empaquetados no siempre pueden llevarse a cabo con instrucciones NEON
+   \item Existen para ayudar a esta tarea algunas instrucciones ARMv7 comunes para manipular los datos pre y post procesamiento NEON.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,4.0cm)
+  \begin{onlyenv}<5->
+   \begin{center}\includegraphics[width=0.65\textwidth]{Neon-Pack-Unpack.pdf}\end{center}
+  \end{onlyenv}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}[fragile]{Empaquetado y desempaquetado de datos}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \textbf{UXTH}\\
+Extensión de ceros a un halfword. Extiende un valor de \SI{16}{\bit} a \SI{32}{\bit}.
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+UXTH{cond} {Rd}, Rm {,rotation}
+\end{lstlisting}
+\texttt{rotation} es la cantidad de bits que se rota a derecha \texttt{Rm} antes de enviar su halfword menos significativa al Registro destino (\texttt{Rd}). Puede ser \texttt{\#ROR 8, \#ROR 16, \#ROR 24}
+  \end{tcolorbox}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}[fragile]{Empaquetado y desempaquetado de datos}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \textbf{PKHBT} y \textbf{PKHTB}\\
+Instrucciones de empaquetado de Halfword. Combinan las halfwords de un registro con una halfword de otro regitro. El segundo de los registros origen puede ser desplazado n bits a derecha o izquierda antes de la extracción del dato.
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+PKHBT{cond} {Rd}, Rn, Rm{, LSL #leftshift}
+PKHTB{cond} {Rd}, Rn, Rm{, ASR #rightshift}
+\end{lstlisting}
+\textbf{PKHBT} Combina Rn[15:0] con Rm[31:16] previamente desplazado.\\
+\textbf{PKHTB} Combina Rn[31:16] con Rm[15:0] previamente desplazado.\\
+$ 0 \leq leftshift \leq 31, y 1 \leq rightshift \leq 32$
+  \end{tcolorbox}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}[fragile]{Alineación de datos}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item Si bien hay un soporte a la alineación de datos a nivel de arquitectura ARMv7, además se incluye en las instrucciones NEON que operan con memoria, la capacidad de especificar la alineación de datos deseada.
+   \item De mas está decir que ésta especificación debe ser consistente con el tipo de operandos de la instrucción.
+   \item Si la dirección de memoria no resulta consistente con el alineamiento especificado, se genera una Data Abort exception.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.8cm,4.7cm)
+  \begin{onlyenv}<5->
+   \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+VLD1.8 {D0},         [R1:64]       // D0[0]=[R1], D0[1]=[R1+1]...D0[7]=[R1+7]
+VLD1.8 {D0,D1},      [R4:128]!     // ! : Finalizada, R4 se incrementa.
+VLD1.8 {D0,D1,D2,D3},[R7:256], R2  // R2 offset que se suma a R7.
+   \end{lstlisting}
+  \end{onlyenv} 
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,6.2cm)
+  \begin{itemize}[<+(2)->]\justifying
+   \item La alineación se expresa en la instrucción como \texttt{<Reg>:<align>}.
+   \item En el manual de instrucciones ARMv7 la alineación se expresa como un número precedido de '@'. No es necesaria en el código fuente.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+
+\subsection{Aritmética en algoritmos DSP}
+\begin{frame}{Acumulación de resultados sobre un registro}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item A medida que acumulamos resultados en un registro, llegamos inexorablemente al punto en el que el rango del resultado excede la capacidad de bits del registro de acumulación.
+   \item En este punto los procesadores convencionales indican la situación mediante un flag de overflow, y en el operando destino se almacena el valor de \textbf{desborde}.
+   \item La aplicación chequea dentro del lazo de cálculo este flag y de acuerdo a su estado decide si sigue la acumulación.
+   \item El costo de esta práctica de programación es tiempo de ejecución para analizar como tratar cada resultado parcial.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}[t,fragile]{Manejo de los desbordes}
+ \begin{textblock*}{\textwidth}(0.4cm,1.3cm)
+  \begin{onlyenv}<2->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Resumen del comportamiento planteado en el slide anterior: Al llegar al extremo superior del rango, los procesadores convencionales realizan una operación de que se denomina wraparound, (reset del contador al valor inicial y activar flag de overflow). Si se decrementa un registro, por debajo de cero se pasa al valor máximo y se sigue desde allí.\\ Esto se conoce como \textit{Aritmética de Desborde}.\\
+    El costo es comprobar en cada ciclo de un lazo el valor del flag para decidir si se continúa en el lazo o no. 
+   \end{tcolorbox}
+  \end{onlyenv}
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,6.0cm)
+  \begin{onlyenv}<3->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Cuando se implementa \textit{Aritmética Saturada}, al producirse una condición fuera de rango el operando destino mantiene el máximo o mínimo valor del rango (dependiendo si la condición se ha producido por exceso o por defecto).
+   \end{tcolorbox}
+  \end{onlyenv}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Aritmética Saturada}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{onlyenv}<2->
+   \begin{table}[h]
+    \rowcolors{1}{blue4}{blue4}
+    \begin{tabular}{|c|c|c|c|c|} \hline
+     \multicolumn{1}{|c|}{} & \multicolumn{2}{|c|}{\color{white} Límite Inferior} & \multicolumn{2}{c|}{\color{white}Límite Superior}\\ \cline{2-5}\cline{2-5}
+     \multicolumn{1}{|c|}{\multirow{-2}{*}{\color{white}Tipo de Dato}} & \multicolumn{1}{|c|}{\color{white}Hexadecimal} & \color{white}Decimal & \color{white}Hexadecimal & \color{white}Decimal\\ \hline
+     \rowcolor{gray!20} byte signado & 0x80 & -128 & 0x7F & 127 \\ \hline
+     \rowcolor{gray!80} word signada & 0x8000 & -32768 & 0x7FFF & 32767 \\ \hline
+    \end{tabular}
+    \begin{center} Aritmética Saturada Signada \end{center}
+   \end{table}
+  \end{onlyenv}
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,4.4cm)
+  \begin{onlyenv}<3->
+   \begin{table}[h]
+    \rowcolors{1}{blue4}{blue4}
+    \begin{tabular}{|c|c|c|c|c|} \hline
+     \multicolumn{1}{|c|}{} & \multicolumn{2}{|c|}{\color{white} Límite Inferior} & \multicolumn{2}{c|}{\color{white}Límite Superior}\\ \cline{2-5}\cline{2-5}
+     \multicolumn{1}{|c|}{\multirow{-2}{*}{\color{white}Tipo de Dato}} & \multicolumn{1}{|c|}{\color{white}Hexadecimal} & \color{white}Decimal & \color{white}Hexadecimal & \color{white}Decimal\\ \hline
+     \rowcolor{gray!20} byte no signado & 0x00 & 0 & 0xFF & 255 \\ \hline
+     \rowcolor{gray!80} word no signada & 0x0000 & 0 & 0xFFFF & 65535 \\ \hline
+    \end{tabular}
+    \begin{center} Aritmética Saturada No Signada \end{center}
+   \end{table}
+  \end{onlyenv}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Aritmética Saturada vs. Aritmética de Desborde}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.2cm
+   \item Consideremos la siguiente suma empaquetada de 8 bytes.
+  \end{itemize}
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,1.6cm)
+  \begin{onlyenv}<3->
+   \begin{table}[h]
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
+     \bl \color{white} Byte & \bl \color{white}7 & \bl \color{white}6 & \bl \color{white}5 & \bl \color{white}4 & \bl \color{white}3  & \bl \color{white}2 & \bl \color{white}1 & \bl \color{white}0\\ \hline
+     oper 1 & 0x4D & 0x23 & 0x9F & 0xC0 & 0x11 & 0x4A & 0x29 & 0x0B \\ \hline
+     oper 2 & 0x32 & 0xFF & 0x1A & 0x0D & 0x3F & 0xAF & 0xB0 & 0x36 \\ \hline
+     \rowcolor{CadetBlue1} desb. & 0x7F & \textbf{\color{red}0x22} & 0xB9 & 0xCD & 0x50 & 0xF9 & 0xD9 & 0x41 \\ \hline
+     \rowcolor{CadetBlue} sat. & 0x7F & \textbf{\color{red}0xFF} & 0xB9 & 0xCD & 0x50 & 0xF9 & 0xD9 & 0x41 \\ \hline
+    \end{tabular}
+    \begin {center} Suma Empaquetada {\color{CadetBlue}saturada} vs. suma empaquetada {\color{CadetBlue1}de desborde}\end{center}
+   \end{table}
+  \end{onlyenv}
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,5.4cm)
+  \begin{itemize}[<+(2)->] \justifying \parskip 0.2cm
+   \item En el byte 6 se observa la diferencia entre ambas operaciones
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Cuando usar aritmética saturada o de desborde}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying  \parskip 0.2cm
+   \item En algunas aplicaciones la aritmética saturada provee soluciones más eficaces que la aritmética de desborde. 
+   \item Al procesar video, cuando un nivel de negro satura, no tiene sentido seguir procesando la variable ya que no produce mas efecto sobre la salida. 
+   \item Si utilizamos la habitual lógica de desborde, el valor remanente en el registro de resultado al saturar el negro nos lleva de vuelta al blanco, afectando el flag de overflow para prevenirnos de la situación, pero el número almacenado en el operando del resultado es mucho menor al máximo del rango.
+   \item En ARM v7, el modificador Q que llevan eventualmente las instrucciones NEON, sirve para indicar que la operación implementa aritmética saturada.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Operaciones de punto flotante}
+ \begin{textblock*}{\textwidth}(0.4cm,1.3cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item NEON no es full compatible con IEEE-754
+   \item Cuando un número se desnormaliza se lo trunca a cero. (Denormalized are zero). En aplicaciones no críticas mejora la performance. 
+   \item Si el resultado de una operación single precision es del rango $\pm 2^{-126}$ se reemplaza por 0. (Para double precision es del rango $\pm 2^{-1022}$ )
+   \item No hay excepción si se denormaliza. Pero si se utiliza un número denormalizado, se genera una excepción inexacta.
+   \item El redondeo es siempre al mas cercano excepto en operaciones de coversión
+   \item Solo trabaja con Single Precision
+   \item Instrucciones separadas para escalares.
+   \item Cada instrucción especifica si produce excepción de punto flotante y provee la información para su tratamiento.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\subsection{Instrucciones NEON}
+\begin{frame}{Grupos de Instrucciones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.7cm)
+  \begin{itemize}\parskip 0.5cm
+   \item General Data Processing
+   \item Desplazamiento
+   \item Lógicas y Comparación
+   \item Aritméticas 
+   \item Multiplicación
+   \item Load/Store
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON General Data Processing Instructions}
+ \begin{textblock*}{\textwidth}(0.6cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item [VCVT] Convierte enteros de \SI{32}{\bit} o punto fijo de \SI{32}{\bit} a Floating Point Single Precisión, o visceversa. Si el core soporta extensiones Half Precisión (ni el Cortex-A8 y A9 las soportan), acepta un operando de mitad de tamaño para colocar allí el vector de F16. En este caso la conversión es solo F32 y F16. No incluye enteros, ni punto fijo.
+   \item [VDUP] Toma el escalar definido en el registro origen (NEON o ARM), lo duplica, y lo escribe a lo largo del vector de destino.
+   \item [VEXT] Extrae \#imm elementos de \SI{8}{\bit} del extremo menos significativo del primer operando y los lleva al extremo mas significativo del registro destino, que se completa con los restantes elementos de \SI{8}{\bit} del extremo mas significativo del segundo operando.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,5.8cm)
+  \only<4>{\centering \includegraphics[width=0.56\textwidth]{VEXT.pdf}}
+ \end{textblock*} 
+%   \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+%   \end{lstlisting}
+\end{frame}
+
+\begin{frame}{NEON General Data Processing Instructions}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+  \item [VMOV] Rellena un vector con un dato inmediato: I8, I16, I32, I64, F32.
+  \item [VMVN] Rellena un vector con la inversa de un dato inmediato: I8, I16, I32, I64, F32.
+  \item [VMOVL] Extiende rango. \begin{center}\includegraphics[width=0.5\textwidth]{VMOVL.pdf}\end{center}
+  \item [VMOVN] Q Saturation, U Unsigned result. \begin{center}\includegraphics[width=0.5\textwidth]{VMOVN.pdf}\end{center}
+  \item [VREV] Vector Reverse Halfword. Permuta las halfwords de cada word de un registro origen y almacena el resultado en un registro destino.
+  \item [VUZP]
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+ 
+\begin{frame}{NEON General Data Processing Instructions}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+   \item [VSWP] Intercambia los lanes de cada registro destino con los del registro origen
+   \item [VTBL] Busca un vector de índices en una tabla y genera un vector de resultados. Los índices fuera de rango retornan 0.
+   \item [VTBX] Igual que VTBL excepto que un índice fuera de rango no modifica el elemento del correspondiente vector destino.
+   \item [VTRN] Asume sus dos operandos como conformadores de un vector de elementos donde cada elemento es una matriz de 2x2, y simplemente las transpone.\\ \includegraphics[width=0.5\textwidth]{VTRN.pdf}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+ 
+\begin{frame}[fragile]{NEON General Data Processing Instructions}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}\justifying \parskip 0.5 cm
+   \item [VUZP] Vector Unzip. Desentrelaza elementos de dos vectores.\\ \vspace{-0.5cm} \begin{center}\includegraphics[width=\textwidth]{VUZP.pdf}\end{center}
+   \item [VZIP] Vector Zip. Entrelaza los elementos de dos vectores.\\ \vspace{-0.5cm} \begin{center}\includegraphics[width=\textwidth]{VZIP.pdf}\end{center}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Shift Instructions}
+ \begin{textblock*}{0.41\textwidth}(1.2cm,1.2cm)
+  \begin{itemize}\justifying 
+   \item [VSHL] Vector Shift Left. Desplaza a izquierda cada elemento del vector, la cantidad de bits \texttt{\#imm} descartando los bits que salen del elemento por derecha.
+   \item [VQSHL] Vector Saturating Shift Left. Setea el bit QC (FPSCR[27]), para indicar que ocurrió una saturación.
+   \item [VQSHLU] Vector Saturating Shift Left Unsigned.Setea el bit QC (FPSCR [27]), para indicar que ocurrió una saturación.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{.55\textwidth}(.5\textwidth,1.2cm)
+  \centering \includegraphics[width=\textwidth]{VSHL.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Shift Instructions}
+ \begin{textblock*}{\textwidth}(.8cm,1.1cm)
+  \begin{itemize}\justifying 
+   \item [VSHLL] Vector Shift Left Long. Toma un vector de tamaño doble word, desplaza a izquierda cada elemento del vector, la cantidad de bits \texttt{\#imm} y almacena los resultados en un vector de tamaño Quad Word de la misma cantidad de elementos.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,2.4cm)
+  \begin{center}\includegraphics[width=0.5\textwidth]{VSHLL.pdf}\end{center}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,6.5cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+  Tipos de datos: I8, I16, I32, I64 para VSHL, S8, S16, S32 para VSHLL, VQSHL, o VQSHLU, U8, U16, U32 para VSHLL o VQSHL, S64 para VQSHL o VQSHLU, U64 para VQSHL.
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{NEON Shift Instructions}
+ \begin{textblock*}{.9\textwidth}(1.9cm,1.2cm)
+  \begin{itemize}\justifying 
+   \item [V\{Q\}\{R\}SHL] Vector Shift Left por variable signada. Desplaza los elementos de un vector en función del número almacenado en los elementos de otro vector. El número puede ser signado (Positivo desplaza a la izquierda, y negativo a la derecha). El resultado se almacena en un tercer registro. Si se emplea la instrución con saturación, se setea el bit QC (FPSCR[27]), para indicar que ocurrió una saturación.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,4.3cm)
+ Sintaxis:\vspace{-0.3cm}
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+V{Q}{R}SHL{cond}.datatype {Qd,} Qm, Qn
+V{Q}{R}SHL{cond}.datatype {Dd,} Dm, Dn
+  \end{lstlisting}
+% \vspace{-0.3cm}
+\begin{footnotesize}
+Q, indica saturación,\\
+R Redondeo (si no se especifica, se truncan los resultados)\\
+Qd/Dd Registro destino\\
+Qm/Dm Registro Operando 1\\
+Qn/Dn Registro Operando 2\\
+datatype: S8, S16, S32, S64, U8, U16, U32, o U64.\\
+\end{footnotesize}
+ \end{textblock*}
+\end{frame}
+   
+\begin{frame}{NEON Shift Instructions}
+ \begin{textblock*}{0.42\textwidth}(1.2cm,1.2cm)
+  \begin{itemize}\justifying 
+   \item [VSHR] Vector Shift Right. Desplaza a derecha cada elemento del vector, la cantidad de bits \texttt{\#imm}.
+   \item [VRSHR] Idem con redondeo del resultado (Sin la primer R, trunca).
+   \item [VSHRN] Idem con Narroewd del resultado (en este caso el primer operando es un registro Q).
+   \item [VRSHRN] Idem con redondeo y Narrowed del resultado.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{.55\textwidth}(.5\textwidth,1.2cm)
+  \begin{center}\includegraphics[width=\textwidth]{VSHR.pdf}\end{center}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Shift Instructions}
+ \begin{textblock*}{0.92\textwidth}(1.2cm,1.2cm)
+  \begin{itemize}\justifying 
+   \item [VSRA] Vector Shift Right and Accumulate. Desplaza a derecha cada elemento del vector, la cantidad de bits \texttt{\#imm} y en lugar de copiarlo al destino se lo acumula.
+   \item [VRSRA] Idem con redondeo del resultado (Sin la primer R, trunca).
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,2.8cm)
+  \begin{center}\includegraphics[width=0.45\textwidth]{VSRA.pdf}\end{center}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Shift Instructions}
+ \begin{textblock*}{0.37\textwidth}(1.7cm,1.2cm)
+  \begin{itemize}\justifying 
+   \item [VQSHRN] Vector Saturating Shift Right Narrow.
+   \item [VRQSHRN] Idem con redondeo del resultado.
+   \item [VRQSHRUN] Idem con números no signados. 
+   \item <2->[VSLI] Vector Shift Left and Insert.
+   \item <2->[VSRI] Vector Shift Left and Insert.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{.5\textwidth}(.5\textwidth,1.2cm)
+  \centering \includegraphics[width=\textwidth]{VQSHRN.pdf}
+ \end{textblock*}
+\only<2->{
+ \begin{textblock*}{.75\textwidth}(.125\textwidth,5.6cm)
+  \centering \includegraphics[width=0.45\textwidth]{VSLI.pdf}\hfill
+  \includegraphics[width=0.45\textwidth]{VSRI.pdf}
+ \end{textblock*} 
+ }
+ \end{frame}
+
+\begin{frame}{NEON logical and compare operations}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}\justifying
+   \item [VAND] AND Bitwise entre dos registros. Resultado en el operando destino. Datatype es ignorado.
+   \item [VEOR] XOR Bitwise entre dos registros. Resultado en el operando destino. Datatype es ignorado.
+   \item [VORR] OR Bitwise entre dos registros. Resultado en el operando destino. O inmediato a registro (\texttt{\#imm}). Datatype es ignorado.
+   \item [VORN] OR Bitwise entre dos registros (uno Negado previamente). Resultado en el operando destino. Datatype es ignorado.
+   \item [VMVN] Vector Bitwise NOT. Invierte bit a bit el valor del registro Operando en el registro Destino.
+   \item [VMOV] Vector Mov. Copia un registro en otro.
+   \item [VTST] Vector Test Bits. Ejecuta un AND Bitwise por cada elemento en dos registros. Si el resultado es cero, el elemento correspondiente del operando destino se rellena de '0's. De otro modo se rellena de '1's.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON logical and compare operations}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}\justifying
+   \item [VBIC] Vector Bitwise Clear. Dos modos: Inmediato o registro. Inmediato toma el valor inmediato como una máscara. Aquellos bit que están en '1'en la máscara llevan a limpiar (setear '0') en el bit correspondiente del registro resultado. Modo Registro. Operando 1 valos a limpiar, Operando 2 Máscara. Ambos operandos no cambian, ya que se aplica en el registro resultado.
+   \item [VBIF] Vector Bitwise Insert if False. Operando 2 trabaja como máscara. Por cada '0' en el Operando 2 el bit correspondiente del Operando 1 reemplaza (se inserta en) al bit correspondiente del resultado, que de otro modo no se altera.
+   \item [VBIF] Vector Bitwise Insert if True. Idem anterior pero por cada '1' en Operando 2.
+   \item [VBSL] Vector Bitwise Select. El Operando Destino es una máscara. Por cada '1' toma el bit del operando 1 y por cada '0' lo toma del operando 2. El valor compuesto reemplaza la máscara.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON logical and compare operations}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}\justifying
+   \item [VACop] Vector Absolute Compare. \texttt{op} puede ser GE = Greater or Equal, o GT = Greater Than. Compara dos vectores Datatype F32 elemento a elemento en valor absoluto. Cada elemento del operando  destino se llena de '1's o '0's, si el par de elementos de los operandos verifica o no la condición. El tipo de dato del resultado es I32.
+   \item [VCop] Vector Compare. Compara dos vectores elemento a elemento. La condición \texttt{op}, puede resultar True, en cuyo caso, el elemento destino se completa con '1's, o False, en cuyo caso se completa con '0's.\\
+   \texttt{op}: EQ=Equal, GE=Greater or Equal, GT=Greater Than, LE=Lower or Equal, LT=Lower Than. LE y LT valen solo si el segundo operando es \#0.\\
+   Trabajan con diferentes tipos de datos tanto los operandos como el resultado de acuerdo con la condición.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Ejemplo de uso de comparación empaquetada}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \Large \centering Procesamiento de sprites o iconos en gráficos 2D. 
+  \normalsize
+  \begin{itemize}[<+(1)->] \justifying % \parskip 0.2cm
+   \item Un sprite es un mapa de bits en el que se dibuja una figura pequeña, de modo tal que los bits que no se utilizan deben quedar \textquotedblleft transparentes", es decir, quedan del color del fondo.
+   \item Supongamos un sprite de 8 pixels de ancho por otros 8 pixels de alto. 
+   \item Para la primer línea de 8 pixels, el dibujo del sprite corresponde a los primeros cuatro mientras que los cuatro siguientes deben ser transparentes, es decir, deben ir del color del fondo.
+   \item Cargamos en \textbf{\texttt{D0}} la primer línea del sprite, (8 bytes empaquetados), y \textbf{\texttt{D2}} trabaja como auxiliar, está pre seteado en cero.
+   \item Luego \texttt{\textbf{VCEQ.8}} entre ambos registros, generará una máscara con los bytes que contendrán información del sprite en cero y los que deben resultar transparentes en 0xFF.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Ejemplo de uso de comparación empaquetada}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \centering \includegraphics[width=.85\textwidth]{picturebw.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Ejemplo de uso de comparación empaquetada}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \centering \includegraphics[width=0.47\textwidth]{picture2bw.png}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Ejemplo de uso de comparación empaquetada}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \centering
+  \only<1>{\includegraphics[width=0.42\textwidth]{sprite-layer1.pdf} }
+  \only<2>{\includegraphics[width=0.42\textwidth]{sprite-layer2.pdf} }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Ejemplo de uso de comparación empaquetada}
+ \begin{textblock*}{0.6\textwidth}(0.1cm,1.2cm)
+   \includegraphics[width=0.8\textwidth]{sprites.pdf}
+ \end{textblock*}
+\footnotesize
+ \begin{textblock*}{0.45\textwidth}(0.1cm+0.56\textwidth,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.2cm
+   \item El resultado se procesa con la información de los 8 pixels del fondo de la imagen (pre almacenado en el registro \texttt{\textbf{D1}}) a través de un operador AND. Al resultado le queden solo los cuatro pixels del fondo que se deben mostrar.
+   \item Nos queda imprimir la línea del sprite sobre este fondo, del cual hemos eliminado los cuatro pixels que serán sobre impresos por la línea del sprite.
+   \item Tratando a este resultado mediante una operación OR con los 8 pixels originales del sprite se compone el dibujo buscado sobre el fondo existente.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON arithmetic instructions}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.1cm)
+  \begin{itemize}\justifying
+   \item [VABA] Vector Absolute Difference and Acumulate. Calcula la diferencia entre los elementos de los Vectores de operandos, y acumula el valor absoluto de las mismas en el operando destino. Hay una versión Long.
+   \item [VABD] Vector absolute Difference. Idem \textbf{VABA}, pero almacena el valor absoluto de las diferencias en el operando destino. Hay una versión Long.
+   \item [VABS] Vector Absolute. Calcula el valor absoluto de los elementos de un vector y almacena su resultado. En el caso de los datatypes de punto flotante simplemente pone '0' en el bit mas significativo. Hay una versión Saturada (VQABS), solo para enteros signados, en donde además se setea el flag QC.
+   \item [VADD] Vector Add. Suma los elementos de cada vector de operandos y almacena los resultados en lso elementos correspondientes del Registro destino. Tiene versión es Saturada, Long y Narrow.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON arithmetic instructions}
+ \begin{textblock*}{0.9\textwidth}(1.2cm,1.1cm)
+  \begin{itemize}\justifying
+   \item [VADDHN] Vector Add and Narrow selecting High half. Suma los elementos de los vectores en los registros Operandos, selecciona la mitad alta de los resultados y los almacena en los elementos del vector destino.
+   \item [VSUBHN] Vector Subtract and Narrow, selecting High Half. Idem pero Resta.
+   \item [VCLS] Vector Count Leading Sign Bits. Cuenta la cantidad de bits consecutivos desde el MSB que coincidan en valor con este y almacena cada cuenta en el elemento correspondiente del registro Destino.
+   \item [VCLZ] Vector Count Leading Zeros. Cuenta la cantidad de ceros consecutivos iniciando en el MSB y almacena cada cuenta en el elemento correspondiente del registro Destino.
+   \item [VCNT] Vector Count Set Bits. Idem \textbf{VCLZ}, pero cuenta '1's.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON arithmetic instructions}
+ \begin{textblock*}{0.9\textwidth}(1.2cm,1.1cm)
+  \begin{itemize}\justifying
+   \item [VHADD] Vector Halving Add. Suma los elementos de los dos vectores contenidos en los registros operandos, desplaza el resultado a la derecha 1 bit, y almacena cada resultado en el elemento del vector destino. El resultado puede ser redondeado (\textbf{VRHADD}), o truncado.
+   \item [VHSUB] Vector Halving Subtract. Idem anterior excepto que resta en lugar de sumar los operandos. No hay redondeo o truncado.
+   \item [VMAX] Compara los elementos de dos vectores y almacena en el vector destino el máximo en cada caso.
+   \item [VMIN] Compara los elementos de dos vectores y almacena en el vector destino el mínimo en cada caso.
+   \item [VNEG] Niega cada elemento de un vector y escribe los resultados en el vector destino. Si el datatyp es Floating Point, invierte el signo. Si el datatype es Entero, dispone de \textbf{VQNEG}, como opción con saturación.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Ejemplo de VMAX y MMIN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Ejemplo de procesamiento de imágenes}
+ \begin{textblock*}{0.33\textwidth}(0.4cm,1.2cm)
+   \includegraphics[height=.8\textheight]{Borde-1.pdf}
+ \end{textblock*}
+ \begin{textblock*}{0.67\textwidth}(0.4cm+0.33\textwidth,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.1cm
+   \item Un borde es una transición brusca de iluminación entre dos pixles vecinos.
+   \item En el mapa de bits de la izquierda se muestra como queda una imagen resultante de la detección de bordes
+   \item Método práctico: por cada pixel tomar los ocho vecinos (N8), y evaluar su diferencia con el mínimo del N8
+   \item Si la diferencia es muy grande el valor resultante está próximo al nivel de blanco.
+   \item Si ambos valores tienen una diferencia muy pequeña, esta estará próxima al nivel de negro.
+   \item Reemplazando cada pixel con la diferencia entre su valor y el MIN(N8), se puede obtener una buena aproximación de los bordes de una imagen
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   Supongamos los registros R2, R3, y R4 como punteros a tres áreas de meoria cada una de las cuales contiene una fila de píxeles de una imagen monocromo. Las tres filas son por supuesto consecutivas.
+  \end{tcolorbox}
+  \begin{onlyenv}<2->
+   \lstset{basicstyle=\scriptsize,}
+   \vspace{-0.5cm}
+   \begin{lstlisting}[escapechar=\@, numbers=none]
+// M@\color{Gray}\'e@todo c@\color{Gray}\'a@lculo por N8 
+	vldr.u64 {D0-D5},   r2! //q0,q1,q2 primer fila
+	vldr.u64 {D6-D11},  r3! //q4,q5,q6 segunda fila 
+	//(q5 = lista de pivxeles de inter@\color{Gray}\'e@s)
+	vldr.u64 {D12-D17}, r4!	//q7,q8,q9 tercer fila
+// Calcula el m@\color{Gray}\'i@nimo de los bytes empaquetados en cada registro
+	vmin.U8 Q0,Q0,Q1
+	vmin.U8 Q0,Q0,Q2
+	vmin.U8 Q0,Q0,Q3
+	vmin.U8 Q0,Q0,Q4
+	vmin.U8 Q0,Q0,Q6
+	vmin.U8 Q0,Q0,Q7
+	vmin.U8 Q0,Q0,Q8 
+	vmin.U8 Q0,Q0,Q9     //M@\color{Gray}\'i@nimo de los N8 en Q0.
+	vsub.U8 Q10,Q5,Q0 //Restamos para hallar los bordes
+   \end{lstlisting}
+  \end{onlyenv} 
+ \end{textblock*}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Fin del ejemplo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{NEON arithmetic instructions}
+ \begin{textblock*}{0.45\textwidth}(1.2cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VPADD] Vector Pairwise Add. Suma elementos adyacentes de un vector, y escribe resultado en el vector destino.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{0.5\textwidth}(0.52\textwidth,1.3cm)
+  \centering \includegraphics[width=0.8\textwidth]{VPADD.pdf}
+ \end{textblock*}
+ \begin{textblock*}{0.45\textwidth}(1.2cm,4.0cm)
+  \begin{itemize}\justifying
+   \item [VPADDL] Vector Pairwise Add Long.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{0.5\textwidth}(0.52\textwidth,4.2cm)
+  \centering \includegraphics[width=0.4\textwidth]{VPADDL.pdf}
+ \end{textblock*}
+ \begin{textblock*}{0.45\textwidth}(1.2cm,6.5cm)
+  \begin{itemize}\justifying
+   \item [VPADAL] Vector Pairwise Add and Accumulate Long.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{0.5\textwidth}(0.52\textwidth,6.5cm)
+  \centering \includegraphics[width=0.4\textwidth]{VPADAL.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON arithmetic instructions}
+ \begin{textblock*}{0.9\textwidth}(1.2cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VPMAX] Vector Pairwise Maximum.\\
+  \centering \includegraphics[width=0.45\textwidth]{VPMAX.pdf}
+  \end{itemize}
+ \end{textblock*}
+  \begin{textblock*}{0.9\textwidth}(1.3cm,3.5cm)
+  \begin{itemize}\justifying
+   \item [VPMIN] Vector Pairwise Maximum. 
+   \item [VRECPE] Vector Reciprocal Estimate. Calcula el recíproco estimado de cada elemento de un vector y lo guarda en el vector resultado.
+   \item [VRECPS] Vector Reciprocal Step. Multiplica dos vectores elemento a elemento, y resta cada producto de 2.0, y almacena el resultado final en el elemento del vector destino. Es parte de la iteración del algoritmo de Newton-Raphson.
+   \item [VRSQRTE] Vector Reciprocal Square Root Estimate. Calcula el recíproco estimado de la raíz cuadrada de cada elemento de un vector y lo guarda en el vector resultado.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON arithmetic instructions}
+ \begin{textblock*}{0.9\textwidth}(1.3cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VRSQRTS] Vector Reciprocal Square Root Step. Multiplica dos vectores elemento a elemento, resta cada producto de 3.0, y divide cada resultado por 2.0, almacenando en el elemento del vector destino el resultado final. Es parte de la iteración del algoritmo de Newton-Raphson.
+   \item [VSUB] Vector Subtract. Resta dos vectores elemento a elemento, y almacena cada resultado en el elemento correspondiente del vector resultado. Tiene versiones saturada (\textbf{VQSUB}), Wide (\textbf{VSUBW}), y Long  (\textbf{VSUBL}).
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Multiply instructions}
+ \begin{textblock*}{0.9\textwidth}(1.3cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VFMA] Vector Fused Multiply Accumulate. Multiplica dos vectores elemento a elemento, y acumula cada resultado en el elemento correspondiente del vector resultado. No redondea antes de la suma, lo cual la convierte en la alternativa de menor pérdida de precisión.
+   \item [VFMS] Vector Fused Multiply Substract. Igual que la anterior, pero resta el resultado del producto de los elementos destino.
+   \item [VMUL] Vector Multiply. Multiplica dos vectors elemento a elemento y almacena cada resultado en el correspondiente elemento del vector resultado. Tiene versiones Long ({\color{blue}VMULL}), y escalar.
+   \item [VMLA] Vector Multiply Accumulate. Es como \textbf{VFMA} pero redondea antes de la suma.Tiene versiones Long ({\color{blue}VMLAL}) y escalar.
+   \item [VMLS] Vector Multiply Substract. Es como \textbf{VFMS} pero redeondea antes de la resta.Tiene versiones Long ({\color{blue}VMLSL}) y escalar.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Multiply instructions}
+ \begin{textblock*}{0.9\textwidth}(1.5cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VQDMULH] Vector Saturating Doubling Multiply Returning High Half. Multiplica sus operandos, dupilca los resultados y retorna la parte alta de los mismos. Si ocurrió saturación setea el bit QC. Acepta operar con opción de redondeo (\textbf{VQRDMULH}). Trabaja con vectors y con escalares.
+   \item [VQDMULL] Vector Saturating Doubling Multiply Long. Multiplica los operandos y duplica el resultado. Si el resultado da overflow, satura, y setea el bit QC. 
+   \item [VQDMLAL] Vector Saturating Doubling Multiply and Accumulate Long. Idem \textbf{VQDMULH}, con el agregado de acumular el  resultado en el destino en lugar de almacenarlo.
+   \item [VQDMLSL] Vector Saturating Doubling Multiply and Substract Long. Idem \textbf{VQDMULH}, con el agregado de restar el  resultado en el destino en lugar de almacenarlo.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Load and Store instructions}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   Algunas instrucciones Load/Store permiten entrelazar/desentrelazar datos cuando se leen/almacenan estructuras de datos desde/hacia memoria.
+  \end{tcolorbox}
+  \centering \includegraphics[width=0.8\textwidth]{Interleave.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{NEON Load and Store instructions}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   Otras instrucciones Load/Store permiten establecer restricciones de alineamiento en memoria.\\
+   Para habilitar este chequeo debe setearse el bit SCTLR.A (CP15 System Control Register, bit 1).
+  \end{tcolorbox}
+  \includegraphics[width=\textwidth]{SCTRL.pdf}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,7cm)
+  \begin{onlyenv}<2->
+   \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+MRC p15, 0, R2, c1, c0, 0 # Lee registro SCTRL de CP15 en R2
+ORR R2,R2,#0x00000002     # Setea el bit 1 (corresponde a A)
+MCR p15, 0, R2, c1, c0, 0 # Activa alineacion escribiendo SCTRL
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+   
+\begin{frame}{NEON Load and Store instructions}
+ \begin{textblock*}{\textwidth}(0.4cm,1.5cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   A partir de este código cualquier acceso no alineado a memoria genera una \textit{alignment fault}.\\
+   Si A=0, no hay restricciones de alineación de memoria, excepto para accesos de ordenamiento estricto o para dispositivos mapeados en memoria (el resultado de un acceso no alineado puede resultar impredecible).
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Load and Store instructions}
+ \begin{textblock*}{0.96\textwidth}(0.9cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VLDn] Vector Load. \textit{n} puede ser 1, 2, 3, o 4. Carga una estructura de n elementos a uno o mas registros NEON. De acuerdo con la codificación tiene diferentes variantes.
+   \begin{itemize}
+    \item Cargar un lane en particular de cada registro NEON, y el resto de los lanes no cambian. Utiliza Dd[x] para especificar el lane.
+    \item Cargar a todos los lanes de cada registro el mismo dato de la estructura de memoria.
+   \end{itemize}
+   \item [VSTn] Vector Store. Almacena los lanes de uno o mas registros NEON en una estructura de memoria. Tiene las mismas dos variantes de \textbf{\color{blue}VLDn}.
+   \item [VLDR] Carga un Vector de memoria en un registro NEON destino.
+   \item [VSTR] Almacena un Registro Neon en n vector de memoria.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Load and Store instructions}
+ \begin{textblock*}{0.95\textwidth}(0.9cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VLDM] Carga desde un vector de memoria hacia una lista de uno múltiples registros NEON. Tiene opciones de auto incremento del registro puntero a memoria. Incluye un sufijo de modo:
+   \begin{itemize}
+    \item IA Increment After (default).
+    \item DB Decrement Before.
+    \item EA Empty Ascending. Se usa en stacks. Equivale a DB en Loads e IA en Stores.
+    \item FD Full Descending. Se usa en stacks. Equivale a IA en Loads e DB en Stores.
+   \end{itemize}
+   \item [VSTM] Es la operación inversa de {\color{blue}VLDM}. Mismos sufijos y opciones.
+   \item [VPOP] Desapila un vector hacia una lista de registros NEON. Equivale a \texttt{VLDM sp!, \{Registros\}}.
+   \item [VPUSH] Guarda en la pila un conjunto de registros NEON. Equivale a \texttt{VSTMDB sp! \{Registros\}}.
+   \item [VMOV] Mueve datos entre Registros ARM y NEON de 64 bits. Mueve escalares si especificamos el lane en el registro NEON (Dm[x]). 
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{NEON Load and Store instructions}
+ \begin{textblock*}{.96\textwidth}(0.9cm,1.2cm)
+  \begin{itemize}\justifying
+   \item [VMRS] Transfiere el registro de sistema NEON o VFP a un registro core (Rn). El regstro de sistema se especifica en la instrucción y puede ser: \textbf{FPSCR}, \textbf{FPSID} , o \textbf{FPEXC}. Detiene el pipeline NEON hasta que se complete su ejecución.
+   \item [VMSR] Operación de transferencia inversa a la anterior.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{0.96\textwidth}(0.9cm,3.3cm)
+  \only <2> {\includegraphics[width=\textwidth]{FPEXC.pdf}\\
+  \justifying
+  \texttt{\textbf{EX}}. Exception Bit: '0' Indica que el estado NEON y VFP a salvar se compone de los Registros NEON, FPSCR, y FPSID. '1' Indica que hay información adicional implementación específica.\\
+  \textbf{\texttt{EN}}. Enable bit. '0' (Default) indica que NEON y VFP no están habilitados. '1' los habilita.\\
+  }
+  \only <3> {\includegraphics[width=\textwidth]{FPSID.pdf}\\
+  \justifying
+  \texttt{\textbf{SW}}. '0' Indica que el coprocesador está implementado en hardware. '1' indica que está emulado por software.\\
+  }
+  \only <4-> {\includegraphics[width=\textwidth]{FPSCR.pdf}\\
+  \justifying
+  \textbf{\texttt{N}}, \textbf{\texttt{Z}}, \textbf{\texttt{C}} , \textbf{\texttt{V}}, se setean si una comparación resulta \textit{``Menor que''}, \textit{``Igual a''}, \textit{``Mayor a''} o genera un resultado no ordenado, o si produce un resultado no ordenado respectivamente. No actúan hasta que se copien al \textbf{CPSR}.
+}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{NEON Load and Store instructions}
+ \begin{textblock*}{0.45\textwidth}(0.9cm,1.1cm)
+   \begin{itemize}\justifying \parskip 0.2cm
+   \item [QC] Bit de Saturación
+   \item [DNM] Do Not Modify (Reservado)
+   \item [DN] Modo NaN. '0' deshabilitado (default). '1' Habilitado.
+   \item [FZ] Modo Flush To Zero . '0' deshabilitado. '1' Habilitado.
+   \item [RMode] Rounding Mode. '00' Nearest (RN), '01' Hacia $+\infty $ (RP), '10' Hacia $-\infty $ (RM), '11' Hacia Cero (RZ)
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{0.45\textwidth}(0.55\textwidth,1.1cm)
+  \begin{itemize}\justifying \parskip 0.2cm
+   \item [Stride] Ver tabla siguiente slide
+   \item [Len] Ver tabla siguiente slide
+   \item [IDC] Flag de Entrada Denormalizada
+   \item [IXC] Flag de Pérdida de precisión
+   \item [UFC] Flag de Underflow
+   \item [OFC] Flag de Overflow
+   \item [DZC] Flag de División por cero
+   \item [IOC] Flag de Operación Inválida
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
+% \renewcommand\theadgape{\Gape[4pt]}
+% \renewcommand\cellgape{\Gape[4pt]}
+
+\begin{frame}{NEON Load and Store instructions}
+ \begin{scriptsize}
+  \begin{center}
+   \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+    \begin{tikzpicture}
+     \node (tbl) { 
+      \rowcolors[]{1}{}{gray!5}
+      \begin{tabularx}{.95\textwidth}{ p{.05\textwidth} p{.08\textwidth} p{.05\textwidth} p{.08\textwidth} p{.28\textwidth} p{.27\textwidth} }
+       \textbf{\color{white} LEN} & \textbf{\color{white} \thead{Vector\\Length}} & \textbf{\color{white} Stride} & \textbf{ \color{white} \thead{Vector\\Stride} } & \textbf{ \color{white} \thead{SP Vector\\Instructions }} & \textbf{\color{white} \thead{DP Vector\\Instructions}}\\
+b000 & 1 & b00 & - & All instructions are scalar & All instructions are scalar\\
+b000 & 1 & b11 & - & Unpredictable & Unpredictable\\
+b001 & 2 & b00 & 1 & Work normally & Work normally\\
+b001 & 2 & b11 & 2 & Work normally & Work normally\\
+b010 & 3 & b00 & 1 & Work normally & Work normally\\
+b010 & 3 & b11 & 2 & Work normally & Unpredictable\\
+b011 & 4 & b00 & 1 & Work normally & Work normally\\
+b011 & 4 & b11 & 2 & Work normally & Unpredictable\\
+b100 & 5 & b00 & 1 & Work normally & Unpredictable\\
+b100 & 5 & b11 & 2 & Unpredictable & Unpredictable\\
+b101 & 6 & b00 & 1 & Work normally & Unpredictable\\
+b101 & 6 & b11 & 2 & Unpredictable & Unpredictable\\
+b110 & 7 & b00 & 1 & Work normally & Unpredictable\\
+      \end{tabularx}
+     };
+     \begin{pgfonlayer}{background}
+      \draw[rounded corners,top color=red,bottom color=black,draw=white] ($(tbl.north west)+(0.14,0)$) rectangle ($(tbl.north east)-(0.13,0.9)$);
+      \draw[rounded corners,top color=white,bottom color=black, middle color=red,draw=blue!20] ($(tbl.south west)+(0.12,0.15)$) rectangle ($(tbl.south east)-(0.12,0.3)$);
+      \draw[top color=blue!1,bottom color=blue!20,draw=white] ($(tbl.north east)-(0.13,0.9)$) rectangle ($(tbl.south west)+(0.13,0.05)$);
+%       \draw[top color=blue!1,bottom color=blue!20,draw=white] ($(tbl.north east)-(0.13,0.6)$) rectangle ($(tbl.south west)+(0.13,0.2)$);
+     \end{pgfonlayer}
+    \end{tikzpicture}
+   \end{textblock*} 
+  \end{center}
+ \end{scriptsize}
+\end{frame}
+
+

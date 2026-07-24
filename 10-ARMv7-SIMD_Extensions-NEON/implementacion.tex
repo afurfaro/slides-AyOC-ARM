@@ -1,0 +1,116 @@
+%------------------------------------------------
+
+\section{Enfoque Práctico}
+
+%------------------------------------------------
+
+\begin{frame}{¿Cómo utiliza el compilador VFP y NEON?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  Cuando el programador escribe código C/C++ convencional, el compilador puede generar automáticamente instrucciones:
+  \vspace{0.3cm}
+  \begin{itemize}[<+(1)->]\justifying \parskip 0.2cm
+   \item ARM enteras.
+   \item VFP para operaciones en punto flotante.
+   \item NEON para operaciones SIMD.
+  \end{itemize}
+  \vspace{0.4cm}
+  \only<5>{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \justifying Cuando el objetivo es aprovechar el hardware disponible prescindiendo de escribir código ensamblador, hay alternativas.
+   \end{tcolorbox}
+   }
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Tres niveles de programación}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  Existen tres formas habituales de utilizar NEON.
+  \vspace{0.5cm}
+  \begin{enumerate}[<+(1)->]
+   \item Código C/C++ convencional.
+   \item Intrinsics NEON.
+   \item Ensamblador.
+  \end{enumerate}
+  \vspace{0.5cm}
+  \only<5>{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    \justifying A mayor nivel de abstracción disminuye el esfuerzo de programación, mientras que el ensamblador ofrece el máximo control sobre las instrucciones generadas.
+   \end{tcolorbox}
+   }
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Auto-vectorización}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+
+El compilador puede detectar operaciones repetitivas sobre arreglos y generar automáticamente instrucciones SIMD.
+\vspace{0.2cm}
+
+\begin{lstlisting}[language=C,basicstyle=\scriptsize,numbers=none, escapechar=\@]
+for (i=0; i<n; i++)
+    c[i] = a[i] + b[i];
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Con las opciones de optimización adecuadas, GCC o Clang pueden reemplazar el
+bucle por instrucciones NEON.
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{Intrinsics NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   \justifying Los \emph{intrinsics} son funciones de C que representan casi directamente una instrucción NEON.
+  \end{tcolorbox}
+
+  \vspace{0.3cm}
+
+  \begin{lstlisting}[language=C,basicstyle=\scriptsize,numbers=none, escapechar=\@]
+uint8x16_t va, vb, vc;
+
+vc = vaddq_u8(va, vb);
+  \end{lstlisting}
+
+  \vspace{0.3cm}
+  El compilador traduce esta llamada a la instrucción NEON correspondiente, sin necesidad de recurrir a un archivo fuente adicional con código assembler.
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{¿Cuándo utilizar intrinsics?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\justifying
+  Los intrinsics permiten:
+  \vspace{0.5cm}
+  \begin{itemize}[<+(1)->]\parskip 0.2 cm
+   \item Obtener un mayor control sobre el código generado.
+   \item Acceder a instrucciones específicas de NEON.
+   \item Mantener la portabilidad entre compiladores compatibles.
+  \end{itemize}
+  \vspace{0.4cm}
+  \only<5>{En la mayoría de las aplicaciones representan el mejor compromiso entre rendimiento y facilidad de mantenimiento.}
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{¿Y el ensamblador?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) \justifying
+  El lenguaje ensamblador sigue siendo útil cuando:
+  \vspace{0.4cm}
+  \begin{itemize}[<+(1)->]\parskip 0.2 cm
+   \item se requiere el máximo rendimiento;
+   \item se desea controlar exactamente las instrucciones emitidas;
+   \item es necesario aprovechar características muy específicas del hardware.
+  \end{itemize}
+  \vspace{0.4cm}
+  \only<5>{Sin embargo, con el transcurrir del tiempo los compiladores perfeccionaron el uso de \emph{intrinsics}, con lo cual la utilización de ensamblador es menos frecuente.}
+ \end{textblock*}
+\end{frame}

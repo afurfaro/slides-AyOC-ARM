@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   sodipodi:docname="Zynq7000APU.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.5962516"
+     inkscape:cx="442.91263"
+     inkscape:cy="319.49851"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showgrid="false" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="RoundedArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Rounded arrow"
+       markerWidth="0.40000001"
+       markerHeight="0.40000001"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="m -0.21114562,-4.1055728 6.42229122,3.21114561 a 1,1 90 0 1 0,1.78885438 L -0.21114562,4.1055728 A 1.236068,1.236068 31.717474 0 1 -2,3 v -6 a 1.236068,1.236068 148.28253 0 1 1.78885438,-1.1055728 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path9" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="35.580788"
+       height="21.4807"
+       x="55.897507"
+       y="32.933067"
+       ry="3.0638353e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="62.417236"
+       y="39.829754"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="62.417236"
+         y="39.829754">Cortex A9</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="62.417236"
+         y="45.015598"
+         id="tspan24">    CPU</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3"
+       width="26.443201"
+       height="18.955362"
+       x="40.780998"
+       y="61.916744"
+       ry="2.7036413e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="42.944401"
+       y="70.596794"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="42.944401"
+         y="70.596794">    32KiB </tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="42.944401"
+         y="75.782639"
+         id="tspan5">L1ICache</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5"
+       width="26.443201"
+       height="18.955362"
+       x="80.239059"
+       y="61.916744"
+       ry="2.7036413e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="82.402458"
+       y="70.596794"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="82.402458"
+         y="70.596794">    32KiB </tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="82.402458"
+         y="75.782639"
+         id="tspan7">L1DCache</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#696969;stroke-width:0.499999;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7"
+       width="34.771999"
+       height="6.6630011"
+       x="56.301998"
+       y="47.551167"
+       ry="9.5035711e-07" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#696969;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.499999;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       x="67.92453"
+       y="52.621159"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="fill:#696969;fill-opacity:1;stroke:none;stroke-width:0.5"
+         x="67.92453"
+         y="52.621159">MMU</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#RoundedArrow);marker-end:url(#RoundedArrow)"
+       d="m 73.687801,57.588763 1.96e-4,26.873261"
+       id="path8"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#RoundedArrow);marker-end:url(#RoundedArrow)"
+       d="m 76.805779,71.394327 -6.23576,1.96e-4"
+       id="path10"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.500001;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect10"
+       width="145.27626"
+       height="9.8179245"
+       x="40.780998"
+       y="87.875"
+       ry="1.4003502e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       x="91.241005"
+       y="94.068077"
+       id="text10"><tspan
+         sodipodi:role="line"
+         id="tspan10"
+         style="stroke:none;stroke-width:1.6"
+         x="91.241005"
+         y="94.068077">Snoop Control Unit</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#RoundedArrow);marker-end:url(#RoundedArrow)"
+       d="m 144.06699,107.49104 -1.9e-4,-6.2358"
+       id="path11"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect11"
+       width="84.246147"
+       height="18.955362"
+       x="101.83796"
+       y="110.60011"
+       ry="2.7036413e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="155.49725"
+       y="119.28016"
+       id="text12"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="155.49725"
+         y="119.28016"> 512 KiB </tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="155.49725"
+         y="124.466"
+         id="tspan12">L2Cache</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect12"
+       width="35.580788"
+       height="21.4807"
+       x="135.27251"
+       y="32.933067"
+       ry="3.0638353e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="141.79222"
+       y="39.829754"
+       id="text13"><tspan
+         sodipodi:role="line"
+         id="tspan13"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="141.79222"
+         y="39.829754">Cortex A9</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="141.79222"
+         y="45.015598"
+         id="tspan25">    CPU</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect13"
+       width="26.443201"
+       height="18.955362"
+       x="120.15598"
+       y="61.916744"
+       ry="2.7036413e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="122.31938"
+       y="70.596794"
+       id="text15"><tspan
+         sodipodi:role="line"
+         id="tspan14"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="122.31938"
+         y="70.596794">    32KiB </tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="122.31938"
+         y="75.782639"
+         id="tspan15">L1ICache</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect15"
+       width="26.443201"
+       height="18.955362"
+       x="159.61407"
+       y="61.916744"
+       ry="2.7036413e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="161.77747"
+       y="70.596794"
+       id="text17"><tspan
+         sodipodi:role="line"
+         id="tspan16"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="161.77747"
+         y="70.596794">    32KiB </tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="161.77747"
+         y="75.782639"
+         id="tspan17">L1DCache</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#696969;stroke-width:0.499999;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect17"
+       width="34.771999"
+       height="6.6630011"
+       x="135.67699"
+       y="47.551167"
+       ry="9.5035711e-07" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#696969;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.499999;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       x="147.29953"
+       y="52.621159"
+       id="text18"><tspan
+         sodipodi:role="line"
+         id="tspan18"
+         style="fill:#696969;fill-opacity:1;stroke:none;stroke-width:0.5"
+         x="147.29953"
+         y="52.621159">MMU</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#RoundedArrow);marker-end:url(#RoundedArrow)"
+       d="m 153.06284,57.588763 1.9e-4,26.873261"
+       id="path18"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#RoundedArrow);marker-end:url(#RoundedArrow)"
+       d="m 156.18081,71.394327 -6.23576,1.96e-4"
+       id="path19"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect19"
+       width="50.259083"
+       height="18.955362"
+       x="40.983807"
+       y="110.60011"
+       ry="2.7036413e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       x="51.348511"
+       y="119.25053"
+       id="text19"><tspan
+         sodipodi:role="line"
+         id="tspan19"
+         style="stroke-width:1.6"
+         x="51.348511"
+         y="119.25053">      OCM </tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:1.6"
+         x="51.348511"
+         y="124.43637"
+         id="tspan20">Interconnect</tspan></text>
+    <path
+       style="fill:#008080;fill-opacity:1;fill-rule:evenodd;stroke:#008080;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#RoundedArrow);marker-end:url(#RoundedArrow)"
+       d="m 64.162791,107.49104 -1.9e-4,-6.2358"
+       id="path20"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#696969;stroke-width:0.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect20"
+       width="43.876755"
+       height="17.955"
+       x="102.438"
+       y="111"
+       ry="2.5609575e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.9389px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';fill:#696969;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.2;stroke-linecap:round"
+       x="113.1639"
+       y="119.28016"
+       id="text22"><tspan
+         sodipodi:role="line"
+         style="fill:#696969;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="113.1639"
+         y="119.28016"
+         id="tspan22"> L2Cache</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#696969;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="113.1639"
+         y="124.466"
+         id="tspan23">Controller</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.2;stroke-linecap:round"
+       x="82.394432"
+       y="79.813774"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke:none;stroke-width:1.2"
+         x="82.394432"
+         y="79.813774">Line Size = 32 B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.2;stroke-linecap:round"
+       x="42.177769"
+       y="79.813774"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke:none;stroke-width:1.2"
+         x="42.177769"
+         y="79.813774">Line Size = 32 B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.2;stroke-linecap:round"
+       x="161.76945"
+       y="79.813774"
+       id="text9"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke:none;stroke-width:1.2"
+         x="161.76945"
+         y="79.813774">Line Size = 32 B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.05;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.2;stroke-linecap:round"
+       x="121.55274"
+       y="79.813774"
+       id="text21"><tspan
+         sodipodi:role="line"
+         id="tspan21"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;stroke:none;stroke-width:1.2"
+         x="121.55274"
+         y="79.813774">Line Size = 32 B</tspan></text>
+  </g>
+</svg>

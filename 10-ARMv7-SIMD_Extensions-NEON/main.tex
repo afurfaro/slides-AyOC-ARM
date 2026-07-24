@@ -1,0 +1,177 @@
+\documentclass[usenames,table,dvipsnames,aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{beamerthemeshadow}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{mathtools}% para usar fórmulas multilínea
+\usepackage{amsmath,amssymb,amsfonts,latexsym,stmaryrd}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usepackage{times} %font times
+\usepackage{textcomp}
+\usepackage{fancybox}
+\usepackage{multirow}
+\usepackage{BeamerColor}
+\usepackage{xcolor}
+\usepackage{shadow} 
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{ragged2e} % para justificar texto
+\usepackage{shadow}
+% \usepackage{tcolorbox}
+\usepackage{mdwlist}
+\usepackage{../res/nasm/lang}
+\usepackage{../res/nasm/style}
+\usepackage{../res/lstlangarm}
+\usepackage{multicol}
+\usepackage{ragged2e} % para justificar texto
+\usepackage{textcomp} % Para usar simbolos en texto tipo +- etc
+\usepackage[binary-units]{siunitx}
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
+\usepackage{pbox}
+\usepackage{scrextend}
+\usepackage{tikzsymbols}
+\usepackage{verbatim}
+% \usepackage{default}
+\usepackage{beamerthemesplit}
+\usepackage[most]{tcolorbox}
+\usepackage{makecell}
+
+\tcbuselibrary{theorems}
+\usetikzlibrary{fit,positioning}
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\newcommand{\IA}{\textsuperscript{\textregistered} 64 }
+\newcommand{\LINTC}{\emph{\textit{\color{blue}LINT0}} }
+\newcommand{\LINTU}{\emph{\textit{\color{blue}LINT1}} }
+\newcommand{\bl}{\cellcolor{black}}
+
+\mode<presentation>{
+% 	\usetheme{Warsaw}
+% 	\usetheme{Ilmenau}
+	\usetheme{Copenhagen}
+	\useoutertheme{infolines}
+}
+
+\setbeamercovered{invisible}
+\setbeamertemplate{navigation symbols}{}
+
+\graphicspath{
+{img/}
+{../img/}
+{../procesadores-ARMv7-VMSA/img/}
+{../DSP-con-procesadores-IA-32/img/}
+{../../../TDII/repo/slides/10-Conversiores-AD-DA/img/}
+{../../../TDII/repo/slides/04-TaskSwitching/img/}
+{../../../TDII/repo/slides/02-Assembler-ISA-ABI/img/}
+{../../../TDII/repo/slides/05-SystemProgramming/img/}
+}
+
+% \title{Técnicas Digitales III}
+\title{Modelo de Ejecución SIMD en ARMv7}
+\subtitle{Set de instrucciones NEON}
+% \institute{Departamento de Electrónica - UTN-FRBA}
+% \institute{Departamento de Computación - FCEyN UBA}
+\author{Alejandro Furfaro}
+\date{\today}
+
+\definecolor{OliveGreen}{RGB}{2,80,1}
+\definecolor{Gray}{RGB}{171,174,178}
+\definecolor{gray97}{gray}{.97}
+\definecolor{ShadowColor}{RGB}{130,150,190}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Para hacer cajas de texto con sombras lindas
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{ShadowColor}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{ShadowColor}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+
+\lstset{
+        frame=Ltb,
+        framerule=0pt,
+        aboveskip=0.5cm,
+        framextopmargin=0pt,
+        framexbottommargin=0pt,
+        framexleftmargin=0cm,
+        framesep=0pt,
+        rulesep=.4pt,
+        basicstyle=\small,
+        backgroundcolor=\color{gray97}\pgfsetfillopacity{1},
+        rulesepcolor=\color{black},
+        language=[ARM]Assembler,
+        captionpos=b,
+        tabsize=6,
+        frame=lines,
+        keywordstyle=\color{blue},
+        commentstyle=\color{purple},
+        stringstyle=\color{red},
+        numbers=left,
+        numberstyle=\tiny,
+        numbersep=5pt,
+        breaklines=true,
+        showstringspaces=false,
+        emph={label},
+        framerule=0pt,
+        xleftmargin=0cm,
+}
+
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+
+\begin{document}
+
+\begin{frame}[plain]{Microprocesadores}
+\begin{figure}[ht!]
+  \centering
+  \includegraphics [width =0.4 \textwidth ]{simd.png}
+\end{figure}
+\vspace{-2cm}
+\titlepage
+\end{frame}
+
+
+\begin{frame}[t]{Tabla de contenidos}
+ \scriptsize
+ \tableofcontents
+\end{frame}
+
+
+\AtBeginSubsection[]
+{
+  \begin{frame}[t]{Tabla de contenidos}
+    \setcounter{tocdepth}{2}
+    \scriptsize
+    \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+% \input{dsp.tex}
+\input{simd.tex}
+\input{evolucion.tex}
+
+\input{implementacion.tex}
+\input{neon.tex}
+\input{neon-uarch.tex}
+\input{instrucciones.tex}
+\input{references.tex}
+\end{document}

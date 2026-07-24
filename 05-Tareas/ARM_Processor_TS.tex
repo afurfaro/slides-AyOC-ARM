@@ -1,0 +1,172 @@
+\subsection{Cambio de Contexto en Procesadores ARM}
+
+\begin{frame}{Como se resuelve un context switch por Hardware}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying 
+   \item En la enorme mayoría de los microprocesadores (y mas aun en los micro controladores) no hay recursos específicos para ayudar a realizar un context switch (también llamado  task switch)
+   \item Es decir, que no hay instrucciones específicas ni unidades de hardware que nos ayuden en el context switch.
+   \item Resumiendo. ¿Que nos queda?:
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,4.3cm)
+  \only<5->{\centering \includegraphics[width=0.66\textwidth]{remarla.png}}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Como}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.2cm
+   \item La primer pregunta a responder es ¿Como activamos el context switch?
+   \item En principio sabemos que activar el context switch es una decisión del \textbf{scheduler} en función de una serie de métricas, y criterios establecidos como políticas en su algoritmo.
+   \item El tema es que estas métricas como por ejemplo el tiempo de ejecución de una tarea van cambiando en el tiempo, por lo tanto deben ser monitoreadas de manera regular
+   \item Por tal motivo debe implementarse un método para que se active de manera periódica para evaluar las métricas que se hayan definido.
+   \item ¿Como?: Respuesta: Usando un timer.
+  \end{itemize} 
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}{Donde}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying \parskip 0.2cm
+   \item La siguiente pregunta es ¿Donde ubicamos el código del \textbf{scheduler} entonces?
+   \item La respuesta es trivial: En el handler de Interrupción del Timer seleccionado.
+   \item Casos prácticos:
+   \begin{enumerate}\justifying \parskip 0.2cm  
+    \item SYSTICK en los Cortex-M (Recordar que el SYSTICK forma parte de un core CORTEX-M3 en adelante)
+    \item El Timer T1 en un SITARA 533x. En la Beagle Bone se utiliza el T1
+    \item El Timer T1 del PIT (Programable Interrupt Timer) en cualquier PC IBM compatible, conocido como timer tick
+   \end{enumerate}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Que}
+ \begin{textblock*}{.5\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item Siempre se necesita resguardar los registros de propósito general R0-R15, y el CPSR. Pero si están habilitados los coprocesadores...
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{.5\textwidth}(0.4cm+.5\textwidth,1.2cm)
+  \only<3>{\centering \includegraphics[width=0.8\textwidth]{Registers-core.pdf}\\}
+  \only<4>{\centering \includegraphics[width=0.8\textwidth]{Registers-core+FPU.pdf}\\}
+  \only<5>{\centering \includegraphics[width=0.8\textwidth]{Registers-core+FPU+SIMD.pdf}\\}
+  \only<6>{\centering \includegraphics[width=0.8\textwidth]{Registers-core+FPU+SIMD2.pdf}\\}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Guardando los registros del core}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item Si el scheduler se escribe como handler de una Interrupción, entonces el procesador pasa a ejecutar de modo User a Modo IRQ (no se recomiendo Fast IRQ.
+   \item LR recibe el PC+4 (efecto pipeline)
+   \item El resto queda tal cual.
+   \item El contexto se lleva a la pila y de allí se mueve al \textbf{TCB}.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,4.2cm)
+  \begin{onlyenv}<6->
+   \begin{lstlisting}
+    sub  lr,lr,#4
+    push {lr}
+    push {r0-r13}
+    /*Obtener TCD actual*/
+    /*Pasar contexto a TCB actual*/
+    /*Obtener el prox. TCB*/
+    pop  {r0-r13}
+    pop  {pc}
+   \end{lstlisting}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Context switch con FPU y SIMD}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item Como hemos visto solo se debe salvar este contexto para aquellas tareas que lo utilicen, y solo si éste se ha modificado.
+   \item De otro modo, si se opta por un approach mas conservador para simplificar el algoritmo de scheduling se está transfiriendo cada vez un bloque de tamaño 5x el de los Registros core.
+   \item Nuevamente estamos ante una disyuntiva: \textquestiondown Como podemos comprobar si este contexto cambió?.
+   \item Respuesta: No podemos.
+   \item \textquestiondown Entonces? \textquestiondown Que hacemos?
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Leer el manual! (nunca falla)}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}<1->{Del manual de arquitectura Parte B System Level Architecture:} \justifying \scriptsize
+\textit{\textbf{B1.11.3. Context switching with the Advanced SIMD and Floating-point Extensions}}\\
+In an implementation that includes one or both of the Advanced SIMD and Floating-point Extensions, if the Floating-point registers are used by only a subset of processes, the operating system might implement lazy context switching of the extension registers and extension system registers. In the simplest lazy context switch implementation, the primary context switch software disables the Advanced SIMD and Floating-point Extensions, by disabling access to coprocessors CP10 and CP11 in the Coprocessor Access Control Register, see Enabling Advanced SIMD and floating-point support on page B1-1228. Subsequently, when a process or thread attempts to use an Advanced SIMD or Floating-point nstruction, it triggers an Undefined Instruction exception. The operating system responds by saving and restoring the extension registers and extension system registers. Typically, it then re-executes the Advanced SIMD or Floating-point instruction that generated the Undefined Instruction exception.
+  \end{block}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Bienvenidos al modelo de Programación de Sistemas}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{block}<2->{CPACR, Coprocessor Access Control Register, VMSA}  \justifying
+En este registro solo accesible en modo privilegiado mediante las instrucciones de acceso a este tipo de registros se puede activar / desactivar los Coprocesadores cp10 (VFP) y cp11 (SIMD)
+  \end{block}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,3.9cm)
+  \only<3>{\centering \includegraphics[width=\textwidth]{CPACR-layer1.pdf}\\}
+  \only<4->{\centering \includegraphics[width=\textwidth]{CPACR-layer2.pdf}\\}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(2.4cm,5.7cm)
+  \begin{onlyenv}<5->
+   \begin{center}
+   \small
+    \begin{tabular}{| l | l |}
+     valor & Acción \\
+     \hline
+     {\color{red}00} & {\color{red}Acceso Denegado. Genera Undefined Instruction Exception}.\\
+     01 & Acceso en Modo Privilegiado solamente\\
+     10 & Reservado\\
+     11 & Acceso en Modo Privilegiado y User\\
+    \end{tabular}
+   \end{center}
+  \end{onlyenv}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Acceso al CPACR}
+ \begin{textblock*}{\textwidth}(0.4cm,1.6cm)
+  \begin{lstlisting}[basicstyle=\footnotesize,]
+MRC p15, 0, <Rt>, c1, c0, 2 ; Lee CPACR en el reg. core Rt
+MCR p15, 0, <Rt>, c1, c0, 2 ; Escribe Rt en CPACR
+  \end{lstlisting}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,3.0cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item El registro CAPCR se lee desde el registro de control del Coprocesador 15. 
+   \item En este Copropcesador se habilitan las funciones mas importantes del sistema, incluido el acceso a los Coprocesadores CP0 a CP13.
+   \item Con este par de instrucciones se habilita o deshabilitan los Corpocesadores CP10 y CP11 que en este caso nos interesa.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Lazy FPU Context Switch}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item Se implementa en el Handler de Undefined Instruction Exception.
+   \item El truco consiste en tener CP10 y CP11 deshabilitados
+   \item Cuando el procesador fetchea una instrucción y al decodificarla la identifica como SIMD o como una operación de la VFP, intenta derivarla a esas unidades. 
+   \item Si éstos coprocesadores no están habilitados generará una Excepción Undefined Instruction.
+   \item El handler analizará la causa de la falta, y si corresponde a estas instrucciones, habilitará los coprocesadores, busque el tcb de la tarea actual en el cual deberá haber un puntero no nulo a una estructura especial que contendrá todos los registros de punto flotante y SIMD y los cargará en los registros del procesador.
+   \item Eventualmente mantendrá un estado (un flag global por ejemplo) para que el scheduler al suspender la tarea guarde el contexto VFP / SIMD e inactive ambos coprocesadores antes de switchear a la siguiente tarea
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Conclusiones}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+(1)->] \justifying
+   \item No estamos desarrollando una aplicación, sino un sistema.
+   \item Cada funcionalidad relevante, o evento significativo, lleva asociada una tarea.
+   \item Se necesita un sistema capaz de administrar la ejecución de estas tareas y su acceso a los recursos
+   \item Nos hemos basado mayormente en Cortex-A. 
+   \item No obstante, Cortex-M entra en el mundo de la FPU a partir de M4. Con modelos mas reducidos pero conceptualmente similares.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+

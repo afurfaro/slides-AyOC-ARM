@@ -1,0 +1,172 @@
+\section {Modelo de ejecución SIMD}
+\subsection{¿Por qué una unidad SIMD?}
+
+\begin{frame}{Limitaciones del procesamiento escalar}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) \justifying
+  \only<1->{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Durante muchos años los procesadores incrementaron su rendimiento aumentando la frecuencia de reloj y explotando el paralelismo a nivel de instrucciones (\emph{Instruction Level Parallelism, ILP}). Sin embargo, numerosas aplicaciones como procesamiento de imágenes, audio, video y señales digitales presentan una gran cantidad de operaciones idénticas sobre conjuntos extensos de datos.
+   \end{tcolorbox}
+   }
+ \vspace{-0.3cm}
+ \only<2->{
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   En estos casos, ejecutar una instrucción por cada elemento resulta poco eficiente, aun cuando el procesador sea superescalar y pueda ejecutar varias instrucciones simultáneamente. Aun operaciones elementales como la suma.
+  \end{tcolorbox}
+ }
+ \vspace{-0.6cm}
+ \only<3->{
+ \begin{center}
+  \begin{tabular}{c}
+$a_0+b_0$\\
+$a_1+b_1$\\
+$a_2+b_2$\\
+$a_3+b_3$
+  \end{tabular}
+ \end{center}
+ \vspace{-0.3cm}
+ \textbf{\textit{\centering Cada suma requiere una instrucción independiente.}}
+ }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Procesamiento SIMD}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) \justifying
+  \only<1->{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Las aplicaciones multimedia presentan un elevado paralelismo a nivel de datos (\emph{Data Level Parallelism, DLP}), ya que la misma operación suele aplicarse sobre grandes arreglos o vectores.
+   \end{tcolorbox}
+   }
+ \vspace{-0.3cm}
+\only<2->{
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   Las arquitecturas SIMD (\emph{Single Instruction Multiple Data}) permiten que una única instrucción opere simultáneamente sobre varios elementos almacenados en un registro ancho, reduciendo el número de instrucciones ejecutadas y aumentando el rendimiento.
+  \end{tcolorbox}
+  }
+%  \vspace{0.5cm}
+ \only<3->{
+  \begin{center}
+   \[
+    \left[
+     \begin{array}{cccc}
+      a_0&a_1&a_2&a_3
+     \end{array}
+    \right]
+     +
+    \left[
+     \begin{array}{cccc}
+      b_0&b_1&b_2&b_3
+     \end{array}
+    \right]
+    \longrightarrow
+    \left[
+     \begin{array}{cccc}
+      c_0&c_1&c_2&c_3
+     \end{array}
+    \right]
+   \]
+  \end{center}
+  \textbf{\textit{\centering Una única instrucción produce cuatro resultados en paralelo.}}
+ }
+ \end{textblock*}
+\end{frame}
+
+\subsection{Un modelo de paralelización}
+\begin{frame}{Single Instruction Multiple Data}
+ \begin{textblock*}{0.11\textwidth}(.3cm,1.2cm)
+  \includegraphics[width=\textwidth]{SIMD1.pdf}
+ \end{textblock*}
+ \begin{textblock*}{0.88\textwidth}(.14\textwidth,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item Se trata de un modelo de ejecución capaz de computar una sola operación sobre un conjunto de múltiples datos.
+   \item Se refiere a esta técnica como paralelismo a nivel de datos.
+   \item Es particularmente útil para procesar audio, video, o imágenes en donde se aplican algoritmos repetitivos sobre sets de datos del mismo formato y que se procesan en conjunto, como por ejemplo en filtros, compresores, codificadores en donde la salida depende de los últimos \textit{n} valores de muestras tomados.
+   \item La figura muestra el layout típico de variables memoria para aplicar este modelo
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Como sería la vida sin SIMD?}
+ \begin{textblock*}{0.11\textwidth}(.3cm,1.2cm)
+  \includegraphics[width=\textwidth]{SIMD1.pdf}
+ \end{textblock*}
+ \begin{textblock*}{0.89\textwidth}(.11\textwidth,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item En contraposición a SIMD el modelo previo es SISD (\textbf{S}ingle \textbf{I}nstruction \textbf{S}ingle \textbf{D}ata)
+   \item Considerando el sector de memoria de la figura, nos proponemos realizar una operación aritmética o lógica sobre las cadenas de datos $a_{n}$ y $b_{n}$, almacenando el resultado en $r_{n}$
+   \item Si un procesador no dispone de un modelo arquitectural que le permita implementar paralelismo a nivel de datos, como SIMD,esta operación implica un loop, ya que solo puede procesar un dato por cada instrucción (SISD).
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Single Instruction Single Data}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.4\textwidth]{SISD-Layer2.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Single Instruction Single Data}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.4\textwidth]{SISD-Layer3.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Single Instruction Single Data}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.4\textwidth]{SISD-Layer4.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Single Instruction Single Data}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.4\textwidth]{SISD-Layer5.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Single Instruction Multiple Data}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)
+  \begin{itemize}\justifying
+   \item Cada Registro se carga en una sola instrucción
+   \item La operación se efectúa en la segunda instrucción
+  \end{itemize}
+  \centering \includegraphics[width=.6\textwidth]{SIMD6.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Resumiendo, SIMD vs. SISD}
+ \begin{textblock*}{\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.9\textwidth]{SISD-vs-SIMD.pdf}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Acerca de SIMD y Procesamiento Vectorial}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item \textbf{SIMD} aplica una misma instrucción sobre un conjunto fijo de datos empaquetados en un registro ancho. Como ocurre con \textbf{NEON}.
+    \item Cada registro con los que opera una instrucción \textbf{SIMD} contiene un grupo fijo de operandos empaquetados. La misma instrucción se ejecuta en paralelo sobre cada operando individual.
+    \item El procesamiento vectorial opera sobre vectores de longitud variable mediante registros vectoriales y hardware capaz de recorrer automáticamente todos sus elementos.
+    \item Conceptualmente, el programador ``vé'' usa loa instrucción vectorial, por ejemplo \texttt{VADD V1, V2, V3}, es decir, "sumar todos los elementos de V2 y V3 y almacenarlos en V1".
+    \item Internamente el hardware ejecuta una secuencia de operaciones elementales sobre cada componente del vector, insertándolas en el pipeline.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Acerca de SIMD y Procesamiento Vectorial}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item La diferencia con \textbf{SIMD} es que el programador no tiene que preocuparse por cuántos elementos caben en un registro: la instrucción se aplica al vector completo, aunque el hardware lo procese en varias etapas.
+    \item Dicho de otra manera:
+    \begin{itemize}[<+->]\justifying
+     \item \textbf{SIMD}: una instrucción opera sobre un número fijo de elementos (4, 8, 16, etc.).
+     \item \textbf{Vectorial}: una instrucción opera sobre un vector de longitud arbitraria; el hardware se encarga de recorrerlo internamente.
+    \end{itemize}
+    \item Por eso suele decirse que los procesadores vectoriales tienen vector-length agnostic execution, mientras que \textbf{NEON} es \textbf{SIMD} de ancho fijo: \SI{128}{\bit}.
+    \item \textbf{SIMD} puede interpretarse como un caso particular de procesamiento vectorial, en el que la longitud del vector coincide con el ancho fijo del registro.
+    \item ARMv8 evoluciona de NEON a SVE adoptando un modelo de procesamiento vectorial de longitud variable  de hasta \SI{1024}{\bit} en pasos de \SI{128}{\bit}.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}

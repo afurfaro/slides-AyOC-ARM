@@ -1,0 +1,809 @@
+\section{Microarquitectura NEON}
+
+\subsection{Cortex A8}
+\begin{frame}{NEON en el procesador Cortex A8}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   El Cortex-A8 es el primer miembro de la familia ARMv7A. Es mas complejo que los procesadores ARM presentados previamente.\\
+   Incluye dos pipelines simétricos para instrucciones enteras de 13 etapas, con ejecución de instrucciones en orden, y un pipeline de 10 etapas para instrucciones NEON y de Punto Flotante (VFP), sobre regstros de 64 y 128 bits.\\
+   Soporta VFPv3 y Jazzele RCT.
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+%
+% \begin{frame}{NEON en el procesador Cortex A8}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \centering \includegraphics[width=0.65\textwidth]{CortexA8.pdf}
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}{NEON en el procesador Cortex A8: El cache}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%  \only<2->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    El sistema cache del Cortex A8, se compone de un cache L1 para instrucciones de \SI{16}{\kibi\byte}, un cache L1 de Datos de \SI{32}{\kibi\byte}, ambos unificados en un cache L2 de \SI{1}{\mebi\byte}.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,3.5cm)
+%  \only<3->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    Ambos caches L1 y L2 se vinculan al core con un Bus de Datos de \SI{128}{\bit}. El L1 está indexado virtualmente y tageado físicamente, mientras que el L2 utiliza direcciones físicas tanto para índices como para tags.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,6cm)
+%  \only<4->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    Los datos utilizados por la Unidad NEON por default no se almacenan en el L1. Sin embargo NEON puede leer y escribir en L1 si lo necesita.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}{NEON en el procesador Cortex A8: MPE}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%  \only<2->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    En el MPE (Media Processing Engine) el inicio de la Unidad de Ejecución Neon, se conecta a la salida del pipeline de enteros principal. Como resultado, excepciones o mal predicciones de salto pueden resolverse antes de que la instrucción los alcance.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,3.6cm)
+%  \only<3->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    La Unidad Entera de un Cortex A8, calcula la dirección de las instrucciones NEON de load y store a medida que pasan por el pipeline, permitiendo buscar los datos en la cache L1 antes de ser requeridos para su procesamiento por la instrucción NEON.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,6.4cm)
+%  \only<4->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    La profundidad adicional del pipeline NEON, junto con el buffering en la carga de datos entre la Unidad NEON, el pipeline ARM de enteros y el sistema de memoria, permite neutralizar la demora en el acceso al cache L2 (latency).
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}{NEON en el procesador Cortex A8: MPE}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%  \only<1->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    En las operaciones de store se emplea un buffer de escrituras que previene de bloqueo al pipeline para instrucciones NEON de store, y detecta colisiones de direcciones entre la Unidad entera de ARM, e instrucciones NEON de load.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,3.6cm)
+%  \only<2->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    \textbf{NIQ}: \textbf{N}EON \textbf{I}nstruction \textbf{Q}ueue, es el desacople entre el pipeline NEON de 10 etapas, y el final del pipeline de Enteros de ARM.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,5.5cm)
+%  \only<3->{
+%   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%    La Unidad de Ejecución de Instrucciones general del pipeline le puede enviar a la Unidad NEON hasta dos instrucciones en cada ciclo de clock. La Unidad NEON envía y ejecuta una instrucción (entra o de punto flotante) por clock y la retira en orden. Excepciones y miss predictions se resuelven en la Unidad de Enteros, por lo tanto las instrucciones NEON no generan excepciones.
+%   \end{tcolorbox}
+%   }
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}{NEON en el procesador Cortex A8: MPE}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%  La Unidad NEON de un Cortex A8 tiene:
+%   \begin{itemize}[<+->] \justifying
+%    \item Vías de \SI{128}{\bit} para load y store con las cache L1 y L2, como capacidad de streaming de datos.
+%    \item Tres Pipelines SIMD enteros:
+%    \begin{itemize}[<+->] \justifying
+%     \item [\checkmark] Multiplicador Acumulador entero (MAC)
+%     \item [\checkmark] Barrel Shifter de Enteros
+%     \item [\checkmark] ALU entera
+%    \end{itemize}
+%    \item Un Pipeline de permutación de operaciones Load/Store
+%    \begin{itemize}[<+->] \justifying
+%     \item [\checkmark] Load/Store de datos NEON
+%     \item [\checkmark] Transferencias hacia/desde la Unidad de enteros.
+%     \item [\checkmark] Permutación de datos tales como entrelazado y desentrelazado.
+%    \end{itemize}
+%    \item Dos pipelines SIMD Punto flotante Precisión Simple
+%    \begin{itemize}[<+->] \justifying
+%     \item [\checkmark] Multiplicación
+%     \item [\checkmark] Suma.
+%    \end{itemize}
+%    \item Una Unidad de punto flotante para instrucciones VFPv3 por fuera del pipeline NEON.
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}{Procesador Cortex A8: Acceso a memoria de Datos}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \begin{itemize}[<+->] \justifying \parskip 0.2cm
+%    \item El bit L1NEON en cp15, habilita el cache L1 para NEON. No obstante aún con este bit deshabilitado puede tenerse un hit en L1 si el dato fue accedido mediante instrucciones ARM (No NEON).
+%    \item Los hazards entre datos NEON y datos del pipeline ARM se resuelven con la granularidad de las líneas de cache.
+%    \item Para maximizar performance en acceso a datos:
+%    \begin{itemize}[<+->] \justifying \parskip 0.2cm
+%     \item [\checkmark] Evitar mezclar accesos de datos NEON y ARM dentro de la misma línea de cache.
+%     \item [\checkmark] Utilizar para rutinas de copia de memoria instrucciones NEON. Se obtiene mayor performace y se evita cache pollution en el L1.
+%    \end{itemize}
+%    \item Ambos niveles de cache tienen \SI{64}{\byte} de tamaño, y en virtud de la profundidad del pipeline para las instrucciones NEON, por default los datos NEON se mantienen en L2.
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Procesador Cortex A8: Acceso a memoria de Datos}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%  Solo se puede admitir el envío de dos instrucciones NEON en el mismo ciclo de clock, si:
+%   \begin{itemize}[<+->] \justifying \parskip 0.4cm
+%    \item Instrucciones sin dependencias de datos
+%    \item Una de ellas es de procesamiento y la otra se ajusta a uno de los siguientes casos
+%    \begin{itemize}[<+->] \justifying  \parskip 0.4cm
+%     \item [\checkmark] Es una instrucción Load/Store
+%     \item [\checkmark] Es una instrucción de transferencia ARM NEON o viceversa
+%     \item [\checkmark] Es una instrucción de permutación.
+%    \end{itemize}
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Procesador Cortex A8: Pipeline Hazards}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \begin{itemize}[<+->] \justifying \parskip 0.2cm
+%    \item El pipeline NEON ejecuta varias etapas luego del pipeline ARM, recibiendo de éste sus instrucciones a través de una FIFO. Las transferencias entre registros NEON y ARM es muy rápida pero el acceso a registros de coprocesadores mediante MRC desde NEON insume 20 ciclos de clock.
+%    \item NEON tiene su propia Unidad Load/Store que opera en principio sin considerar el L1. Dispone de hardware para resolver accesos no ordenados a memoria. Si ambos accesos se dan en la misma línea de cache, se requieren 20 ciclos de reloj para resolverlo.
+%    \item Para evitarlo se debe escribir código tratando de reducir la combinación de accesos a memoria desde ARM y NEON. En caso de ser necesario levantar desde registros ARM el resultado de un procesamiento NEON almacenado en memoria, se requieren 20 ciclos de clock.
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+%
+% \begin{frame}[fragile]{Procesador Cortex A8: Pipeline Hazards}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \begin{itemize}[<+->] \justifying \parskip 0.4cm
+%    \item Una alternativa a considerar es antes del acceso resolver alguna tarea con código ARM de modo de no entrelazar los acceso a memoria. Esto generalmente funciona mejor que transferencias NEON ARM, ya que éstas pueden congestionar el pipeline.
+%    \item Los compiladores utilizan una función propia para retornar un valor de punto flotante para evitar los 20 ciclos de clock de delay.
+%    \item Los saltos condicionales que evalúan datos en punto flotante incurren también en esta penalidad. A pesar que la Unidad de punto flotante tiene todos los elementos para evaluar correctamente la condición. Pero retornar el resultado de la evaluación al pipeline ARM consume 20 ciclos de clock.
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+
+\subsection{Organización física del Cortex-A9}
+\begin{frame}{Arquitectura general del Cortex-A9}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \justifying El Cortex-A9 integra en un mismo core varias unidades funcionales que pueden trabajar simultáneamente para incrementar el rendimiento.
+  \vspace{0.3cm}
+  \begin{itemize}[<+(1)->]
+   \item Front-End encargado del \textit{fetch} y decodificación de instrucciones.
+   \item Pipeline entero con ejecución superescalar y fuera de orden.
+   \item Unidad de Load/Store conectada a la memoria caché L1 de datos.
+   \item Unidad VFP para operaciones escalares en punto flotante.
+   \item Unidad NEON para operaciones SIMD sobre datos enteros y de punto flotante.
+   \item Cache L1 splited para instrucciones y datos.
+  \end{itemize}
+  \vspace{0.4cm}
+  \only<8>{En los siguientes apartados se analizará el funcionamiento interno de cada una de estas unidades.}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Banco de registros compartido}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+ \justifying Las unidades VFP y NEON comparten un único banco físico de registros. Este banco puede interpretarse de tres maneras distintas:
+
+ \vspace{0.2cm}
+ \only<2->{
+ \[
+ \boxed{
+ S_0 \ldots S_{63}
+ }
+ \]
+
+ Registros de 32 bits.
+ }
+ \vspace{0.2cm}
+ \only<3->{
+ \[
+ \boxed{
+ D_0 \ldots D_{31}
+ }
+ \]
+
+ Registros de 64 bits.
+ }
+ \vspace{0.2cm}
+ \only<4->{
+ \[
+ \boxed{
+ Q_0 \ldots Q_{15}
+ }
+ \]
+
+ Registros SIMD de 128 bits.\\}
+ \vspace{0.4cm}
+ \only<5>{Lejos de ser tres bancos distintos; se trata de tres vistas del mismo conjunto físico de registros (Un solo Register File).}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Unidad VFP}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \justifying
+  La unidad \textbf{VFP} está especializada en operaciones de punto flotante compatibles con IEEE-754.
+  \vspace{0.3cm}
+  \begin{itemize}[<+(1)->]
+   \item Opera principalmente sobre los registros $S_{n}$ y $D_{n}$.
+   \item Ejecuta operaciones escalares.
+   \item Implementa suma, resta, multiplicación, división, conversión y comparación en punto flotante.
+   \item Comparte el Register File con NEON.
+   \item Las instrucciones VFP y NEON pertenecen a conjuntos de instrucciones diferentes.
+  \end{itemize}
+  \vspace{0.4cm}
+  \only<7>{VFP constituye la unidad de cálculo de propósito general para aplicaciones científicas y de ingeniería.}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Unidad NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \justifying La unidad \textbf{NEON} implementa una arquitectura SIMD de ancho fijo  (\SI{128}{\bit}).
+  \vspace{0.3cm}
+  \begin{itemize}[<+(1)->]
+   \item Opera principalmente sobre registros $Q_{n}$.
+   \item Cada instrucción procesa simultáneamente múltiples elementos.
+   \item Soporta datos enteros de 8, 16, 32 y \SI{64}{\bit}.
+   \item También admite operaciones en punto flotante de simple precisión.
+   \item Está optimizada para procesamiento multimedia, DSP, imágenes y video.
+  \end{itemize}
+  \vspace{0.4cm}
+  \only<7>{La mayor parte del incremento de rendimiento proviene del paralelismo de datos, reduciendo significativamente el número de instrucciones ejecutadas.}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Organización Funcional del Cortex-A9}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{00_HiLevelView.pdf}\\
+ \end{textblock*}
+ \begin{textblock*}{7.2cm}(0.8cm,7.2cm)
+  \justifying \scriptsize El término ``core'' se refiere al conjunto CPU + cachés locales + hardware privado asociado (ej.: el Private Timer). Utilizamos el término CPU al referirnos exclusivamente al motor de ejecución.
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm) \justifying
+  \only<2-> {La microarquitectura de un Cortex-A9 puede verse como tres grandes bloques:}
+  \begin{itemize} \justifying
+   \item<3-> Front-End: obtiene y decodifica instrucciones, analiza dependencias, renombra y despacha fuera de orden.
+   \item<4-> Back-End: ejecuta las instrucciones enteras, Load/Store, VFP y NEON.
+   \item<5-> Subsistema de memoria: abastece de instrucciones y datos al procesador, y recibe stores.
+  \end{itemize}
+  \only<6>{Este primer nivel de separación de tareas permite mantener simultáneamente ocupadas las distintas unidades funcionales, asegurando paralelismo a nivel de instrucción.}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Front-End: Organización general}
+ \begin{textblock*}{.37\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.9\textwidth]{03_frontend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{.6\textwidth}(.42\textwidth,1.2cm)
+  \justifying  El \textbf{Front-End} prepara el flujo de instrucciones antes de su ejecución.
+  \vspace{0.2cm}
+  \begin{itemize} [<+(1)->]\justifying
+   \item Obtiene instrucciones desde la memoria L1 I-Cache.
+   \item Predice los branch procurando mantener el flujo de ejecución con mínimas interrupciones del pipeline.
+   \item Decodifica las instrucciones.
+   \item Analiza dependencias, y renombra los registros comprometidos en hazards.
+   \item Despacha instrucciones hacia las unidades de ejecución.
+  \end{itemize}
+  \only<7>{El objetivo del Front-End es mantener continuamente alimentado el Back-End con instrucciones listas para ejecutar.
+  }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Front-End: problemas que debe resolver}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item Obtener un flujo continuo de instrucciones desde la memoria.
+    \item Minimizar los vaciados del pipeline ocasionadas por los saltos mediante predicción dinámica.
+    \item Traducir las instrucciones a operaciones internas del procesador.
+    \item Eliminar dependencias falsas mediante renombrado de registros.
+    \item Preparar las instrucciones para su posterior despacho hacia las unidades de ejecución.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{¿Qué necesita un procesador con ejecución fuera de orden?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item Asociar cada operando con la instrucción que lo producirá.
+    \item Permitir que las instrucciones esperen hasta que todos sus operandos estén disponibles.
+    \item Detectar cuándo una instrucción está lista para ejecutarse.
+    \item Seleccionar dinámicamente instrucciones listas para su emisión.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Modelo conceptual del Front-End}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+ \centering
+ \Large
+ Fetch\\
+ $\Downarrow$\\
+ Decode\\
+ $\Downarrow$\\
+ Register Rename\\
+ $\Downarrow$\\
+ Instruction Queue\\
+ $\Downarrow$\\
+ Back-End\\
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+ \justifying
+ \only<2->{
+ Este modelo resume las funciones mínimas que debe implementar un procesador superescalar con ejecución fuera de orden.\\
+ }
+ \vspace{0.3cm}
+ \only<3->{
+ Los distintos fabricantes utilizan estructuras con diferentes nombres, pero todas cumplen funciones equivalentes.\\
+ }
+ \vspace{0.3cm}
+ \only<4->{
+ Durante el resto del curso utilizaremos este modelo conceptual para comprender el funcionamiento interno del Cortex-A9.
+ }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Modelo conceptual utilizado}
+ \begin{textblock*}{\textwidth}(0.4cm,1.4cm)
+  \begin{tcolorbox}[enhanced jigsaw,colback=blue!4]
+   \justifying
+   La documentación pública del Cortex-A9 no describe completamente la organización interna de todas las estructuras utilizadas para implementar la ejecución fuera de orden.
+
+   Emplearemos un modelo conceptual basado en los mecanismos clásicos de renombrado de registros, asociación mediante etiquetas (\textit{tags}) y emisión dinámica de instrucciones, ya que dichos mecanismos representan el fundamento de la mayoría de los procesadores superescalares modernos.
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}{Back-End: Organización general}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering
+  \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \justifying
+  El \textbf{Back-End} recibe instrucciones desde la \textbf{Issue Queue} y es el motor de ejecución del procesador.
+  \begin{itemize}[<+(1)->]\justifying
+   \item La lógica de Despacho del Front-End selecciona dinámicamente las instrucciones cuyos operandos ya se encuentran disponibles.
+   \item La \textbf{Issue Queue} envía cada instrucción únicamente a la unidad funcional capaz de ejecutarla.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.3cm,6.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item Varias instrucciones libres de dependencias entre sí, pueden ejecutarse simultáneamente en diferentes unidades funcionales: \textbf{ILP}.
+   \item Los resultados se escriben en el Register File correspondiente, o son enviados al subsistema de memoria mediante la \textbf{Load/Store Unit}, en el caso de que sean instrucciones de acceso a memoria.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Back-End: Unidades funcionales}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item Dos \textbf{Integer Pipelines} ejecutan instrucciones aritméticas, lógicas, de control y cálculo de direcciones.
+    \item La \textbf{Load/Store Unit (LSU)} realiza todos los accesos a memoria, tanto para instrucciones escalares como vectoriales.
+    \item La unidad \textbf{VFP} ejecuta operaciones escalares en punto flotante.
+    \item La unidad \textbf{NEON} ejecuta operaciones SIMD sobre registros de \SI{64}{\bit} y \SI{128}{\bit}.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Back-End: Register Files}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \justifying
+  El Back-End utiliza dos Register Files independientes.
+  \begin{itemize}[<+(1)->]\justifying
+   \item El \textbf{Integer Register File} almacena los registros generales utilizados por las unidades enteras y por la LSU para calcular direcciones.
+   \item El \textbf{Floating Point Register File} contiene los registros $S_{n}$, $D_{n}$ y $Q_{n}$ compartidos por VFP y NEON.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.3cm,5.8cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item Ambos pueden ser accedidos simultáneamente por diferentes unidades funcionales. (Puertos de lectura y escritura múltiples en ambos File Register)
+   \item La LSU es el único bloque que interactúa con ambos Register Files y con la memoria.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Back-End: La Load/Store Unit}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item Todas las operaciones de lectura y escritura de memoria son realizadas exclusivamente por la \textbf{Load/Store Unit}.
+    \item La LSU obtiene las direcciones desde el Integer Register File: $R_{0}-R_{15}$. Son los registros que trabajan como punteros a memoria en instrucciones Load / Store.
+    \item En instrucciones VFP o NEON, la LSU transfiere datos entre la memoria y el VFP/SIMD Register File  $S_{n}$, $D_{n}$ y $Q_{n}$.
+    \item Las unidades aritméticas Enteras, VFP y NEON nunca acceden directamente a la memoria; operan únicamente sobre datos previamente cargados en los registros correspondientes.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Back-End: Flujo de ejecución}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{enumerate}[<+->]\justifying
+    \item La lógica de Despacho selecciona una instrucción cuyos operandos ya están disponibles.
+    \item La instrucción es enviada a la unidad funcional correspondiente.
+    \item La unidad funcional lee los operandos desde el Register File adecuado.
+    \item Finalizada la ejecución, el resultado es escrito nuevamente en el Register File, o en el caso de Instrucciones Load/Store es transferido desde o hacia la memoria mediante la LSU.
+    \item Mientras una instrucción se ejecuta en una Unidad Funcional, otras instrucciones pueden ejecutarse simultáneamente en las restantes Unidades Funcionales (ILP).
+   \end{enumerate}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Back-End: Explotando el paralelismo}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item El objetivo del Back-End es mantener ocupadas simultáneamente la mayor cantidad posible de unidades funcionales.
+    \item El rendimiento depende de la disponibilidad de instrucciones sin dependencias de datos, cuyos operandos estén listos para ser empleados en su ejecución (Esto se debe a la capacidad de Ejecución Fuera de Orden).
+    \item En este marco, una unidad funcional ociosa equivale a un recurso desaprovechado y reduce el paralelismo a nivel de instrucción (ILP).
+    \item En aplicaciones SIMD, la unidad NEON alcanza su máxima eficiencia cuando la LSU puede abastecerla continuamente desde la memoria.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Recorrido de una instrucción por el Back-End}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+VLD1.32  {Q0}, [R0]!
+VLD1.32  {Q1}, [R1]!
+VADD.F32   Q2, Q0, Q1
+VST1.32  {Q2}, [R2]!
+  \end{lstlisting}
+  \begin{itemize}[<+(1)->] \justifying
+   \item Las dos primeras instrucciones son accesos a memoria.
+   \item La Issue Logic las envía a la \textbf{Load/Store Unit}.
+   \item La LSU obtiene las direcciones desde el \textbf{Integer Register File}.
+   \item Los datos son leídos desde la \textbf{L1 Data Cache}.
+   \item Finalmente la LSU escribe los datos en los registros $Q_{0}$ y $Q_{1}$.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Recorrido de una instrucción por el Back-End}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+VLD1.32  {Q0}, [R0]!
+VLD1.32  {Q1}, [R1]!
+VADD.F32   Q2, Q0, Q1
+VST1.32  {Q2}, [R2]!
+  \end{lstlisting}
+  \begin{itemize}[<+(1)->] \justifying
+   \item Una vez disponibles $Q_{0}$ y $Q_{1}$, la instrucción \texttt{\textbf{VADD.F32}} puede emitirse.
+   \item La unidad \textbf{NEON} lee ambos operandos desde el banco de registros compartido.
+   \item El resultado se escribe en $Q_{2}$.
+   \item La instrucción \texttt{\textbf{VST1.32}} vuelve a ser ejecutada por la \textbf{Load/Store Unit}, que transfiere el contenido de $Q_{2}$ hacia la memoria.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo de ejecución en el Back-End}
+ \begin{textblock*}{7.7cm}(0.3cm,1.2cm)
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+loop:
+
+    VLD1.32   {Q0}, [R0]!
+    VLD1.32   {Q1}, [R1]!
+
+    ADD       R8, R8, #16
+    SUBS      R9, R9, #1
+
+    VADD.F32  Q2, Q0, Q1
+
+    ADD       R10, R11, R12
+
+    VMUL.F32  Q3, Q2, Q4
+
+    STR       R10, [R7]
+
+    VST1.32   {Q3}, [R2]!
+
+    BNE       loop
+  \end{lstlisting}
+ \end{textblock*}
+ \begin{textblock*}{7.2cm}(8.4cm,1.2cm)
+  \justifying Esta secuencia permite ejecutar simultáneamente:
+  \begin{itemize}[<+(1)->] \justifying
+   \item instrucciones enteras;
+   \item accesos a memoria;
+   \item instrucciones SIMD NEON;
+   \item dependencias de datos;
+   \item oportunidades para explotar ILP.
+  \end{itemize}
+  \only<7>{
+  Durante los siguientes slides seguiremos el recorrido de estas instrucciones sobre el Back-End del Cortex-A9.
+  }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Recorrido de las instrucciones sobre el Back-End (I)}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item Las dos primeras instrucciones \texttt{\textbf{VLD1}} son enviadas a la \textbf{Load/Store Unit}.
+   \item La LSU obtiene las direcciones desde los registros $R_{0}$ y $R_{1}$ del \textbf{Integer Register File}.
+   \item Como hay una sola LSU esas dos instrucciones se ejecutan en serie.
+   \item Los datos son transferidos desde la \textbf{L1 Data Cache} hacia el Register File de VFP y NEON: $S_{n}$, $D_{n}$ y $Q_{n}$.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.3cm,6.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item Mientras la LSU espera la respuesta de la memoria, las instrucciones
+   \begin{center}
+    \texttt{ADD} \hspace{3mm} y \hspace{3mm} \texttt{SUBS}
+   \end{center}
+   pueden ejecutarse en los \textbf{Integer Pipelines}.
+\item \textit{El Back-End mantiene ocupadas tres de las unidades funcionales en forma simultánea.}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Recorrido de las instrucciones sobre el Back-End (II)}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+  \begin{textblock*}{7cm}(8.5cm,1.2cm)
+   \begin{itemize}[<+(1)->]\justifying
+    \item Una vez completadas ambas instrucciones \texttt{\textbf{VLD1}}, los registros $Q_{0}$ y $Q_{1}$ contienen operandos válidos.
+    \item Ésto permite despachar:
+    \begin{center}
+    \texttt{\textbf{VADD.F32 Q2,Q0,Q1}}
+    \end{center}
+    hacia la unidad \textbf{NEON}.
+    \item La instrucción
+    \begin{center}
+    \texttt{\textbf{VMUL.F32 Q3,Q2,Q4}}
+    \end{center}
+    debe esperar la finalización de \texttt{\textbf{VADD}}.
+   \end{itemize}
+  \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.3cm,6.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+  \item Pero la instrucción
+  \begin{center} \textbf{\texttt{ADD  R10, R11, R1}},\end{center}
+  puede despacharse a una Unidad de Ejecución de Enteros, ya que ya deben haberse liberado de las dos instrucciones enteras anteriores.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Recorrido de las instrucciones sobre el Back-End (III)}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{04_backend.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \begin{itemize}[<+(1)->]\justifying
+   \item La instrucción
+   \begin{center} \textbf{\texttt{STR  R10, [R7]}},\end{center}
+   puede despacharse a la LSU, ya que se terminaron de ejecutar las dos instrucciones \textbf{\texttt{VLD1.32 }} anteriores.
+   \item Finalmente la instrucción
+   \begin{center}
+   \textbf{\texttt{VST1.32 \{Q3\},[R2]!}}
+   \end{center}
+   es ejecutada por la \textbf{Load/Store Unit}, que transfiere el resultado hacia la memoria.
+  \end{itemize}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.3cm,6.2cm)
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{¿Dónde aparece el Instruction-Level Parallelism?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item Las instrucciones \texttt{\textbf{VADD}} y \textbf{\texttt{VMUL}} deben esperar a que estén disponibles sus operandos, generando dependencias de tipo \textbf{RAW}.
+    \item Sin embargo, las instrucciones enteras \texttt{\textbf{ADD}} y \texttt{\textbf{SUBS}} son independientes y pueden ejecutarse mientras la LSU espera la respuesta de la memoria.
+    \item El procesador aprovecha estas oportunidades para mantener ocupadas simultáneamente distintas unidades funcionales.
+    \item La ejecución fuera de orden no modifica el resultado del programa; únicamente altera el instante en que cada instrucción es ejecutada.
+    \item Riesgo WAW: las instrucciones \texttt{\textbf{STR}} y \textbf{\texttt{ADD}} se despachan en el mismo ciclo y escriben sobre el registro $R_{10}$. El Cortex-A9 permite ejecutar fuera de orden evitando este riesgo. Sin embargo, la escritura en memoria consume dos ciclos de cómputo frente a un solo ciclo de la suma, de modo que termina antes la instrucción mas antigua y naturalmente el commit a $R_{10}$ ocurre en orden.
+   \end{itemize}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}{Subsistema de memoria del Cortex-A9}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{05_memory.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+ \justifying El subsistema de memoria abastece tanto el flujo de instrucciones para el Front End, como también los datos requeridos por el Back-End.
+  \begin{itemize}[<+(1)->]
+   \item Caché L1 separada para instrucciones y datos (arquitectura Harvard modificada).
+   \item Caché L2 unificada y compartida por ambos núcleos del Cortex-A9 MPCore.
+   \item La \textbf{SCU} mantiene la coherencia entre las cachés L1 de ambos núcleos.
+   \item La memoria DDR constituye el último nivel de la jerarquía.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Split Cache: instrucciones y datos}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering \includegraphics[width=7.8cm]{05_memory.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \justifying
+  La separación entre la caché de instrucciones y la caché de datos permite realizar accesos simultáneos.
+  \begin{itemize}[<+(1)->]\justifying
+   \item El Front-End obtiene continuamente instrucciones desde la L1 I-Cache.
+   \item En paralelo, la LSU accede a la L1 D-Cache para cargar y almacenar datos.
+   \item Ambos accesos se realizan sin competir por el mismo recurso físico.
+   \item Esta organización resulta especialmente importante en aplicaciones SIMD con un elevado tráfico de memoria.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{El subsistema de memoria y el rendimiento de NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+->]\justifying
+    \item La unidad \textbf{NEON} ejecuta operaciones únicamente sobre datos residentes en el banco de registros $S_{n}$, $D_{n}$ y $Q_{n}$.
+    \item Los datos deben ser transferidos previamente desde memoria mediante la \textbf{Load/Store Unit}.
+    \item Si la \textbf{LSU} o la jerarquía de memoria no suministran datos con suficiente velocidad, la unidad \textbf{NEON} permanece ociosa.
+    \item En aplicaciones \textbf{SIMD}, el rendimiento depende tanto de la capacidad de cálculo como del ancho de banda efectivo del subsistema de memoria.
+   \end{itemize}
+   \vspace {0.3cm}
+  \only<5->{Duplicar la potencia de cálculo de \textbf{NEON} no mejora el rendimiento si los datos llegan desde memoria a la misma velocidad. En aplicaciones SIMD es frecuente que el cuello de botella no sea la unidad de ejecución, sino el subsistema de memoria.}
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Organización funcional de la unidad NEON}
+ \begin{textblock*}{.22\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.9\textwidth]{06_neon_pipeline_01.pdf}
+ \end{textblock*}
+ \begin{textblock*}{.78\textwidth}(.24\textwidth,1.2cm)
+  \justifying \textbf{NEON} es la unidad funcional especializada en procesamiento SIMD.
+  \begin{itemize}[<+(1)->]\justifying
+   \item Recibe instrucciones desde la \textbf{Issue Logic} del Back-End.
+   \item Decode: identifica el tipo de operación, y determina el tamaño de cada elemento (8, 16, 32, \SI{64}{\bit}).
+   \item Obtiene uno o dos operandos desde el Register File $S_{n}$, $D_{n}$ y $Q_{n}$.
+   \item Lane Split/Align: separa los operandos en lanes, selecciona el formato, y realiza extensiones de signo o cero cuando corresponde.
+   \item Ejecuta operaciones sobre múltiples elementos en paralelo (suma, multiplicación, lógica, comparaciones, etc.).
+   \item Pack / Saturation / Write Back: recompone el registro, aplica saturación cuando la instrucción lo requiere, y escribe los resultados nuevamente en el Register File Compartido.
+  \end{itemize}
+  \only<8>{
+  Internamente, NEON está organizada como un pipeline compuesto por varias etapas especializadas.
+  }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Registros NEON y concepto de \textit{lanes}}
+ \begin{textblock*}{8cm}(0.3cm,1.2cm)
+  \centering
+  \includegraphics[width=7.8cm]{07_neon_lanes.pdf}
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+ \justifying
+ Los registros $Q_{n}$ poseen un ancho fijo de \SI{128}{\bit}. Sin embargo, la unidad NEON no interpreta este registro como un único operando de \SI{128}{\bit}.
+ \begin{itemize}[<+(1)->] \justifying
+  \item Cada registro se divide en varios elementos llamados \textbf{lanes}.
+  \item El tamaño de cada \textit{lane} depende del tipo de dato especificado por la instrucción.
+  \item Todos los \textit{lanes} ejecutan simultáneamente la misma operación.
+  \item Este modelo constituye la esencia del procesamiento \textbf{SIMD}.
+ \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}{Pipeline funcional de la unidad NEON}
+ \begin{textblock*}{.22\textwidth}(0.3cm,1.2cm)
+  \centering \includegraphics[width=.9\textwidth]{08_neon_pipeline.pdf}
+ \end{textblock*}
+ \begin{textblock*}{.76\textwidth}(.26\textwidth,1.2cm)
+  \justifying Una vez despachada por la Reservation Station \textbf{Issue}, la instrucción atraviesa varias etapas internas antes de completar su ejecución.
+  \begin{itemize}[<+(1)->]\justifying
+   \item Lectura de operandos desde el Register File $S_{n}/D_{n}/Q_{n}$.
+   \item Separación de los operandos en \textit{lanes} y adaptación al formato de datos solicitado.
+   \item Ejecución simultánea de la operación sobre todos los \textit{lanes}.
+   \item Reensamblado del resultado y escritura en el banco de registros.
+  \end{itemize}
+  \only<6>{
+  Una nueva instrucción puede ingresar al pipeline antes de que la anterior haya finalizado, incrementando el throughput de la unidad.
+ }
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Interpretación de las tablas de tiempos del TRM}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \justifying En el documento de ARM llamado ``Cortex™ -A9 NEON™ Media Processing Engine. Revision: r4p0. Technical Reference Manual'', el capítulo 3 está dedicado al Timing de las Instrucciones. Allí encontraremos Tablas como la siguiente abarcando todo el set deinstrucciones VFP / NEON.
+  \begin{center}
+   \small
+   \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Instruction & Cycles & Source & Result & Write Back \\
+    \hline
+    VADD.F32 & 1 & -,2,2 & 5 & 6 \\
+    VMUL.F32 & 1 & -,2,2 & 6 & 7 \\
+    \hline
+   \end{tabular}
+  \end{center}
+  \begin{itemize}[<+(1)->]\justifying
+   \item \textbf{Cycles}: Cantidad de ciclos durante los cuales la instrucción ocupa la etapa de Envío (Issue) de su unidad funcional. Determina el throughput máximo de esa unidad.
+   \item \textbf{Source}: Indica el ciclo interno del Pipeline NEON en el que cada operando debe estar disponible. Si el dato aún no está disponible (registro o forwarding), la instrucción no puede continuar su ejecución.
+   \item \textbf{Result}: ciclo en el que el resultado ya puede ser utilizado mediante forwarding.
+   \item \textbf{Write Back}: ciclo en el que el resultado se almacena en el Register File.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Pipeline NEON: Latencia y Throughput}
+ \begin{textblock*}{8.2cm}(0.3cm,1.2cm)
+  \centering
+  \includegraphics[width=7.6cm]{09_neon_timeline.pdf}
+  \vspace{-0.4cm}
+  \only<5> {
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+    \justifying Mantener el pipeline continuamente ocupado constituye uno de los principales objetivos de la ejecución fuera de orden.
+   \end{tcolorbox}
+  }
+ \end{textblock*}
+ \begin{textblock*}{7cm}(8.5cm,1.2cm)
+  \justifying
+  Una instrucción SIMD permanece varios ciclos dentro del pipeline antes de finalizar su ejecución.
+  \begin{itemize}[<+(1)->]\justifying
+   \item El \textbf{latency} es el tiempo transcurrido desde que una instrucción ingresa al pipeline hasta que su resultado queda disponible.
+   \item El \textbf{throughput} indica la velocidad con la que el pipeline puede aceptar nuevas instrucciones.
+   \item Un pipeline puede tener un latency de varios ciclos y, al mismo tiempo, admitir el ingreso de una nueva instrucción en cada ciclo de reloj.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+
+\begin{frame}[fragile]{Ejecución del bucle sobre el Back-End}
+ \begin{textblock*}{4.2cm}(0.3cm,1.2cm)
+  \scriptsize
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+loop:
+    VLD1.32  {Q0}, [R0]!
+    VLD1.32  {Q1}, [R1]!
+
+    ADD      R8, R8, #16
+    SUBS     R9, R9, #1
+
+    VADD.F32 Q2, Q0, Q1
+    ADD      R10,R11,R12
+    VMUL.F32 Q3, Q2, Q4
+
+    STR      R10,[R7]
+    VST1.32  {Q3},[R2]!
+    BNE      loop
+  \end{lstlisting}
+ \end{textblock*}
+ \begin{textblock*}{11cm}(4.3cm,1.2cm)
+  \only<2->{\centering \includegraphics[width=.85\textwidth]{10_full_timeline.pdf}}
+ \end{textblock*}
+ \begin{textblock*}{\textwidth}(0.4cm,6.1cm)
+ \only<3->{
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners,drop fuzzy shadow=ShadowColor]
+   \begin{itemize}[<+(2)->]\scriptsize\justifying
+    \item Las dos instrucciones \texttt{VLD1} generan un cuello de botella inicial al compartir la única \textbf{Load/Store Unit}.
+    \item Mientras la LSU accede a memoria, los dos \textbf{Integer Pipelines} ejecutan instrucciones independientes.
+    \item La instrucción \texttt{VADD} debe esperar la disponibilidad de los operandos cargados por la LSU.
+    \item El resultado de \texttt{VADD} es consumido por \texttt{VMUL} mediante \textbf{forwarding}, sin esperar el \textit{Write Back}.
+    \item Finalmente, la LSU vuelve a intervenir para almacenar el resultado mediante \texttt{VST1}.
+   \end{itemize}
+  \end{tcolorbox}
+  }
+ \end{textblock*}
+\end{frame}

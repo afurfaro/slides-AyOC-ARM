@@ -1,0 +1,186 @@
+\section{Actualización de la arquitectura}
+\subsection{Evolución de VFP y NEON}
+%------------------------------------------------
+
+\begin{frame}{Evolución de las extensiones de punto flotante y SIMD}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{center} \Large
+VFP $\rightarrow$ NEON $\rightarrow$ ARMv8 SIMD $\rightarrow$ SVE / SVE2
+  \end{center}
+  \vspace{0.5cm}
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   \justifying Cada generación incorporó nuevas capacidades para mejorar el rendimiento en aplicaciones científicas, multimedia y procesamiento de señales, manteniendo compatibilidad con las generaciones anteriores.
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]{ARMv5: aparición de VFP}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}\justifying
+   \item Se incorpora \textbf{VFP (Vector Floating Point)}, una unidad dedicada al procesamiento de números en punto flotante compatibles con IEEE-754.
+   \item Está orientada al procesamiento \textbf{escalar}: cada instrucción opera sobre un único dato.
+   \item Soporta operaciones en simple y doble precisión.
+   \item Introduce un banco de registros de \SI{64}{\bit} (registros D), accesibles también como registros de \SI{32}{\bit} (registros S).
+  \end{itemize}
+  \vspace{0.3cm}
+  \textbf{Ejemplo}
+  \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+VADD.F32 S0, S1, S2
+  \end{lstlisting}
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+   \justifying Una instrucción realiza una suma entre dos operandos escalares.
+  \end{tcolorbox}
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{ARMv6: Aparece NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{itemize}[<+->]\justifying \parskip 0.2cm
+   \item Las aplicaciones multimedia requieren procesar múltiples datos en paralelo.
+   \item ARM incorpora \textbf{NEON}, una extensión SIMD de \SI{64}{\bit} y \SI{128}{\bit}.
+   \item Una única instrucción puede operar simultáneamente sobre varios enteros o números de punto flotante de simple precisión.
+   \item Dependiendo del tipo de dato, una instrucción puede procesar:
+   \begin{itemize}\justifying \parskip 0.2cm
+    \item \SI{16}{\byte},
+    \item 8 halfwords,
+    \item 4 words,
+    \item 2 doublewords.
+   \end{itemize}
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{VFP y NEON}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \begin{block}{Concepto importante}\justifying
+   NEON \textbf{no reemplaza} a VFP.
+
+   Ambos constituyen conjuntos de instrucciones diferentes que comparten un mismo banco físico de registros.
+  \end{block}
+  \vspace{0.3cm}
+  \begin{itemize}[<+(1)->]\justifying
+   \item VFP está orientado al cálculo en punto flotante escalar.
+   \item NEON está orientado al procesamiento SIMD.
+   \item El compilador selecciona cuál utilizar según el tipo de operación.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{ARMv7-A: el caso del Cortex-A9}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\justifying
+  El Cortex-A9 integra ambas tecnologías.
+  \vspace{0.3cm}
+  \begin{itemize}[<+->]
+   \item VFPv3.
+   \item NEON.
+   \item Banco de registros compartido.
+   \item Tres vistas del mismo banco de registros:
+   \begin{itemize}[<+->]
+    \item S (32 bits),
+    \item D (64 bits),
+    \item Q (128 bits).
+   \end{itemize}
+  \end{itemize}
+  \vspace{0.5cm}
+  \only<8>{Este será el modelo utilizado en el resto de esta clase en particular para el procesador ARM del Zynq-7000.}
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{ARMv8-A: unificación del modelo}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\justifying
+  En ARMv8 desaparece la idea de un coprocesador VFP separado.
+  \vspace{0.3cm}
+
+  Existe un único banco de registros vectoriales:
+  $ V0 \ldots V31$
+  \vspace{0.3cm}
+
+  Cada registro posee \SI{128}{\bit} y puede interpretarse como:
+  \vspace{0.3cm}
+
+  \begin{itemize}
+   \item bytes (B),
+   \item halfwords (H),
+   \item words (S),
+   \item doublewords (D),
+   \item quadwords (Q).
+  \end{itemize}
+    \vspace{0.3cm}
+
+  La arquitectura resulta más uniforme y sencilla para el compilador.
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{SVE: Scalable Vector Extension}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\justifying
+  NEON utiliza registros SIMD de ancho fijo (\SI{128}{\bit}).
+  \vspace{0.3cm}
+  SVE introduce un nuevo paradigma:
+  \vspace{0.3cm}
+  \begin{itemize}
+   \item registros vectoriales de longitud variable;
+   \item desde 128 hasta 2048 bits;
+   \item múltiplos de 128 bits;
+   \item el software no necesita conocer el ancho real implementado.
+  \end{itemize}
+  \vspace{0.3cm}
+  Esto permite que un mismo programa aproveche automáticamente procesadores con registros vectoriales más anchos.
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{SVE2}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\justifying
+
+  SVE2 amplía SVE incorporando instrucciones orientadas a:
+
+  \begin{itemize}
+   \item procesamiento digital de señales (DSP);
+   \item procesamiento de imágenes;
+   \item códecs de audio y video;
+   \item criptografía;
+   \item inteligencia artificial.
+  \end{itemize}
+
+  \vspace{0.4cm}
+
+  Puede interpretarse como una evolución de las capacidades de NEON dentro del modelo vectorial de longitud variable.
+ \end{textblock*}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{¿Qué sigue vigente?}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)\justifying
+  \textbf{Para el Cortex-A9 (Zynq-7000)}
+  \begin{itemize}
+   \item VFPv3.
+   \item NEON.
+   \item Registros S, D y Q.
+   \item Programación mediante ensamblador e intrinsics.
+   \item Auto-vectorización de GCC y Clang.
+  \end{itemize}
+
+  \vspace{0.4cm}
+
+  \textbf{Hacia arquitecturas modernas}
+
+  \begin{itemize}
+   \item ARMv8 unifica el banco de registros.
+   \item SVE y SVE2 representan la evolución actual del procesamiento vectorial.
+  \end{itemize}
+ \end{textblock*}
+\end{frame}

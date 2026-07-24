@@ -1,0 +1,273 @@
+\section{Implementación SIMD en ARM}
+\subsection{SISD, Procesamiento Vectorial, Procesamiento empaquetado}
+
+% \begin{frame}[fragile]{Introducción}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%  \justifying
+%   \only<2->{Los dos últimos gráficos, se traducen muy fácilmente en instrucciones de ARM:}
+%  \end{textblock*}
+%  \begin{textblock*}{.25\textwidth}(0.4cm,1.8cm)
+%   \begin{onlyenv}<3->
+%    \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%     \textbf{SISD}\vspace{-0.4cm}
+%     \begin{lstlisting}[basicstyle=\scriptsize,numbers=none]
+% add  r0,r5
+% add  r1,r6
+% add  r2,r7
+% add  r3,r8
+%     \end{lstlisting}
+%    \end{tcolorbox}
+%   \end{onlyenv}
+%  \end{textblock*}
+%  \begin{textblock*}{.75\textwidth}(0.4cm+.25\textwidth,1.8cm)
+%   \begin{onlyenv}<4->
+%    \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%     \textbf{SIMD (Modo empaquetado)}\vspace{-0.4cm}
+%     \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+% VADD.I32 Q10, Q8, Q9
+% // Una suma de dos registros de @\color{Gray}\SI{128}{\bit}@,
+% // Cada v@\color{Gray}\'i@a de @\color{Gray}\SI{32}{\bit}@ de los registros se suma por separado.
+% // No hay carry entre las v@\color{Gray}\'i@as.
+%     \end{lstlisting}
+%    \end{tcolorbox}
+%   \end{onlyenv}
+%  \end{textblock*}
+%  \begin{textblock*}{\textwidth}(0.4cm,4.8cm)
+%   \begin{itemize}[<+(4)->]\justifying
+%    \item En ARMv5 se introducen las extensiones \textbf{VFP} (Por\textbf{V}irtual \textbf{F}loating \textbf{P}oint)
+%    \item \textbf{VFP} se implementó como una unidad de punto flotante compatible con IEEE-754. Su File Register estaba compuesto por 16 registros de \SI{64}{\bit}: \textbf{\texttt{D0-D15}}, que podían interpretarse como registros de \SI{32}{\bit} \textbf{\texttt{S0-S31}}.
+%    \item Las versiones posteriores ampliaron la cantidad de registros de \SI{64}{\bit} y, con ARMv7 Cortex A y R, \textbf{VFPv3} y \textbf{NEON}implementan un banco de registros compartido que puede verse como registros \textbf{\texttt{S\textsubscript{n}}}, \textbf{\texttt{D\textsubscript{n}}} o \textbf{\texttt{Q\textsubscript{n}}} según el tipo de operación.
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+
+
+
+% \begin{frame}[fragile]{Introducción}
+%  \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+%   \begin{itemize}[<+->]\justifying
+%    \item Hasta ARMv6 las instrucciones punto flotante se comportaban como un modelo vectorial, ejecutando una secuencia de operaciones que involucran un grupo de registros (cantidad definida en un registro de configuración). Ejemplo:
+%   \end{itemize}
+%   \begin{onlyenv}<2->
+%    \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+%     \textbf{SIMD (Modo Vector) (Obsoleto)} \vspace{-0.4cm}
+%     \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+% VADD.F32 S24, S8, S16
+% // Se ejecutan cuatro operaciones:
+% // S24 = S8 + S16
+% // S25 = S9 + S17
+% // S26 = S10 + S18
+% // S27 = S11 + S19
+%     \end{lstlisting}
+%    \end{tcolorbox}
+%   \end{onlyenv}
+%   \begin{itemize}[<+(1)->]\justifying
+%    \item SIMD no es una secuencia, sino una única operación. Por eso en ARMv7 las operaciones vectoriales de punto flotante se reemplazan por SIMD empaquetadas del slide anterior. Es decir NEON.
+%    \item ARMv8, extiende NEON y lo mantiene compatible con ARMv7 A y R.
+%   \end{itemize}
+%  \end{textblock*}
+% \end{frame}
+
+\subsection{Implementación SIMD ARMv7 A y R}
+\begin{frame}{Cuestiones de Implementación}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+   \item ARM no garantiza que todos los cores incluyan NEON y VFP. Podemos encontrarnos con procesadores ARM que incluyan una de las dos o las dos.
+   \item Si un core incluye NEON, pero no incluye VFP, no puede ejecutar instrucciones de punto flotante en hardware.
+   \item Al ser NEON mas eficiente en el calculo vectorial, las instrucciones vectoriales de las VFP se discontinúan en los cores v7 con NEON incluido. Por tal razón la documentación técnica de ARM a menudo se refiere a la VFP como FPU (Por Floating Point Unit).
+   \item El soporte a Half-Presicion y Multiplicación-Suma Fusionada depende de cada implementación de core.
+   \item Una misma instrucción varía su tiempo de ejecución dependiendo del core en el que se implementa, y aun en el mismo core  depende de la cacheabilidad lograda con los datos con que se opera.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}[fragile]{Cuestiones de Implementación}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+   \item NEON y VFP comparten algunas instrucciones. Se las llama Shared Instructions.
+   \item Si el core soporta ambas extensiones, los registros de ambas se solapan, las instrucciones VFP se ejecutan en la unidad de hardware de la VFP, pero las Shared, se ejecutan en el pipeline de Punto Flotante de NEON cuya eficiencia es mayor.
+   \item VFP y NEON ejecutan en el espacio de instrucciones de los coprocesadores CP10 y CP11.
+   \item VFP implementa operaciones de punto flotante 100\% compatibles con IEEE-754, precisión simple. Dependiendo de la implementación puede soportar doble precisión.
+   \item NEON procesa en una sola instrucción datos enteros o punto flotante precisión simple empaquetados. En este último caso no se asegura compatibilidad completa con IEEE-754. No opera en doble precisión.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Cuestiones de Implementación}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+   \item Half-Precision solo esta soportado por una extensión específica core dependiente.
+   \item Si están las extensiones Half-Precision presentes en el core, entonces tanto VFP como NEON manejarán ese tipo de datos y disponen de instrucciones de conversión de Single a Half Precision.
+   \item NEON soporta operaciones de Suma de productos (Fused Multiply-Add) se soportan mediante una extensión core dependiente.
+   \item Estas operaciones implican en una misma instrucción productos y acumulaciones con un solo paso de redondeo. Es de esperar una pérdida de precisión.
+   \item Si NEON y VFP no se habilitan en el Registro CPACR del coprocesador CP15, cualquier instrucción generará una excepción Undefined Instruction.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\subsection{Tecnología NEON}
+\begin{frame}{Cuestiones de Implementación}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+   \item ARMv7 es una arquitectura de \SI{32}{\bit}, sin embargo NEON implementa registros de \SI{64}{\bit} y \SI{128}{\bit}
+   \item Los componentes de hardware de una unidad NEON son:
+   \begin{itemize}[<+->]\justifying
+    \item Registros NEON
+    \item Un pipeline dedicado para operaciones de datos enteros empaquetados.
+    \item Un pipeline dedicado para operaciones de datos en Punto Flotante Precisión Simple empaquetados.
+    \item Un pipeline dedicado para operaciones load/store y permutación de datos empaquetados.
+   \end{itemize}
+   \item Las instrucciones NEON y las Floating Point comparten el mismo pack de registros (slides siguientes).
+   \item De acuerdo con el tipo de instrucción la visión de esos registros es como registros de \SI{32}{\bit}, \SI{64}{\bit}, o \SI{128}{\bit}.
+   \item Un registro NEON contiene un \textit{vector de elementos}, del mismo \textit{tipo de datos}. Cada contenedor de dato individual se llama \textit{lane}.
+  \end{itemize}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Cuestiones de Implementación}
+ \begin{textblock*}{\textwidth}(0.4cm,1.1cm)
+  \begin{itemize}[<+->]\justifying
+   \item Cada instrucción NEON consiste de \textit{n} operaciones que ocurren en paralelo, donde \textit{n}, es el número de \textit{lanes} en que está dividido cada vector de entrada.
+   \item Cada una de las \textit{n} operaciones ocurren dentro del \textit{lane}, es decir no hay posibilidad de carry ni overflow de un \textit{lane} al siguiente.
+  \end{itemize}
+ \end{textblock*} 
+  \begin{textblock*}{.5\textwidth}(0.4cm,3.7cm)
+  \begin{onlyenv}<3->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Vector NEON de \SI{64}{\bit}\\
+%     \begin{itemize}
+     - Ocho Elementos de \SI{8}{\bit}\\
+     - Cuatro Elementos de \SI{16}{\bit}\\
+     - Dos Elementos de \SI{32}{\bit}\\
+     - Un Elementos de \SI{64}{\bit}  
+%     \end{itemize}
+   \end{tcolorbox}
+  \end{onlyenv} 
+ \end{textblock*}
+ \begin{textblock*}{.5\textwidth}(0.4cm+.5\textwidth,3.7cm)
+  \begin{onlyenv}<4->
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Vector NEON de \SI{128}{\bit}\\
+%     \begin{itemize}
+     - Dieciséis Elementos de \SI{8}{\bit}\\
+     - Ocho Elementos de \SI{16}{\bit}\\
+     - Cuatro Elementos de \SI{32}{\bit}\\
+     - Dos Elementos de \SI{64}{\bit} 
+%     \end{itemize}
+   \end{tcolorbox}
+  \end{onlyenv} 
+ \end{textblock*}
+\end{frame}
+
+\begin{frame}{Cuestiones de Implementación}
+\begin{textblock*}{\textwidth}(0.4cm,1.3cm)
+  \centering \includegraphics[width=0.6\textwidth]{Neon-vadd-i32.pdf}
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Solapamiento de Registros}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm) \justifying
+  \only<1>{La extensión VFPv2, introduce 32 registros de \SI{32}{\bit} para almacenar números en Punto Flotante Simple Precisión en formato IEEE-754. Solo accesibles con VFP.\\ \vspace{-0.3cm}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv2a.pdf}\end{center}}
+  \only<2>{VFPv2 los agrupa en 16 registros de \SI{64}{\bit}, para almacenar números en Punto Flotante doble precisión IEEE-754. Solo accesibles con VFPv2\\ \vspace{-0.3cm}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv2b.pdf}\end{center}}
+  \only<3>{La VFPv-3 agrega otros 16 registros de \SI{64}{\bit}, para Punto Flotante doble precisión y para datos empaquetados en las Extensiones avanzadas SIMD (NEON).\\ \vspace{-0.3cm}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv3-N.pdf}\end{center}}
+  \only<4>{Las Extensiones avanzadas NEON pueden trabajar con datos empaquetados de \SI{128}{\bit} agrupando los 32 registros de \SI{64}{\bit} en 16 registros de \SI{128}{\bit}. Solo accesible con NEON.\\ \vspace{-0.3cm}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv3AdvN.pdf}\end{center}}
+ \end{textblock*} 
+\end{frame}
+
+\subsection{Tipos de datos}
+\begin{frame}{Escalares}
+ \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+  \only<1->{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Un escalar se refiere a un valor simple de 8, 16, 32, o \SI{64}{\bit} en lugar de un vector con múltiples valores de cualquiera de estos tipos empaquetados en lanes.\\
+    Se lo accede utilizando el número de lane como índice dentro del vector.
+   \end{tcolorbox}
+   }
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,3.3cm)
+   \only<2->{ \begin{center} \includegraphics[width=0.95\textwidth]{Neon-scalar.pdf}\end{center} }
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,6.5cm)
+  \only<3->{
+   \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+    Para instrucciones de multiplicación solo trabaja con escalares de 16 o \SI{32}{\bit}.\\
+    - Escalares de \SI{16}{\bit} solo para D0[x]-D7[x], con $0 \leq x \leq 3$ \\
+    - Escalares de \SI{32}{\bit} solo para D0[x]-D15[x], para x 0 ó 1.
+   \end{tcolorbox}
+   }
+ \end{textblock*} 
+\end{frame}
+
+\begin{frame}{Tipos de Datos}
+ \begin{scriptsize}
+  \begin{center}
+   \begin{textblock*}{\textwidth}(0.4cm,1.2cm)
+    \begin{tikzpicture}
+     \node (tbl) { 
+      \rowcolors[]{1}{}{gray!5}
+      \begin{tabularx}{.8\textwidth}{p{.25\textwidth} p{.12\textwidth} p{.12\textwidth} p{.12\textwidth} p{.12\textwidth} }
+       \textbf{\color{white} } & \textbf{\color{white} \SI{8}{bit}} & \textbf{\color{white} \SI{16}{bit}} & \textbf{ \color{white}\SI{32}{bit}} & \textbf{ \color{white}\SI{64}{bit}}\\
+       Unsigned integer & U8 & U16 & U32 & U64\\
+       Signed integer & S8 & S16 & S32 & S64\\
+       Integer (Tipo no especificado) & I8 & I16 & I32 & I64\\
+       Floating-point & NA & F16 & F32 or F & NA\\
+       Polynomial over \{0,1\} & P8 & P16 & NA & NA\\
+      \end{tabularx}
+     };
+     \begin{pgfonlayer}{background}
+      \draw[rounded corners,top color=red,bottom color=black,draw=white] ($(tbl.north west)+(0.14,0)$) rectangle ($(tbl.north east)-(0.13,0.45)$);
+      \draw[rounded corners,top color=white,bottom color=black, middle color=red,draw=blue!20] ($(tbl.south west)+(0.12,0.5)$) rectangle ($(tbl.south east)-(0.12,0)$);
+      \draw[top color=blue!1,bottom color=blue!20,draw=white] ($(tbl.north east)-(0.13,0.6)$) rectangle ($(tbl.south west)+(0.13,0.2)$);
+     \end{pgfonlayer}
+    \end{tikzpicture}
+   \\Tipos de Datos NEON\\
+   \end{textblock*} 
+
+   \begin{textblock*}{\textwidth}(0.4cm,4.2cm)
+    \begin{tikzpicture}
+     \node (tbl) { 
+      \rowcolors[]{1}{}{gray!5}
+      \begin{tabularx}{0.6\textwidth}{p{.2\textwidth} p{.1\textwidth} p{.11\textwidth} p{.1\textwidth} }
+       \textbf{\color{white} } & \textbf{\color{white} \SI{16}{bit}} & \textbf{ \color{white}\SI{32}{bit}} & \textbf{ \color{white}\SI{64}{bit}}\\
+       Unsigned integer & U16 & U32 & NA\\
+       Signed integer & S16 & S32 & NA\\
+       Floating-point & F16 & F32 o F & F64 o D\\
+      \end{tabularx}
+     };
+     \begin{pgfonlayer}{background}
+      \draw[rounded corners,top color=red,bottom color=black,draw=white] ($(tbl.north west)+(0.14,0)$) rectangle ($(tbl.north east)-(0.13,0.45)$);
+      \draw[rounded corners,top color=white,bottom color=black, middle color=red,draw=blue!20] ($(tbl.south west)+(0.12,0.5)$) rectangle ($(tbl.south east)-(0.12,0)$);
+      \draw[top color=blue!1,bottom color=blue!20,draw=white] ($(tbl.north east)-(0.13,0.6)$) rectangle ($(tbl.south west)+(0.13,0.2)$);
+     \end{pgfonlayer}
+    \end{tikzpicture}
+   \\Tipos de Datos VFP
+   \end{textblock*} 
+  
+  \end{center}
+ \end{scriptsize}
+\end{frame}
+\subsection{Activación}
+\begin{frame}[fragile]{Habilitación de NEON y VFP}
+ \begin{textblock*}{\textwidth}(0.4cm,1.3cm)
+  \begin{tcolorbox}[enhanced jigsaw,rounded corners, drop fuzzy shadow=ShadowColor]
+El Registro de Control de Acceso del CP15, es donde se habilitan los coprocesadores CP0 a CP13. En particular necesitamos activar CP10 y CP11, para tener disponibles los recursos SIMD y VFP.
+  \end{tcolorbox}
+  \includegraphics[width=\textwidth]{CPACR.pdf}
+ \end{textblock*} 
+ \begin{textblock*}{\textwidth}(0.4cm,5.6cm)
+  \begin{onlyenv}<2->  
+   \begin{lstlisting}[basicstyle=\scriptsize,numbers=none, escapechar=\@]
+MRC p15,0,r0,c1,c0,2    // Lee CPACR de cp15 (Access Control Register). 
+ORR r0,r0,#0x00f00000   // Pone NEON/VFP accesibles. Habilita cp10 y cp11 CPACR[23-20]
+MCR p15,0,r0,c1,c0,2    // Escribe CPACR (Habilita NEON).
+ISB                     // Instruction Syncronization Barrier: flush pipeline, y refetch.
+MOV r0,#0x40000000      // Enciende hardware VFP y NEON.
+MSR FPEXC,r0            // Setea bit EN en FPEXC
+   \end{lstlisting}
+  \end{onlyenv} 
+ \end{textblock*} 
+\end{frame}
