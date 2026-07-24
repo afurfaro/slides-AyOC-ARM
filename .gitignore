@@ -13,6 +13,9 @@
 !*.jpg
 !*.jpeg
 
+# Unignore para paquetes no oficiales de latex
+!*.sty
+
 # Unignore all dirs
 !*/
 
