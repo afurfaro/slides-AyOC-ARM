@@ -168,13 +168,13 @@
 \begin{frame}{Solapamiento de Registros}
  \begin{textblock*}{\textwidth}(0.4cm,1.2cm) \justifying
   \only<1>{La extensión VFPv2, introduce 32 registros de \SI{32}{\bit} para almacenar números en Punto Flotante Simple Precisión en formato IEEE-754. Solo accesibles con VFP.\\ \vspace{-0.3cm}
-  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv2a.pdf}\end{center}}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registers-layer1.pdf}\end{center}}
   \only<2>{VFPv2 los agrupa en 16 registros de \SI{64}{\bit}, para almacenar números en Punto Flotante doble precisión IEEE-754. Solo accesibles con VFPv2\\ \vspace{-0.3cm}
-  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv2b.pdf}\end{center}}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registers-layer2.pdf}\end{center}}
   \only<3>{La VFPv-3 agrega otros 16 registros de \SI{64}{\bit}, para Punto Flotante doble precisión y para datos empaquetados en las Extensiones avanzadas SIMD (NEON).\\ \vspace{-0.3cm}
-  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv3-N.pdf}\end{center}}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registers-layer3.pdf}\end{center}}
   \only<4>{Las Extensiones avanzadas NEON pueden trabajar con datos empaquetados de \SI{128}{\bit} agrupando los 32 registros de \SI{64}{\bit} en 16 registros de \SI{128}{\bit}. Solo accesible con NEON.\\ \vspace{-0.3cm}
-  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registersv3AdvN.pdf}\end{center}}
+  \begin{center} \includegraphics[width=0.5\textwidth]{VFP-Registers-layer4.pdf}\end{center}}
  \end{textblock*} 
 \end{frame}
 

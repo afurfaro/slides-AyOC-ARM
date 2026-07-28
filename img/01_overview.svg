@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="280.99341mm"
+   height="175.16039mm"
+   viewBox="0 0 280.99341 175.16039"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   sodipodi:docname="01_overview.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.82794609"
+     inkscape:cx="553.78002"
+     inkscape:cy="303.15984"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showgrid="false" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect22"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect21"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect20"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect19"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect18"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect17"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect16"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <marker
+       id="m"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path1" />
+    </marker>
+    <marker
+       id="marker2"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path2" />
+    </marker>
+    <marker
+       id="marker3"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path3" />
+    </marker>
+    <marker
+       id="marker4"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path4" />
+    </marker>
+    <marker
+       id="marker5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path5" />
+    </marker>
+    <marker
+       id="marker6"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path6" />
+    </marker>
+    <marker
+       id="marker7"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path7" />
+    </marker>
+    <marker
+       id="marker8"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path8" />
+    </marker>
+    <marker
+       id="marker9"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path9" />
+    </marker>
+    <marker
+       id="marker10"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path10" />
+    </marker>
+    <marker
+       id="marker11"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path11" />
+    </marker>
+    <marker
+       id="marker12"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path12" />
+    </marker>
+    <marker
+       id="marker13"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path13" />
+    </marker>
+    <marker
+       id="marker14"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path14" />
+    </marker>
+    <marker
+       id="marker15"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path15" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(26.452568,-92.604169)">
+    <rect
+       class="grp"
+       x="-19.687458"
+       y="138.70288"
+       width="258.1626"
+       height="86.96788"
+       rx="2.1166666"
+       id="rect37"
+       style="opacity:0.393783;fill:#b0c4de;fill-opacity:1;stroke:#8888aa;stroke-width:0.529165;stroke-dasharray:1.32292, 1.05833" />
+    <rect
+       class="grp"
+       x="-19.687458"
+       y="98.838867"
+       width="258.1626"
+       height="24.704569"
+       rx="2.1166666"
+       id="rect1"
+       style="opacity:0.393783;fill:#dda0dd;fill-opacity:1;stroke:#8888aa;stroke-width:0.529165;stroke-dasharray:1.32292, 1.05833" />
+    <text
+       class="title"
+       x="234.61145"
+       y="266.24396"
+       id="text1"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Cortex-A9 Core</text>
+    <rect
+       class="box"
+       x="-15.604651"
+       y="103.4521"
+       width="37.041668"
+       height="15.875"
+       rx="2.1166666"
+       id="rect2"
+       style="fill:#dda0dd;stroke:#224444;stroke-width:0.529167;fill-opacity:1" />
+    <text
+       class="title"
+       x="2.7518775"
+       y="110.19897"
+       id="text2"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="2.751878"
+         y="110.19897">Branch</tspan><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="2.7518778"
+         y="116.1521">Predictor</tspan></text>
+    <rect
+       class="box"
+       x="34.66618"
+       y="103.4521"
+       width="37.041668"
+       height="15.875"
+       rx="2.1166666"
+       id="rect3"
+       style="fill:#dda0dd;stroke:#224444;stroke-width:0.529167;fill-opacity:1" />
+    <text
+       class="title"
+       x="53.187016"
+       y="112.97709"
+       id="text3"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Fetch</text>
+    <rect
+       class="box"
+       x="82.291183"
+       y="103.4521"
+       width="37.041668"
+       height="15.875"
+       rx="2.1166666"
+       id="rect4"
+       style="fill:#dda0dd;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="100.81201"
+       y="112.97709"
+       id="text4"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Decode</text>
+    <rect
+       class="box"
+       x="129.91618"
+       y="103.4521"
+       width="37.041668"
+       height="15.875"
+       rx="2.1166666"
+       id="rect5"
+       style="fill:#dda0dd;stroke:#224444;stroke-width:0.529167;fill-opacity:1" />
+    <text
+       class="title"
+       x="148.43701"
+       y="112.97709"
+       id="text5"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Rename</text>
+    <rect
+       class="box"
+       x="177.54118"
+       y="103.4521"
+       width="37.041668"
+       height="15.875"
+       rx="2.1166666"
+       id="rect6"
+       style="fill:#dda0dd;stroke:#224444;stroke-width:0.529167;fill-opacity:1" />
+    <text
+       class="title"
+       x="196.06201"
+       y="112.97709"
+       id="text6"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Issue Queue</text>
+    <line
+       class="line"
+       x1="21.437016"
+       y1="111.3896"
+       x2="34.66618"
+       y2="111.3896"
+       id="line6"
+       style="fill:none;stroke:#222222;stroke-width:0.529167;marker-end:url(#m)" />
+    <line
+       class="line"
+       x1="71.707848"
+       y1="111.3896"
+       x2="82.291183"
+       y2="111.3896"
+       id="line7"
+       style="fill:none;stroke:#222222;stroke-width:0.529167;marker-end:url(#m)" />
+    <line
+       class="line"
+       x1="119.33285"
+       y1="111.3896"
+       x2="129.91618"
+       y2="111.3896"
+       id="line8"
+       style="fill:none;stroke:#222222;stroke-width:0.529167;marker-end:url(#m)" />
+    <line
+       class="line"
+       x1="166.95784"
+       y1="111.3896"
+       x2="177.54118"
+       y2="111.3896"
+       id="line9"
+       style="fill:none;stroke:#222222;stroke-width:0.529167;marker-end:url(#m)" />
+    <rect
+       class="box"
+       x="-15.604651"
+       y="145.78543"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect9"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="0.2441557"
+       y="156.17456"
+       id="text9"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Integer</text>
+    <rect
+       class="box"
+       x="38.634933"
+       y="145.78543"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect10"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="54.483742"
+       y="156.17456"
+       id="text10"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Integer</text>
+    <rect
+       class="box"
+       x="92.874519"
+       y="145.78543"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect11"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="108.73762"
+       y="156.74606"
+       id="text11"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">LSU</text>
+    <rect
+       class="box"
+       x="147.11411"
+       y="145.78543"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect12"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="163.09627"
+       y="156.74606"
+       id="text12"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">VFP</text>
+    <rect
+       class="box"
+       x="201.35368"
+       y="145.78543"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect13"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="217.22868"
+       y="156.74844"
+       id="text13"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">NEON</text>
+    <rect
+       class="box"
+       x="34.66618"
+       y="198.70209"
+       width="158.75"
+       height="21.166666"
+       rx="2.1166666"
+       id="rect17"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="114.04118"
+       y="210.87292"
+       id="text17"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Shared Register File (S/D/Q)</text>
+    <rect
+       class="box"
+       x="82.820335"
+       y="235.74376"
+       width="52.916664"
+       height="15.875"
+       rx="2.1166666"
+       id="rect22"
+       style="fill:#ffdead;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="109.16675"
+       y="245.46719"
+       id="text22"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">L1 D-Cache</text>
+    <line
+       class="line"
+       x1="109.27866"
+       y1="219.86876"
+       x2="109.27866"
+       y2="235.74376"
+       id="line23"
+       style="fill:none;stroke:#222222;stroke-width:0.529167;marker-end:url(#m)" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.600001;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61432,119.59169 v 7.90389 h 20.69788 v 18.02529"
+       id="path22"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389"
+       id="path24"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389 H 57.73287 v 18.02529"
+       id="path25"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389 H -0.47546333 v 18.02529"
+       id="path26"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.600001;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61432,119.59169 v 7.90389 h 20.69788 v 18.02529"
+       id="path27"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389 h -33.57727 v 18.02529"
+       id="path28"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389 H 109.5912 v 18.02529"
+       id="path29"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389 H 57.73287 v 18.02529"
+       id="path30"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 196.61431,119.59169 v 7.90389 H -0.47546333 v 18.02529"
+       id="path31"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.600001;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle)"
+       d="m 109.63127,196.32111 v -14.25389 l 107.68093,-2.3e-4 V 164.0417"
+       id="path32"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle)"
+       d="m 109.63126,196.32111 v -14.25389 l 53.40578,-2.3e-4 V 164.0417"
+       id="path33"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle)"
+       d="m 109.63126,196.32111 v -14.25389 l -0.0401,-2.3e-4 V 164.0417"
+       id="path34"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle)"
+       d="m 109.63126,196.32111 v -14.25389 l -51.89839,-2.3e-4 V 164.0417"
+       id="path35"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle)"
+       d="M 109.63126,196.32111 V 182.06722 L -0.47546333,182.06699 V 164.0417"
+       id="path36"
+       sodipodi:nodetypes="cccc" />
+  </g>
+</svg>

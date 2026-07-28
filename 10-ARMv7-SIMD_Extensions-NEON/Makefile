@@ -1,6 +1,6 @@
 export LC_ALL=C
 
-TEX=main.tex evolucion.tex implementacion.tex dsp.tex simd.tex neon.tex fp.tex instrucciones.tex neon-uarch.tex references.tex #../DSP-con-procesadores-IA-32/Fundamentals.tex
+TEX=main.tex evolucion.tex implementacion.tex simd.tex neon.tex  instrucciones.tex neon-uarch.tex references.tex #../DSP-con-procesadores-IA-32/Fundamentals.tex
 PDF=DSP-ARMv7-NEON
 
 ### Don't touch beyond this point.
@@ -19,7 +19,7 @@ all: $(PDF_N) $(PDF_H)
 handout: $(PDF_H)
 
 $(PDF_N): $(TEX) Makefile
-	make -C img/
+	make -C ../img/
 	pdflatex $(TEXFLAGS) -jobname $(PDF) $<
 
 $(PDF_H): $(TEX)

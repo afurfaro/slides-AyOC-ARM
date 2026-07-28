@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="264.06406mm"
+   height="147.63785mm"
+   viewBox="0 0 264.06406 147.63785"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   sodipodi:docname="04_backend.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0129245"
+     inkscape:cx="659.97021"
+     inkscape:cy="187.57568"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       id="m"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path1" />
+    </marker>
+    <marker
+       id="marker8"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path8" />
+    </marker>
+    <marker
+       id="marker1"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path1-5" />
+    </marker>
+    <marker
+       id="marker2"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path2" />
+    </marker>
+    <marker
+       id="marker3"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path3" />
+    </marker>
+    <marker
+       id="marker4"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path4" />
+    </marker>
+    <marker
+       id="marker5"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path5" />
+    </marker>
+    <marker
+       id="marker6"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path6" />
+    </marker>
+    <marker
+       id="marker7"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path7" />
+    </marker>
+    <marker
+       id="marker9"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto"
+       viewBox="0 0 8 6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       id="m-3"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         id="path1-6" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(19.946492,-4.4979616)">
+    <rect
+       class="box"
+       x="83.26265"
+       y="4.7625451"
+       width="52.020531"
+       height="16.700647"
+       rx="1.0404106"
+       id="rect17"
+       style="fill:#dda0dd;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="109.2729"
+       y="11.486475"
+       id="text17"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="109.2729"
+         y="11.486475">Issue Queue</tspan><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="109.2729"
+         y="17.4396">(Reservation Station)</tspan></text>
+    <rect
+       class="grp"
+       x="-19.667141"
+       y="41.84306"
+       width="258.1626"
+       height="86.96788"
+       rx="5.3714485"
+       id="rect37"
+       style="opacity:0.393783;fill:#b0c4de;fill-opacity:1;stroke:#8888aa;stroke-width:0.529;stroke-dasharray:2.116, 0.529;stroke-dashoffset:0"
+       ry="3.2003584" />
+    <rect
+       class="box"
+       x="-15.848912"
+       y="48.656597"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect9"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="-0.00010550702"
+       y="59.045727"
+       id="text9"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Integer</text>
+    <rect
+       class="box"
+       x="38.390671"
+       y="48.656597"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect10"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="54.239479"
+       y="59.045727"
+       id="text10"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Integer</text>
+    <rect
+       class="box"
+       x="92.630257"
+       y="48.656597"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect11"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <rect
+       class="box"
+       x="146.86984"
+       y="48.656597"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect12"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="108.61241"
+       y="59.617226"
+       id="text12"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">VFP</text>
+    <rect
+       class="box"
+       x="201.10942"
+       y="48.656597"
+       width="31.75"
+       height="18.520834"
+       rx="2.1166666"
+       id="rect13"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="162.74484"
+       y="59.619606"
+       id="text13"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">NEON</text>
+    <rect
+       class="box"
+       x="90.382889"
+       y="101.57326"
+       width="78.578011"
+       height="21.166666"
+       rx="1.0477067"
+       id="rect17-2"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="130.20107"
+       y="113.74409"
+       id="text17-9"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Shared Register File (S/D/Q)</text>
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.600001;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 217.06794,30.366745 v 18.02529"
+       id="path22"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 54.842774,30.366745 v 18.02529"
+       id="path25"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="M 195.84088,30.366745 H -0.71972415 v 18.02529"
+       id="path26"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.600001;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 194.78256,30.366745 h 22.28538 v 18.02529"
+       id="path27"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 162.79278,30.366745 v 18.02529"
+       id="path28"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 109.34694,30.366745 v 18.02529"
+       id="path29"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.600001;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle);marker-end:url(#m)"
+       d="M 62.291177,99.192275 62.208298,84.938374 212.30544,84.938155 V 66.912865"
+       id="path32"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle);marker-end:url(#m)"
+       d="m 127.37867,99.192275 v -14.25389 l 35.41411,-2.3e-4 v -18.02529"
+       id="path33"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle);marker-end:url(#marker2)"
+       d="M 220.51207,133.58811 V 84.938385 l -0.0401,-2.3e-4 v -18.02529"
+       id="path34"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#m)"
+       d="m 29.016015,84.938385 24.751088,-2.3e-4 v -18.02529"
+       id="path35"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle);marker-end:url(#marker1)"
+       d="M 28.953666,99.192275 V 84.938385 L 0.33860918,84.938155 V 66.912865"
+       id="path36"
+       sodipodi:nodetypes="cccc" />
+    <text
+       class="title"
+       x="203.24297"
+       y="126.95815"
+       id="text1"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">BackEnd</text>
+    <rect
+       class="box"
+       x="-6.9837751"
+       y="101.57326"
+       width="78.578011"
+       height="21.166666"
+       rx="1.0477067"
+       id="rect1"
+       style="fill:#b0c4de;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="32.834412"
+       y="113.74409"
+       id="text2"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">Shared Register File R<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan11">0</tspan>-R<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan12">15</tspan></text>
+    <rect
+       class="box"
+       x="190.93631"
+       y="135.99623"
+       width="52.916664"
+       height="15.875"
+       rx="2.1166666"
+       id="rect22"
+       style="fill:#ffdead;stroke:#224444;stroke-width:0.529167" />
+    <text
+       class="title"
+       x="217.28276"
+       y="145.71967"
+       id="text22"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">L1 D-Cache</text>
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-end:url(#marker8)"
+       d="m 109.34694,21.3709 v 9.029457"
+       id="path12"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#Triangle);marker-end:url(#marker8)"
+       d="M 104.05524,69.525101 V 84.904558"
+       id="path13"
+       sodipodi:nodetypes="cc" />
+    <text
+       class="title"
+       x="216.97252"
+       y="59.617226"
+       id="text11"
+       style="font-weight:bold;font-size:4.7625px;text-anchor:middle;stroke-width:0.264583">LSU</text>
+  </g>
+</svg>

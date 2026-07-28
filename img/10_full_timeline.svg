@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="245.62524mm"
+   height="128.48383mm"
+   viewBox="0 0 245.62525 128.48383"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   sodipodi:docname="10_full_timeline.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.3836226"
+     inkscape:cx="360.79537"
+     inkscape:cy="488.75187"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="DartArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path86" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(19.408035,-0.38157354)">
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,18.445618 H 226.21721"
+       id="path1"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,29.180143 H 226.21721"
+       id="path2"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,39.914669 H 226.21721"
+       id="path3"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,50.649194 H 226.21721"
+       id="path4"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,61.38372 H 226.21721"
+       id="path5"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,72.118245 H 226.21721"
+       id="path6"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,82.852771 H 226.21721"
+       id="path7"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,93.587296 H 226.21721"
+       id="path8"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 37.738712,2.7673202 V 106.09056"
+       id="path9"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 49.380386,2.7673202 V 106.09056"
+       id="path10"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 60.492881,2.7673202 V 106.09056"
+       id="path11"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 72.134555,2.7673202 V 106.09056"
+       id="path12"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,7.8622825 H 226.21721"
+       id="path17"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 83.77622,2.7673202 V 106.09056"
+       id="path18"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 95.417894,2.7673202 V 106.09056"
+       id="path19"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 106.53042,2.7673202 V 106.09056"
+       id="path20"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 118.17212,2.7673202 V 106.09056"
+       id="path21"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 129.28459,2.7673202 V 106.09056"
+       id="path22"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 140.92627,2.7673202 V 106.09056"
+       id="path23"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="20.516129"
+       y="4.1351299"
+       id="text25"><tspan
+         sodipodi:role="line"
+         id="tspan25"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="20.516129"
+         y="4.1351299">Ciclo</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="54.29361"
+       y="5.3070531"
+       id="text26"><tspan
+         sodipodi:role="line"
+         id="tspan26"
+         style="stroke-width:0.3"
+         x="54.29361"
+         y="5.3070531">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="65.030006"
+       y="5.3070531"
+       id="text27"><tspan
+         sodipodi:role="line"
+         id="tspan27"
+         style="stroke-width:0.3"
+         x="65.030006"
+         y="5.3070531">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="76.596138"
+       y="5.2576642"
+       id="text28"><tspan
+         sodipodi:role="line"
+         id="tspan28"
+         style="stroke-width:0.3"
+         x="76.596138"
+         y="5.2576642">3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="88.256104"
+       y="5.3070531"
+       id="text29"><tspan
+         sodipodi:role="line"
+         id="tspan29"
+         style="stroke-width:0.3"
+         x="88.256104"
+         y="5.3070531">4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="99.89138"
+       y="5.2576642"
+       id="text30"><tspan
+         sodipodi:role="line"
+         id="tspan30"
+         style="stroke-width:0.3"
+         x="99.89138"
+         y="5.2576642">5</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="111.3834"
+       y="5.2576642"
+       id="text31"><tspan
+         sodipodi:role="line"
+         id="tspan31"
+         style="stroke-width:0.3"
+         x="111.3834"
+         y="5.2576642">6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="122.97919"
+       y="5.3070531"
+       id="text32"><tspan
+         sodipodi:role="line"
+         id="tspan32"
+         style="stroke-width:0.3"
+         x="122.97919"
+         y="5.3070531">7</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="134.54027"
+       y="5.2576642"
+       id="text33"><tspan
+         sodipodi:role="line"
+         id="tspan33"
+         style="stroke-width:0.3"
+         x="134.54027"
+         y="5.2576642">8</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="146.09152"
+       y="5.2576642"
+       id="text34"><tspan
+         sodipodi:role="line"
+         id="tspan34"
+         style="stroke-width:0.3"
+         x="146.09152"
+         y="5.2576642">9</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect36"
+       width="53.66991"
+       height="8.4558649"
+       x="-17.703796"
+       y="51.918896"
+       ry="1.7074584"
+       rx="1.7107174" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-16.237499"
+       y="58.043888"
+       id="text35"><tspan
+         sodipodi:role="line"
+         id="tspan35"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-16.237499"
+         y="58.043888">VADD.F32  Q2, Q0, Q1</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect37"
+       width="55.4641"
+       height="8.4558649"
+       x="-19.408035"
+       y="73.482437"
+       ry="1.8137311"
+       rx="1.800668" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-17.824997"
+       y="79.60743"
+       id="text37"><tspan
+         sodipodi:role="line"
+         id="tspan37"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-17.824997"
+         y="79.60743">VMUL.F32  Q3, Q2, Q4</tspan></text>
+    <ellipse
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path37"
+       cx="66.025169"
+       cy="12.700381"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect38"
+       width="6.2873621"
+       height="6.2567635"
+       x="40.415867"
+       y="9.5719995" />
+    <path
+       sodipodi:type="star"
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path38"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.4098086"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52000582"
+       sodipodi:arg2="1.5672034"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.182355,-25.607604 -7.579912,0.03805 3.816085,-6.635227 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(45.581758,42.041122)" />
+    <rect
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect39"
+       width="6.2873621"
+       height="6.2567635"
+       x="62.554016"
+       y="20.253241" />
+    <ellipse
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse39"
+       cx="89.596863"
+       cy="23.070934"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <path
+       sodipodi:type="star"
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path39"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.5401354"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52865527"
+       sodipodi:arg2="1.5758529"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.281114,-25.459566 -7.79834,-0.07456 3.946016,-6.739016 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(68.384824,52.49971)" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 152.439,2.7673202 V 106.09056"
+       id="path40"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 164.18,2.7673202 V 106.09056"
+       id="path41"
+       sodipodi:nodetypes="cc" />
+    <ellipse
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse41"
+       cx="91.334541"
+       cy="110.06703"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect41"
+       width="6.2873621"
+       height="6.2567635"
+       x="58.407524"
+       y="106.93867" />
+    <path
+       sodipodi:type="star"
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path42"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.457809"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.56113051"
+       sodipodi:arg2="1.6083281"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.177929,-25.361159 -7.668786,-0.265815 4.149807,-6.639376 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(68.136259,138.88075)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="67.872314"
+       y="111.93394"
+       id="text42"><tspan
+         sodipodi:role="line"
+         id="tspan42"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="67.872314"
+         y="111.93394">Envío</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="97.222527"
+       y="111.91911"
+       id="text43"><tspan
+         sodipodi:role="line"
+         id="tspan43"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="97.222527"
+         y="111.91911">Result</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="130.59895"
+       y="111.91911"
+       id="text44"><tspan
+         sodipodi:role="line"
+         id="tspan44"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="130.59895"
+         y="111.91911">Write Back (Escribe en Register File)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="155.61639"
+       y="5.2576642"
+       id="text51"><tspan
+         sodipodi:role="line"
+         id="tspan51"
+         style="stroke-width:0.3"
+         x="155.61639"
+         y="5.2576642">10</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="167.2579"
+       y="5.2576642"
+       id="text52"><tspan
+         sodipodi:role="line"
+         id="tspan52"
+         style="stroke-width:0.3"
+         x="167.2579"
+         y="5.2576642">11</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect52"
+       width="48.649445"
+       height="8.4558649"
+       x="-12.683332"
+       y="8.7918139"
+       ry="1.7859809"
+       rx="1.7107136" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-11.475"
+       y="14.916804"
+       id="text53"><tspan
+         sodipodi:role="line"
+         id="tspan53"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-11.475"
+         y="14.916804">VLD1.32  {Q0}, [R0]!</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect54"
+       width="48.649445"
+       height="8.4558649"
+       x="-12.683332"
+       y="19.573584"
+       ry="1.6272849"
+       rx="1.7107136" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-11.475"
+       y="25.698576"
+       id="text54"><tspan
+         sodipodi:role="line"
+         id="tspan54"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-11.475"
+         y="25.698576">VLD1.32  {Q1}, [R1]!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="42.122772"
+       y="5.3070531"
+       id="text55"><tspan
+         sodipodi:role="line"
+         id="tspan55"
+         style="stroke-width:0.3"
+         x="42.122772"
+         y="5.3070531">0</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect55"
+       width="45.163738"
+       height="8.4558649"
+       x="-9.1976261"
+       y="30.355354"
+       ry="1.2903557"
+       rx="1.7107136" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-8.3000031"
+       y="36.480343"
+       id="text56"><tspan
+         sodipodi:role="line"
+         id="tspan56"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-8.3000031"
+         y="36.480343">ADD       R8,R8,#16</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect56"
+       width="45.163738"
+       height="8.4558649"
+       x="-9.1976261"
+       y="41.137123"
+       ry="1.7184818"
+       rx="1.7107136" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-8.3000031"
+       y="47.262115"
+       id="text57"><tspan
+         sodipodi:role="line"
+         id="tspan57"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-8.3000031"
+         y="47.262115">SUBS     R9, R9, #1</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-8.3000031"
+         y="52.44796"
+         id="tspan58" /></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect58"
+       width="51.311928"
+       height="8.4558649"
+       x="-15.345814"
+       y="62.700665"
+       ry="1.195507"
+       rx="1.7107174" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-13.591665"
+       y="68.825653"
+       id="text59"><tspan
+         sodipodi:role="line"
+         id="tspan59"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-13.591665"
+         y="68.825653">ADD      R10,R11,R12</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-13.591665"
+         y="74.011497"
+         id="tspan60" /></text>
+    <ellipse
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse60"
+       cx="91.334541"
+       cy="117.47536"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect60"
+       width="6.2873621"
+       height="6.2567635"
+       x="58.407524"
+       y="114.347" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path60"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.457809"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.56113051"
+       sodipodi:arg2="1.6083281"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.177929,-25.361159 -7.668786,-0.265815 4.149807,-6.639376 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(68.136259,146.28907)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="67.872314"
+       y="119.34227"
+       id="text61"><tspan
+         sodipodi:role="line"
+         id="tspan61"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="67.872314"
+         y="119.34227">Envío</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="97.222527"
+       y="119.32745"
+       id="text62"><tspan
+         sodipodi:role="line"
+         id="tspan62"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="97.222527"
+         y="119.32745">Result</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="130.59895"
+       y="119.32745"
+       id="text63"><tspan
+         sodipodi:role="line"
+         id="tspan63"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="130.59895"
+         y="119.32745">Write Back (Escribe en Register File)</tspan></text>
+    <ellipse
+       style="fill:#556b2f;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse63"
+       cx="91.334541"
+       cy="125.41285"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#556b2f;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect63"
+       width="6.2873621"
+       height="6.2567635"
+       x="58.407524"
+       y="122.28448" />
+    <path
+       sodipodi:type="star"
+       style="fill:#556b2f;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path63"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.457809"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.56113051"
+       sodipodi:arg2="1.6083281"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.177929,-25.361159 -7.668786,-0.265815 4.149807,-6.639376 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(68.136259,154.22656)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="67.872314"
+       y="127.27977"
+       id="text64"><tspan
+         sodipodi:role="line"
+         id="tspan64"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="67.872314"
+         y="127.27977">Envío</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="97.222527"
+       y="127.26492"
+       id="text65"><tspan
+         sodipodi:role="line"
+         id="tspan65"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="97.222527"
+         y="127.26492">Result</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="130.59895"
+       y="127.26492"
+       id="text66"><tspan
+         sodipodi:role="line"
+         id="tspan66"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="130.59895"
+         y="127.26492">Write Back (Escribe en Register File)</tspan></text>
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect66"
+       width="38.675465"
+       height="8.4558649"
+       x="-2.7093523"
+       y="84.264206"
+       ry="1.684086"
+       rx="1.7107174" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-1.420836"
+       y="90.389191"
+       id="text68"><tspan
+         sodipodi:role="line"
+         id="tspan67"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-1.420836"
+         y="90.389191">STR      R10,[R7]</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-1.420836"
+         y="95.575035"
+         id="tspan68" /></text>
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 35.526898,104.6998 H 226.21721"
+       id="path68"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:#e6e6fa;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect68"
+       width="46.870487"
+       height="8.4558649"
+       x="-10.904374"
+       y="95.045975"
+       ry="1.765602"
+       rx="1.1182435" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="-9.3583355"
+       y="101.17097"
+       id="text69"><tspan
+         sodipodi:role="line"
+         id="tspan69"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-9.3583355"
+         y="101.17097">VST1.32  {Q3},[R2]!</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+         x="-9.3583355"
+         y="106.35681"
+         id="tspan70" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="47.47562"
+       y="111.85091"
+       id="text71"><tspan
+         sodipodi:role="line"
+         id="tspan71"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="47.47562"
+         y="111.85091">LSU</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="38.496727"
+       y="119.23449"
+       id="text72"><tspan
+         sodipodi:role="line"
+         id="tspan72"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="38.496727"
+         y="119.23449">Enteros</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="43.766514"
+       y="127.19672"
+       id="text73"><tspan
+         sodipodi:role="line"
+         id="tspan73"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.3"
+         x="43.766514"
+         y="127.19672">SIMD</tspan></text>
+    <ellipse
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse73"
+       cx="77.730026"
+       cy="34.774059"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect73"
+       width="6.2873621"
+       height="6.2567635"
+       x="62.794659"
+       y="31.64571" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path73"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.1590824"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52485006"
+       sodipodi:arg2="1.5720477"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.019677,-25.706618 -7.1709,0.0251 3.614415,-6.17856 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(34.517573,63.176024)" />
+    <ellipse
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse74"
+       cx="77.730026"
+       cy="45.328682"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect74"
+       width="6.2873621"
+       height="6.2567635"
+       x="62.794659"
+       y="42.200333" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path74"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.1590824"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52485006"
+       sodipodi:arg2="1.5720477"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.019677,-25.706618 -7.1709,0.0251 3.614415,-6.17856 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(34.517573,73.730652)" />
+    <rect
+       style="fill:#6b8e23;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect75"
+       width="6.2873621"
+       height="6.2567635"
+       x="86.366539"
+       y="53.061604" />
+    <ellipse
+       style="fill:#6b8e23;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse75"
+       cx="135.10512"
+       cy="55.879299"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <path
+       sodipodi:type="star"
+       style="fill:#6b8e23;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path75"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.5401354"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52865527"
+       sodipodi:arg2="1.5758529"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.281114,-25.459566 -7.79834,-0.07456 3.946016,-6.739016 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(91.139011,84.778897)" />
+    <ellipse
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse76"
+       cx="89.900871"
+       cy="67.024521"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect76"
+       width="6.2873621"
+       height="6.2567635"
+       x="74.9655"
+       y="63.896172" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path76"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.1590824"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52485006"
+       sodipodi:arg2="1.5720477"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.019677,-25.706618 -7.1709,0.0251 3.614415,-6.17856 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(45.63008,95.426487)" />
+    <rect
+       style="fill:#6b8e23;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect77"
+       width="6.2873621"
+       height="6.2567635"
+       x="131.87483"
+       y="74.228287" />
+    <ellipse
+       style="fill:#6b8e23;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse77"
+       cx="194.37129"
+       cy="77.57515"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <path
+       sodipodi:type="star"
+       style="fill:#6b8e23;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="path77"
+       inkscape:flatsided="true"
+       sodipodi:sides="3"
+       sodipodi:cx="55.427391"
+       sodipodi:cy="-27.769438"
+       sodipodi:r1="4.5401354"
+       sodipodi:r2="2.9132812"
+       sodipodi:arg1="0.52865527"
+       sodipodi:arg2="1.5758529"
+       inkscape:rounded="0"
+       inkscape:randomized="0.017"
+       d="m 59.281114,-25.459566 -7.79834,-0.07456 3.946016,-6.739016 z"
+       inkscape:transform-center-x="0.16165617"
+       inkscape:transform-center-y="-1.3406579"
+       transform="translate(150.40588,105.94561)" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 176.78082,2.7673202 V 106.09056"
+       id="path78"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 188.52182,2.7673202 V 106.09056"
+       id="path79"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="179.95773"
+       y="5.2576642"
+       id="text79"><tspan
+         sodipodi:role="line"
+         id="tspan79"
+         style="stroke-width:0.3"
+         x="179.95773"
+         y="5.2576642">12</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="191.59924"
+       y="5.2576642"
+       id="text80"><tspan
+         sodipodi:role="line"
+         id="tspan80"
+         style="stroke-width:0.3"
+         x="191.59924"
+         y="5.2576642">13</tspan></text>
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 200.0643,2.7673202 V 106.09056"
+       id="path80"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 211.8053,2.7673202 V 106.09056"
+       id="path81"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="203.24075"
+       y="5.2576642"
+       id="text81"><tspan
+         sodipodi:role="line"
+         id="tspan81"
+         style="stroke-width:0.3"
+         x="203.24075"
+         y="5.2576642">14</tspan></text>
+    <ellipse
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse82"
+       cx="182.97096"
+       cy="88.371277"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect82"
+       width="6.2873621"
+       height="6.2567635"
+       x="155.77414"
+       y="85.242889" />
+    <ellipse
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="ellipse83"
+       cx="217.89549"
+       cy="98.95462"
+       rx="3.2305124"
+       ry="3.1283815" />
+    <rect
+       style="fill:#0000cd;fill-rule:evenodd;stroke:none;stroke-width:0.3;stroke-opacity:1"
+       id="rect83"
+       width="6.2873621"
+       height="6.2567635"
+       x="191.75699"
+       y="95.826233" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.3"
+       d="M 223.44704,2.7673202 V 106.09056"
+       id="path84"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.3"
+       x="214.3531"
+       y="5.2576642"
+       id="text84"><tspan
+         sodipodi:role="line"
+         id="tspan84"
+         style="stroke-width:0.3"
+         x="214.3531"
+         y="5.2576642">15</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1;marker-end:url(#DartArrow)"
+       d="m 192.17638,81.732337 v 11.19009"
+       id="path85" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="192.17642"
+       y="87.327385"
+       id="text86"><tspan
+         sodipodi:role="line"
+         id="tspan86"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3"
+         x="192.17642"
+         y="87.327385">FW</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3"
+         x="192.17642"
+         y="92.513229"
+         id="tspan87">Q<tspan
+   style="font-size:65%;baseline-shift:sub;fill:#000000;fill-opacity:1;stroke:none"
+   id="tspan88">3</tspan></tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1;marker-end:url(#DartArrow)"
+       d="M 133.96801,60.03649 V 71.22658"
+       id="path88" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="133.96803"
+       y="65.631531"
+       id="text91"><tspan
+         sodipodi:role="line"
+         id="tspan89"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3"
+         x="133.96803"
+         y="65.631531">FW</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3"
+         x="133.96803"
+         y="70.817375"
+         id="tspan91">Q<tspan
+   style="font-size:65%;baseline-shift:sub;fill:#000000;fill-opacity:1;stroke:none"
+   id="tspan90">2</tspan></tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1;marker-end:url(#DartArrow)"
+       d="m 94.280293,25.640635 v 27.06509"
+       id="path91"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9389px;line-height:1.05;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.3;stroke-opacity:1"
+       x="95.868149"
+       y="39.173161"
+       id="text94"><tspan
+         sodipodi:role="line"
+         id="tspan92"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3"
+         x="95.868149"
+         y="39.173161">FW</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3"
+         x="95.868149"
+         y="44.359005"
+         id="tspan94">Q<tspan
+   style="font-size:65%;baseline-shift:sub;fill:#000000;fill-opacity:1;stroke:none"
+   id="tspan93">1</tspan></tspan></text>
+  </g>
+</svg>

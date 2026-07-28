@@ -13,7 +13,6 @@
 \usepackage{textcomp}
 \usepackage{fancybox}
 \usepackage{multirow}
-\usepackage{BeamerColor}
 \usepackage{xcolor}
 \usepackage{shadow} 
 \usepackage{listings}
@@ -22,9 +21,8 @@
 \usepackage{shadow}
 % \usepackage{tcolorbox}
 \usepackage{mdwlist}
-\usepackage{../res/nasm/lang}
-\usepackage{../res/nasm/style}
 \usepackage{../res/lstlangarm}
+\usepackage{../res/BeamerColor}
 \usepackage{multicol}
 \usepackage{ragged2e} % para justificar texto
 \usepackage{textcomp} % Para usar simbolos en texto tipo +- etc
@@ -64,14 +62,7 @@
 \setbeamertemplate{navigation symbols}{}
 
 \graphicspath{
-{img/}
 {../img/}
-{../procesadores-ARMv7-VMSA/img/}
-{../DSP-con-procesadores-IA-32/img/}
-{../../../TDII/repo/slides/10-Conversiores-AD-DA/img/}
-{../../../TDII/repo/slides/04-TaskSwitching/img/}
-{../../../TDII/repo/slides/02-Assembler-ISA-ABI/img/}
-{../../../TDII/repo/slides/05-SystemProgramming/img/}
 }
 
 % \title{Técnicas Digitales III}
@@ -168,7 +159,6 @@
 % \input{dsp.tex}
 \input{simd.tex}
 \input{evolucion.tex}
-
 \input{implementacion.tex}
 \input{neon.tex}
 \input{neon-uarch.tex}
